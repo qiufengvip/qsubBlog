@@ -17,3 +17,13 @@ npm run build
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+
+## 插件安装
+```text
+
+
+## 安装 md 插件
+npm i @kangc/v-md-editor@next -S
+```

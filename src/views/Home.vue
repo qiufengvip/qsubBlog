@@ -1,18 +1,46 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+<div class="body">
+  <div class="main">
+    <div class="left">
+      <Nav></Nav>
+      <home-list></home-list>
+    </div>
+    <div class="right">
+      <hot-post></hot-post>
+      <hot-comments></hot-comments>
+    </div>
   </div>
+
+
+</div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import Nav from "@/components/Nav";
+import HomeList from "@/components/HomeList";
+import HotPost from "@/components/HotPost";
+import HotComments from "@/components/HotComments";
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld
-  }
+name: "Home",
+  components: {HotComments, HotPost, HomeList, Nav},
 }
 </script>
+
+<style scoped>
+.body{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: rgb(246,246,246);
+}
+.main{
+  width: 1300px;
+  display: flex;
+}
+.left{
+  width: 900px;
+}
+.right{
+  width: 400px;
+}
+</style>
