@@ -254,6 +254,7 @@ export default {
   font-size: 16px;
   font-weight: bold;
   color: #7f7f7f;
+  margin-bottom: 50px;
 }
 
 

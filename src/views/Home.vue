@@ -43,4 +43,15 @@ name: "Home",
 .right{
   width: 400px;
 }
+
+
+@media screen and (max-width: 1400px){
+  .right{
+    display: none;
+  }
+  .left{
+    width: 100%;
+  }
+}
+
 </style>

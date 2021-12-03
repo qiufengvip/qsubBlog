@@ -4,11 +4,10 @@
     <div class="qsub-bottom-top">
 
     </div>
-
-
     <div class="qsub-bottom-bot">
-
-      <div>  </div>
+<!--      <div class="qsub-bottom-bot-slogan"> {{slogan}}</div>-->
+      <div class="qsub-bottom-bot-copyright"> {{copyright}} </div>
+      <div class="qsub-bottom-bot-copyright"> {{beian}} </div>
 
     </div>
 
@@ -18,19 +17,27 @@
 
 <script>
 export default {
-  name: "Bottom"
+  name: "Bottom",
+  data(){
+    return {
+      slogan:'< 吧看不见的东西写在纸上 >',
+      beian:'冀ICP备17024766号',
+      copyright:' COPYRIGHT © 2021 秋枫&乱世流年',
+    };
+  }
+
 }
 </script>
 
 <style scoped>
 .qsub-bottom-main{
-  width: 100%;
-  height: 500px;
+  width: 1300px;
 }
 
 .qsub-bottom{
-  width: 1300px;
-  height: 500px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 
@@ -39,8 +46,23 @@ export default {
 }
 
 .qsub-bottom-bot{
-  border-top: #7f7f7f  1px solid;
-  height: 250px;
+  padding-top: 20px;
+  border-top: #dfdfdf  1px solid;
+  /*height: 100px;*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.qsub-bottom-bot-slogan{
+  font-weight: bold;
+  font-size: 18px;
+  padding: 30px;
+  color: #6e6e6e;
+}
+
+.qsub-bottom-bot-copyright{
+  padding: 5px;
 }
 
 </style>

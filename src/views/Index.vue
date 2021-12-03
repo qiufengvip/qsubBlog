@@ -12,13 +12,8 @@
 
 <!--        底部 版权数据 -->
 <!--        bottom-->
-
-
+        <bottom></bottom>
       </el-main>
-
-
-
-
     </el-container>
 </template>
 
@@ -28,9 +23,11 @@
 import Header from "@/components/Header";
 import Home from "@/views/Home";
 import Carousel from "@/components/Carousel";
+import Bottom from "@/components/Bottom";
 export default {
     name:"Index",
     components:{
+      Bottom,
       Carousel,
       Home,
       Header
