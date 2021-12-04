@@ -1,14 +1,14 @@
 <template>
 <!--   编辑 -->
-  <v-md-editor v-model="text"
-               @copy-code-success="handleCopyCodeSuccess"
-               left-toolbar="undo redo | image"
-               :disabled-menus="[]"
-               @upload-image="handleUploadImage"
+<!--  <v-md-editor v-model="text"-->
+<!--               @copy-code-success="handleCopyCodeSuccess"-->
+<!--               left-toolbar="undo redo | image"-->
+<!--               :disabled-menus="[]"-->
+<!--               @upload-image="handleUploadImage"-->
 
-  />
+<!--  />-->
 <!--  展示 -->
-<!--  <v-md-editor :model-value="text" mode="preview"></v-md-editor>-->
+  <v-md-editor :model-value="text" mode="preview"></v-md-editor>
 </template>
 
 <script>
