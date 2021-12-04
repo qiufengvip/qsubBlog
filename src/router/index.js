@@ -15,9 +15,9 @@ const routes = [
     name: 'Md',
     component: ()=>import('../views/Md.vue')
   },{
-    path: '/MdView',
-    name: 'MdView',
-    component: ()=>import('../views/MdView.vue')
+    path: '/Article',
+    name: 'Article',
+    component: ()=>import('../views/Article.vue')
   }
 ]
 

@@ -10,8 +10,6 @@
       <hot-comments></hot-comments>
     </div>
   </div>
-
-
 </div>
 </template>
 

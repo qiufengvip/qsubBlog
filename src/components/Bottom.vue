@@ -2,7 +2,7 @@
 <div class="qsub-bottom" >
   <div class="qsub-bottom-main">
     <div class="qsub-bottom-top">
-
+      上天给我们生命，一定是为了让我们创造奇迹的。
     </div>
     <div class="qsub-bottom-bot">
 <!--      <div class="qsub-bottom-bot-slogan"> {{slogan}}</div>-->
@@ -42,7 +42,12 @@ export default {
 
 
 .qsub-bottom-top{
-  height: 250px;
+  height: 150px;
+  text-align: center;
+  line-height: 150px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #686868;
 }
 
 .qsub-bottom-bot{
@@ -63,6 +68,7 @@ export default {
 
 .qsub-bottom-bot-copyright{
   padding: 5px;
+  color: #6e6e6e;
 }
 
 </style>
