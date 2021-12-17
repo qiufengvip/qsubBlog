@@ -44,7 +44,7 @@ export default {
 .qsub-bottom-top{
   height: 150px;
   text-align: center;
-  line-height: 150px;
+  line-height: 40px;
   font-size: 20px;
   font-weight: bold;
   color: #686868;

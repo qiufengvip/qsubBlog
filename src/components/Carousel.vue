@@ -1,18 +1,20 @@
 <template>
-    <el-carousel height="500px">
-      <el-carousel-item v-for="item in data">
-        <div  class="qsub-el-carousel">
-          <img  :src="item.img">
-          <div class="qsub-el-carousel-title">
-            <div  class="qsub-el-carousel-title-main">
-              <div class="qsub-el-carousel-title-title">{{ item.title }}</div>
-              <div class="qsub-el-carousel-title-subhead">{{ item.subhead }}</div>
+  <div class="qsub-main">
+    <el-carousel class="qsub-carousel "  height="100%">
+        <el-carousel-item   v-for="item in data" class="qsub-item">
+          <div  class="qsub-el-carousel">
+            <img  :src="item.img">
+            <div class="qsub-el-carousel-title">
+              <div  class="qsub-el-carousel-title-main">
+                <div class="qsub-el-carousel-title-title">{{ item.title }}</div>
+                <div class="qsub-el-carousel-title-subhead">{{ item.subhead }}</div>
+              </div>
             </div>
           </div>
-
-        </div>
-      </el-carousel-item>
+        </el-carousel-item>
     </el-carousel>
+  </div>
+
 </template>
 
 <script>
@@ -20,6 +22,7 @@ export default {
   name: "Carousel",
   data(){
     return {
+      carouselHeight:'',
       data:[{
         title:"程序改变世界",
         subhead:"世界以你为荣",
@@ -64,15 +67,19 @@ export default {
   flex-direction: column;
 }
 .qsub-el-carousel-title-subhead{
-  font-size: 13px;
+  font-size: 1rem;
   color: #ffffff;
 }
 
 
 .qsub-el-carousel-title-title{
-  font-size: 25px;
-  padding: 15px;
+  font-size: 1.5rem;
+  padding: 1.5rem;
   font-weight: bold;
   color: #ffffff;
+}
+
+.qsub-carousel{
+  height: calc(100vw *0.3) !important;
 }
 </style>

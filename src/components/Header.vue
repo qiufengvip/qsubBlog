@@ -2,44 +2,76 @@
   <div class="qsub-header">
     <div class="qsub-header-body">
       <div class="qsub-logo">秋枫博客</div>
-      <el-scrollbar class="qsub-menu">
-        <el-menu
-            :default-active="activeIndex"
-            class="qsub-menu-main"
-            mode="horizontal"
-            @select="handleSelect"
-        >
-          <el-menu-item index="1">前端</el-menu-item>
-          <el-sub-menu index="2">
-            <template #title>后端</template>
-            <el-menu-item index="2-1">go</el-menu-item>
-            <el-menu-item index="2-2">php</el-menu-item>
-            <el-menu-item index="2-3">java</el-menu-item>
-            <el-sub-menu index="2-4">
-              <template #title>spring</template>
-              <el-menu-item index="2-4-1">spring boot</el-menu-item>
-              <el-menu-item index="2-4-2">spring cloud</el-menu-item>
-              <el-menu-item index="2-4-3">mybatis</el-menu-item>
-            </el-sub-menu>
-          </el-sub-menu>
-          <el-menu-item index="3" disabled>c++</el-menu-item>
-          <el-menu-item index="4">留言</el-menu-item>
-        </el-menu>
-      </el-scrollbar>
-
-      <div class="qsub-actions">
-        <div v-show="search"  >
-          <el-input
-              placeholder="发现世界的美好！"
-              class="input-with-select"
+<!-- 移动端 -->
+      <div class="qsub-menu-mobile">
+        <el-scrollbar class="qsub-menu">
+          <el-menu
+              :default-active="activeIndex"
+              class="qsub-menu-main"
+              mode="horizontal"
+              @select="handleSelect"
           >
-            <template #append>
-              <el-button circle><el-icon class="el-icon" @click="searchData"><Search /></el-icon></el-button>
-            </template>
-          </el-input>
-        </div>
-        <el-button circle v-show="!search" @click="searchData"><el-icon class="el-icon" ><Search /></el-icon></el-button>
+            <el-menu-item index="1">前端</el-menu-item>
+            <el-sub-menu index="2">
+              <template #title>后端</template>
+              <el-menu-item index="2-1">go</el-menu-item>
+              <el-menu-item index="2-2">php</el-menu-item>
+              <el-menu-item index="2-3">java</el-menu-item>
+              <el-sub-menu index="2-4">
+                <template #title>spring</template>
+                <el-menu-item index="2-4-1">spring boot</el-menu-item>
+                <el-menu-item index="2-4-2">spring cloud</el-menu-item>
+                <el-menu-item index="2-4-3">mybatis</el-menu-item>
+              </el-sub-menu>
+            </el-sub-menu>
+            <el-menu-item index="3" disabled>c++</el-menu-item>
+            <el-menu-item index="4">留言</el-menu-item>
+          </el-menu>
+        </el-scrollbar>
       </div>
+      <!--       网页版菜单   -->
+      <div class="qsub-menu-web">
+        <el-scrollbar class="qsub-menu">
+          <el-menu
+              :default-active="activeIndex"
+              class="qsub-menu-main"
+              mode="horizontal"
+              @select="handleSelect"
+          >
+            <el-menu-item index="1">前端</el-menu-item>
+            <el-sub-menu index="2">
+              <template #title>后端</template>
+              <el-menu-item index="2-1">go</el-menu-item>
+              <el-menu-item index="2-2">php</el-menu-item>
+              <el-menu-item index="2-3">java</el-menu-item>
+              <el-sub-menu index="2-4">
+                <template #title>spring</template>
+                <el-menu-item index="2-4-1">spring boot</el-menu-item>
+                <el-menu-item index="2-4-2">spring cloud</el-menu-item>
+                <el-menu-item index="2-4-3">mybatis</el-menu-item>
+              </el-sub-menu>
+            </el-sub-menu>
+            <el-menu-item index="3" disabled>c++</el-menu-item>
+            <el-menu-item index="4">留言</el-menu-item>
+          </el-menu>
+        </el-scrollbar>
+
+        <div class="qsub-actions">
+          <div v-show="search"  >
+            <el-input
+                placeholder="发现世界的美好！"
+                class="input-with-select"
+            >
+              <template #append>
+                <el-button circle><el-icon class="el-icon" @click="searchData"><Search /></el-icon></el-button>
+              </template>
+            </el-input>
+          </div>
+          <el-button circle v-show="!search" @click="searchData"><el-icon class="el-icon" ><Search /></el-icon></el-button>
+        </div>
+
+      </div>
+
     </div>
   </div>
 </template>
@@ -68,7 +100,7 @@ export default {
   methods: {
     searchData: function searchData(){
       this.search=true;
-    }
+    },
   }
 }
 </script>
@@ -80,23 +112,30 @@ export default {
   border-bottom: solid 1px #e6e6e6;
   position: fixed;
   width: 100%;
+  height: 60px;
   z-index: 800;
   background: #ffffff;
 }
 .qsub-header-body {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 }
 .qsub-logo {
   width: 100px;
   font-size: 20px;
   font-weight: bold;
+  padding-left: 20px;
   color: rgb(52,73,94);
 }
-.qsub-menu {
+.qsub-menu-web>.qsub-menu {
   width: 1000px;
 }
+
+.qsub-menu-mobile>.qsub-menu {
+  width: 100%;
+}
+
 
 .qsub-actions {
   align-items: center;
@@ -109,6 +148,33 @@ export default {
 
 .input-with-select .el-input-group__prepend {
   background-color: #fff;
+}
+
+
+.qsub-menu-web{
+  display: flex;
+  align-items: center;
+}
+
+.qsub-menu-mobile{
+  display: none;
+}
+@media screen and (max-width: 1400px){
+  .qsub-menu-web{
+    display: none;
+  }
+
+  .qsub-menu-mobile{
+    display: block;
+    width: 70%;
+  }
+
+  .qsub-menu-mobile>.qsub-menu {
+    width: 100%;
+  }
+  .qsub-header-body{
+    width: 100%;
+  }
 }
 
 

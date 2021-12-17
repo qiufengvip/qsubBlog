@@ -2,16 +2,22 @@
   <div class="body">
     <div class="main">
       <div class="left">
-        <!--  展示 -->
-        <div class="article-top">
-          <div></div>
-          <div></div>
+        <div class="left-main">
+          <!--  展示 -->
+          <div class="article-top">
+            <div></div>
+            <div></div>
+          </div>
+          <v-md-editor :model-value="data.text" @copy-code-success="handleCopyCodeSuccess" mode="preview"></v-md-editor>
         </div>
-        <v-md-editor :model-value="data.text" @copy-code-success="handleCopyCodeSuccess" mode="preview"></v-md-editor>
+
       </div>
       <div class="right">
-        <hot-post></hot-post>
-        <hot-comments></hot-comments>
+        <div class="right-main">
+          <hot-post></hot-post>
+          <hot-comments></hot-comments>
+        </div>
+
       </div>
     </div>
 
@@ -132,7 +138,6 @@ Java EE部署架构，通过展现层打包WAR包，业务层划分到JARs最后
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
     </dependencies>
-
 </project>
 \`\`\`
 
@@ -222,7 +227,7 @@ public interface IUserService {
 第一步 创建新项目 springcloud01-personnel-hystrix-8001
 
 
-`
+```
       },
     };
   },
@@ -261,7 +266,6 @@ public interface IUserService {
 }
 
 .left {
-  margin: 10px;
   width: 900px;
 }
 
@@ -271,12 +275,21 @@ public interface IUserService {
 
 
 @media screen and (max-width: 1400px) {
-  .right {
-    display: none;
-  }
-
   .left {
     width: 100%;
+  }
+  .right {
+    width: 100%;
+    /*display: none;*/
+  }
+  .right-main{
+    padding: 10px;
+  }
+  .left-main{
+    padding: 10px;
+  }
+  .main{
+    flex-direction:column;
   }
 }
 

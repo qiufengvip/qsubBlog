@@ -154,7 +154,7 @@ export default {
 }
 
 .qsub-hot{
-  margin: 10px;
+  /*margin: 10px;*/
   background: #ffffff;
   border-radius: 5px;
 }
@@ -195,7 +195,7 @@ export default {
 }
 
 .qsub-time{
-  width: 180px;
+  width: 60%;
 }
 
 

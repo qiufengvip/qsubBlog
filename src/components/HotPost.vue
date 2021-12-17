@@ -150,7 +150,7 @@ export default {
 }
 
 .qsub-hot{
-  margin: 10px;
+  /*margin: 10px;*/
   background: #ffffff;
   border-radius: 5px;
 }

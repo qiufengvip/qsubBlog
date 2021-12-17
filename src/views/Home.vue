@@ -2,12 +2,16 @@
 <div class="body">
   <div class="main">
     <div class="left">
-      <Nav></Nav>
-      <home-list></home-list>
+      <div class="left-main">
+        <Nav></Nav>
+        <home-list></home-list>
+      </div>
     </div>
     <div class="right">
-      <hot-post></hot-post>
-      <hot-comments></hot-comments>
+      <div class="right-main">
+        <hot-post></hot-post>
+        <hot-comments></hot-comments>
+      </div>
     </div>
   </div>
 </div>
@@ -45,11 +49,17 @@ name: "Home",
 
 @media screen and (max-width: 1400px){
   .right{
-    display: none;
+    width: 100%;
   }
   .left{
     width: 100%;
   }
+  .main{
+    flex-direction:row;
+  }
 }
+
+
+
 
 </style>
