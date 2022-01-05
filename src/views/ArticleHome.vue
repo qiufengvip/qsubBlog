@@ -227,7 +227,7 @@ public interface IUserService {
 第一步 创建新项目 springcloud01-personnel-hystrix-8001
 
 
-```
+`
       },
     };
   },
@@ -272,7 +272,12 @@ public interface IUserService {
 .right {
   width: 400px;
 }
-
+.right-main{
+  padding: 10px;
+}
+.left-main{
+  padding: 10px;
+}
 
 @media screen and (max-width: 1400px) {
   .left {
@@ -282,12 +287,7 @@ public interface IUserService {
     width: 100%;
     /*display: none;*/
   }
-  .right-main{
-    padding: 10px;
-  }
-  .left-main{
-    padding: 10px;
-  }
+
   .main{
     flex-direction:column;
   }
