@@ -22,6 +22,10 @@ const routes = [
     path: '/Qianming',
     name: 'Qianming',
     component: ()=>import('../views/Qianming.vue')
+  },{
+    path: '/catalog', //分类专栏
+    name: 'Catalog',
+    component: ()=>import('../views/Catalog.vue')
   }
 ]
 

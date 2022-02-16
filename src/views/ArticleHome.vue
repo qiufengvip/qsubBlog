@@ -10,6 +10,11 @@
           </div>
           <v-md-editor :model-value="data.text" @copy-code-success="handleCopyCodeSuccess" mode="preview"></v-md-editor>
         </div>
+<!--        评论 -->
+        <div class="comment">
+          <comment></comment>
+        </div>
+
 
       </div>
       <div class="right">
@@ -28,10 +33,11 @@
 <script>
 import HotPost from "@/components/HotPost";
 import HotComments from "@/components/HotComments";
+import Comment from "@/components/Comment";
 
 export default {
   name: "ArticleHome",
-  components: {HotComments, HotPost},
+  components: {HotComments, HotPost,Comment},
   data() {
     return {
       data:{
@@ -265,6 +271,7 @@ public interface IUserService {
   display: flex;
 }
 
+
 .left {
   width: 900px;
 }
@@ -278,7 +285,9 @@ public interface IUserService {
 .left-main{
   padding: 10px;
 }
-
+.comment{
+  padding: 10px;
+}
 @media screen and (max-width: 1400px) {
   .left {
     width: 100%;
@@ -292,5 +301,6 @@ public interface IUserService {
     flex-direction:column;
   }
 }
+
 
 </style>

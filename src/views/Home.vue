@@ -45,6 +45,13 @@ name: "Home",
 .right{
   width: 400px;
 }
+.right-main{
+  padding: 10px;
+}
+.left-main{
+  padding: 10px;
+}
+
 
 
 @media screen and (max-width: 1400px){
@@ -55,8 +62,9 @@ name: "Home",
     width: 100%;
   }
   .main{
-    flex-direction:row;
+    flex-direction:column;
   }
+
 }
 
 

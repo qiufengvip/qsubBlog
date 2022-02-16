@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="el-zoom-in-top">
     <div class="qsub-homeList-main" v-for="item in listData">
       <div class="qsub-homeList-vessel">
         <div class="qsub-homeList-left">
