@@ -183,7 +183,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 
 
 
@@ -205,8 +205,12 @@ export default {
   display: flex;
   align-items: center;
 }
-.qsub-menu-web>.qsub-menu:hover div{
-  display: block;
+
+.qsub-menu:hover{
+  background-color: red;
+  div{
+    display: block;
+  }
 }
 
 

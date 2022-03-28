@@ -9,7 +9,7 @@
       <ArticleHome></ArticleHome>
       <!--        底部 版权数据 -->
       <!--        bottom-->
-      <bottom></bottom>
+      <bottom @closeMain="closeMain"></bottom>
     </el-main>
   </el-container>
 </template>
@@ -33,12 +33,18 @@ export default {
     return {
     };
   },
+  methods:{
+    closeMain:function (){
+      alert("aa")
+      console.log("父组件")
+    }
+  }
 };
 
 </script>
 
 
-<style scoped>
+<style  scoped>
 body{
   overflow-x: hidden;
   overflow-y: hidden;

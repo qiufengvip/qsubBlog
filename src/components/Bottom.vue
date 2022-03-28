@@ -10,6 +10,7 @@
       <div class="qsub-bottom-bot-copyright"> {{beian}} </div>
 
     </div>
+    <el-button @click="cocc"></el-button>
 
   </div>
 </div>
@@ -18,12 +19,26 @@
 <script>
 export default {
   name: "Bottom",
+  watch:{
+    slogan:function (){
+      console.log(1)
+      this.$emit("closeMain")
+    }
+  },
   data(){
     return {
       slogan:'< 吧看不见的东西写在纸上 >',
       beian:'冀ICP备17024766号',
       copyright:' COPYRIGHT © 2021 秋枫&乱世流年',
     };
+  },
+  methods:{
+    coc:function (){
+      console.log("555")
+    },
+    cocc:function (){
+      this.slogan=Math.random();
+    }
   }
 
 }
