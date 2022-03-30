@@ -168,13 +168,13 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 
 .qsub-homeList-main {
   margin: 20px 0;
   width: 100%;
   border-radius: 5px;
-  background: #ffffff;
+  background: @background-color3;
 }
 
 .qsub-homeList-vessel {
@@ -186,7 +186,7 @@ export default {
 .qsub-homeList-belw {
   display: flex;
   justify-content: space-between;
-  border-top: #e6e6e6 solid 1px;
+  border-top: rgba(230, 230, 230, 0.63) solid 1px;
   padding-top: 10px;
 }
 
@@ -216,6 +216,7 @@ export default {
   font-size: 17px;
   font-weight: bold;
   margin-bottom: 10px;
+  color: @font-color;
 }
 
 .qsub-homeList-content {
@@ -229,10 +230,11 @@ export default {
   -webkit-box-orient: vertical;
 }
 
+// 子标题
 .qsub-homeList-belw-item {
   display: flex;
   align-items: center;
-  color: #747474;
+  color: @font-color2;
   font-weight: bold;
 }
 
@@ -250,17 +252,17 @@ export default {
   text-align:center;
   line-height: 60px;
   border-radius: 5px;
-  background: #fff;
+  background: @background-color3;
   font-size: 16px;
   font-weight: bold;
-  color: #7f7f7f;
+  color: @font-color;
   margin-bottom: 50px;
 }
 
 
 .qsub-data-loading:hover{
-  color: #000;
-  -webkit-box-shadow: -2px -2px 2px #e7e7e7, 2px 2px 2px #e7e7e7;
+  color: @font-color;
+  -webkit-box-shadow: -2px -2px 2px @background-color4, 2px 2px 2px @background-color4;
 }
 
 </style>

@@ -28,12 +28,12 @@ name: "Home",
 }
 </script>
 
-<style scoped>
+<style lang="less"  scoped>
 .body{
   width: 100%;
   display: flex;
   justify-content: center;
-  background: rgb(246,246,246);
+  background: @background-color2;
 }
 .main{
   width: 1300px;

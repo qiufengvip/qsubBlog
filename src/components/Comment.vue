@@ -104,16 +104,17 @@ export default {
 }
 </script>
 
-<style>
+<style  lang="less" scoped>
 
 .comment-body{
-  background-color: #ffffff;
+  background-color: @background-color3;
 }
 
 .title{
   padding: 20px 30px;
   font-size: 20px;
   font-weight: bold;
+  color: @font-color;
 }
 .comment-main{
   display: flex;
@@ -169,12 +170,12 @@ export default {
   padding: 3px;
 }
 .right-top-grade{
-  color: rgb(255, 255, 255);
+  color: @font-color;
 }
 .right-top-name{
   padding-left: 10px;
   font-size: 15px;
-  color: #575757;
+  color:  @font-color;
 }
 .right-top-main{
   display: flex;
@@ -187,7 +188,7 @@ export default {
 .right-info{
   display: flex;
   padding: 10px 10px 10px 0;
-  color: #686868;
+  color:  @font-color;
 }
 .right-info-time{
 
@@ -202,7 +203,7 @@ export default {
   padding: 10px 10px 10px 0;
   font-size: 15px;
   line-height: 28px;
-  color: #6d6d6d;
+  color:  @font-color2;
 }
 
 

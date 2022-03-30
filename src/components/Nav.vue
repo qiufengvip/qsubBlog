@@ -15,12 +15,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .qsub-nav-main{
   display: flex;
   justify-content: center;
   width: 100%;
-  background: #ffffff;
+  background: @background-color3;
   margin: 10px 0;
 }
 .qsub-nav-item{
@@ -30,12 +30,12 @@ export default {
   line-height: 35px;
   border-radius: 5px;
   margin: 10px;
-  font-size: 13px;
-  font-weight: bold;
-  color: #6d6d6d;
+  font-size: 17px;
+  font-weight: bolder;
+  color: @font-color;
 }
 .qsub-nav-item:hover{
-  background: aliceblue;
+  background: @background-color4;
 }
 
 </style>

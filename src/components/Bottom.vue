@@ -2,16 +2,16 @@
 <div class="qsub-bottom" >
   <div class="qsub-bottom-main">
     <div class="qsub-bottom-top">
-      上天给我们生命，一定是为了让我们创造奇迹的。
+      <div>
+        上天给我们生命，一定是为了让我们创造奇迹的。
+      </div>
+
     </div>
     <div class="qsub-bottom-bot">
 <!--      <div class="qsub-bottom-bot-slogan"> {{slogan}}</div>-->
       <div class="qsub-bottom-bot-copyright"> {{copyright}} </div>
       <div class="qsub-bottom-bot-copyright"> {{beian}} </div>
-
     </div>
-    <el-button @click="cocc"></el-button>
-
   </div>
 </div>
 </template>
@@ -33,23 +33,20 @@ export default {
     };
   },
   methods:{
-    coc:function (){
-      console.log("555")
-    },
-    cocc:function (){
-      this.slogan=Math.random();
-    }
+
   }
 
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .qsub-bottom-main{
   width: 1300px;
+
 }
 
 .qsub-bottom{
+  background-color: @background-color;
   display: flex;
   justify-content: center;
   width: 100%;
@@ -62,7 +59,10 @@ export default {
   line-height: 40px;
   font-size: 20px;
   font-weight: bold;
-  color: #686868;
+  color: @font-color;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
 
 .qsub-bottom-bot{
@@ -78,12 +78,12 @@ export default {
   font-weight: bold;
   font-size: 18px;
   padding: 30px;
-  color: #6e6e6e;
+  color: @font-color2;
 }
 
 .qsub-bottom-bot-copyright{
   padding: 5px;
-  color: #6e6e6e;
+  color: @font-color2;
 }
 
 </style>

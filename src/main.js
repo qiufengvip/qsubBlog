@@ -4,7 +4,8 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import router from './router'
 import store from './store'
-
+// 全局变量
+import '../src/assets/less/parameter.less'
 // MD编辑器
 import VueMarkdownEditor from '@kangc/v-md-editor';
 // MD编辑器基础样式

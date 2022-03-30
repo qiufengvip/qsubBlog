@@ -133,7 +133,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .qsub-hot-top{
   padding: 20px;
 }
@@ -142,16 +142,16 @@ export default {
 }
 
 .qsub-hot-title{
-  color: #747474;
-  font-size: 16px;
+  color: @font-color;
+  font-size: 13px;
   font-weight: bold;
   padding: 5px 10px;
-  border-left: #234adb solid 4px;
+  border-left: @box-color solid 4px;
 }
 
 .qsub-hot{
   /*margin: 10px;*/
-  background: #ffffff;
+  background: @background-color3;
   border-radius: 5px;
 }
 
@@ -170,7 +170,7 @@ export default {
 .qsub-hot-right{
   margin: 5px 10px 10px 10px ;
   font-size: 15px;
-  color: rgb(52,73,94);
+  color: @font-color;
   line-height: 150%;
   overflow : hidden;
   text-overflow: ellipsis;

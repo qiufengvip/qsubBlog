@@ -258,17 +258,33 @@ public interface IUserService {
 }
 </script>
 
-<style scoped>
+<style lang="less">
+.vuepress-markdown-body {
+  color: @font-color !important;
+  background-color: @background-color3 !important;
+}
+
+
+</style>
+
+<style lang="less" scoped>
 .body {
   width: 100%;
   display: flex;
   justify-content: center;
-  background: rgb(246, 246, 246);
+  background: @background-color2;
+}
+.v-md-editor{
+  background-color: #00000000 !important;
+}
+.vuepress-markdown-body{
+  background-color: #00000000 !important;
 }
 
 .main {
   width: 1300px;
   display: flex;
+  background-color: @background-color3;
 }
 
 

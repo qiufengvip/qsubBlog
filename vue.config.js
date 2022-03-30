@@ -5,7 +5,7 @@ module.exports = {
             preProcessor: "less",
             patterns: [
                 // 存放less变量文件的路径
-                path.resolve(__dirname, "./src/assets/less/parameter.less")
+                path.resolve(__dirname, "src/assets/less/parameter.less")
             ]
         }
     },

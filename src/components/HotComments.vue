@@ -8,9 +8,15 @@
 
     <div class="qsub-hot-content">
       <div class="qsub-hot-post" v-for="item in dataList">
-        <div class="qsub-hot-content-top"><div class="qsub-hot-content-top-tile">  <img :src="item.img">  <div class="qsub-hot-user-name">{{item.userName}} </div> </div>  <div class="qsub-time">{{item.date}}</div> </div>
+        <div class="qsub-hot-content-top">
+          <div class="qsub-hot-content-top-tile">
+            <img :src="item.img">
+            <div class="qsub-hot-user-name">{{ item.userName }}</div>
+          </div>
+          <div class="qsub-time">{{ item.date }}</div>
+        </div>
         <div class="qsub-hot-content-main">
-          <div class="qsub-hot-content-bottom">{{item.content}}</div>
+          <div class="qsub-hot-content-bottom">{{ item.content }}</div>
         </div>
       </div>
     </div>
@@ -20,27 +26,27 @@
 <script>
 export default {
   name: "HotComments",
-  data(){
+  data() {
     return {
-      dataList:[
+      dataList: [
         {
-          img:"http://file.luanshiliunian.cn/11111_1637034086344.jpg",
-          userName:"会做梦的树",
-          content:"夜深了，世界安静了，风不再呼喊，树也不再摇曳，更像是睡着了。是否你也和树做了一个同样的梦，向往着星辰大海，向往着盛世繁华。",
-          date:"2021-11-26",
-          look:51,
-          comment:85
-        },{
-          img:"https://media.mybj123.com/wp-content/uploads/2021/07/1627010920-d0c57a75e4fbb30.jpg",
-          userName:"无题",
-          content:"狂风暴雨天雷惊，厉雨初停天地新。雨后市井皆小秀，手持撑花路边游。",
-          date:"2021-11-16 11:36:27",
-          look:51,
-          comment:85
-        },{
-          img:"https://media.mybj123.com/wp-content/uploads/2021/07/1627010920-d0c57a75e4fbb30.jpg",
-          userName:"不在海滩的沙子,他被人黏在漂流瓶上扔进海里,没有人知道它最后到了那里,没有人知道它最后到了那里",
-          content:"不在海滩的沙子\n" +
+          img: "http://file.luanshiliunian.cn/11111_1637034086344.jpg",
+          userName: "会做梦的树",
+          content: "夜深了，世界安静了，风不再呼喊，树也不再摇曳，更像是睡着了。是否你也和树做了一个同样的梦，向往着星辰大海，向往着盛世繁华。",
+          date: "2021-11-26",
+          look: 51,
+          comment: 85
+        }, {
+          img: "https://media.mybj123.com/wp-content/uploads/2021/07/1627010920-d0c57a75e4fbb30.jpg",
+          userName: "无题",
+          content: "狂风暴雨天雷惊，厉雨初停天地新。雨后市井皆小秀，手持撑花路边游。",
+          date: "2021-11-16 11:36:27",
+          look: 51,
+          comment: 85
+        }, {
+          img: "https://media.mybj123.com/wp-content/uploads/2021/07/1627010920-d0c57a75e4fbb30.jpg",
+          userName: "不在海滩的沙子,他被人黏在漂流瓶上扔进海里,没有人知道它最后到了那里,没有人知道它最后到了那里",
+          content: "不在海滩的沙子\n" +
               "他被人黏在漂流瓶上扔进海里\n" +
               "没有人知道它最后到了那里\n" +
               "也没有人在乎它到了那里\n" +
@@ -73,20 +79,20 @@ export default {
               "不在海滩的沙子\n" +
               "它不在乎，不担心，甚至不会去想\n" +
               "因为 他已经离开了海滩。",
-          date:"2021-11-26",
-          look:51,
-          comment:85
-        },{
-          img:"https://media.mybj123.com/wp-content/uploads/2021/07/1627010920-d0c57a75e4fbb30.jpg",
-          userName:"安河桥",
-          content:"在用node调试js的时候，是否遇到过这样的问题？ 当我第一次遇到这样的问题，我以为...",
-          date:"2021-11-26",
-          look:51,
-          comment:85
-        },{
-          img:"http://file.luanshiliunian.cn/9589816aa3d44ecab9edc52cfc8c436e_1636785414700.jpg",
-          userName:"安河桥",
-          content:"让我再看你一遍\n" +
+          date: "2021-11-26",
+          look: 51,
+          comment: 85
+        }, {
+          img: "https://media.mybj123.com/wp-content/uploads/2021/07/1627010920-d0c57a75e4fbb30.jpg",
+          userName: "安河桥",
+          content: "在用node调试js的时候，是否遇到过这样的问题？ 当我第一次遇到这样的问题，我以为...",
+          date: "2021-11-26",
+          look: 51,
+          comment: 85
+        }, {
+          img: "http://file.luanshiliunian.cn/9589816aa3d44ecab9edc52cfc8c436e_1636785414700.jpg",
+          userName: "安河桥",
+          content: "让我再看你一遍\n" +
               "从南到北\n" +
               "像是被五环路蒙住的双眼\n" +
               "请你再讲一遍\n" +
@@ -121,9 +127,9 @@ export default {
               "我知道 这个世界\n" +
               "每天都有太多遗憾\n" +
               "所以你好 再见",
-          date:"2021-11-13 21:09:16",
-          look:51,
-          comment:85
+          date: "2021-11-13 21:09:16",
+          look: 51,
+          comment: 85
         }
       ],
     }
@@ -131,62 +137,65 @@ export default {
 }
 </script>
 
-<style scoped>
-.qsub-hot-top{
+<style lang="less" scoped>
+.qsub-hot-top {
   padding: 20px;
 }
-.qsub-hot-content{
-  padding: 0 20px 20px 20px ;
+
+.qsub-hot-content {
+  padding: 0 20px 20px 20px;
 }
 
-.qsub-hot-title{
-  color: #747474;
+.qsub-hot-title {
+  color: @font-color;
   font-size: 16px;
   font-weight: bold;
   padding: 5px 10px;
   border-left: #234adb solid 4px;
   margin-left: 2px;
 }
-.qsub-hot-content-top{
+
+.qsub-hot-content-top {
   display: flex;
-  align-items:center;
+  align-items: center;
   justify-content: space-between;
 }
 
-.qsub-hot{
+.qsub-hot {
   /*margin: 10px;*/
-  background: #ffffff;
+  background: @background-color3;
   border-radius: 5px;
 }
 
-.qsub-hot-post{
+.qsub-hot-post {
   /*display: flex;*/
   margin-bottom: 10px;
 }
 
 
-.qsub-hot-content-top img{
+.qsub-hot-content-top img {
   width: 30px;
   height: 30px;
   border-radius: 150%;
 }
 
-.qsub-hot-content-top{
+.qsub-hot-content-top {
 
 }
-.qsub-hot-content-top-tile{
+
+.qsub-hot-content-top-tile {
   display: flex;
   align-items: center;
 }
 
 
-.qsub-hot-user-name{
+.qsub-hot-user-name {
   padding-left: 10px;
   padding-right: 10px;
   font-size: 15px;
   width: 170px;
-  color: #6d6d6d;
-  overflow : hidden;
+  color: @font-color;
+  overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -194,41 +203,42 @@ export default {
   font-weight: bold;
 }
 
-.qsub-time{
+.qsub-time {
   width: 60%;
+  color: @font-color;
 }
 
 
-.qsub-hot-content-bottom{
+.qsub-hot-content-bottom {
 
-  background: #eeeeee;
+  background: @background-color4;
   padding: 8px 8px 0 8px;
   border-radius: 5px;
   font-size: 15px;
-  color: rgb(140, 155, 172);
+  color: @font-color2;
   line-height: 25px;
-  overflow : hidden;
+  overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 5;      /* 可以显示的行数，超出部分用...表示*/
+  -webkit-line-clamp: 5; /* 可以显示的行数，超出部分用...表示*/
   -webkit-box-orient: vertical;
 }
 
-.qsub-hot-content-main{
+.qsub-hot-content-main {
   margin: 15px 0 10px 0px;
   position: relative;
 }
-.qsub-hot-content-main::before{
+
+.qsub-hot-content-main::before {
   content: " ";
   border-left: 8px solid transparent;
-  border-top: 0 solid #eeeeee;
+  border-top: 0 solid @background-color4;
   border-right: 8px solid transparent;
-  border-bottom: 8px solid #eeeeee;
+  border-bottom: 8px solid @background-color4;
   position: absolute;
   left: 10px;
   top: -8px;
 }
-
 
 
 </style>
