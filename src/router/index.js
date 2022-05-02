@@ -26,6 +26,14 @@ const routes = [
     path: '/catalog', //分类专栏
     name: 'Catalog',
     component: ()=>import('../views/Catalog.vue')
+  },{
+    path: '/admin', //后端
+    name: 'Login',
+    component: ()=>import('../views/admin/Login.vue')
+  },{
+    path: '/admin/index', //后端
+    name: 'admin',
+    component: ()=>import('../views/admin/Index.vue')
   }
 ]
 
