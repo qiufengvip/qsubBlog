@@ -22,6 +22,7 @@
                     default-active="2"
                     class="el-menu-vertical"
                     :collapse="isCollapse"
+                    @select="menuSelect"
                 >
                     <template v-for="item in menuData">
                         <template v-if="item.subMenu">
@@ -43,14 +44,14 @@
                                 </el-sub-menu>
                             </template>
                             <template v-else>
-                                <el-menu-item index="item.id">
+                                <el-menu-item :index="item.id">
                                     <el-icon class="el-icon" v-html="item.icon"></el-icon>
                                     <span v-text="item.title"></span>
                                 </el-menu-item>
                             </template>
                         </template>
                         <template v-else>
-                            <el-menu-item index="item.id">
+                            <el-menu-item :index="item.id">
                                 <el-icon class="el-icon" v-html="item.icon"></el-icon>
                                 <span v-text="item.title"></span>
                             </el-menu-item>
@@ -87,6 +88,7 @@
                         v-model="editableTabsValue"
                         type="card"
                         class="tabs"
+                        ref="tabsEntity"
                         closable
                         @tab-remove="removeTab"
                     >
@@ -96,7 +98,7 @@
                             :label="item.title"
                             :name="item.name"
                         >
-                            <component :is="whichToShow">
+                            <component :is="item.content">
                             </component>
                         </el-tab-pane>
                     </el-tabs>
@@ -108,17 +110,19 @@
 </template>
 
 <script>
-import Home from "@/views/Home";
-import { ElMessage } from 'element-plus'
+
+import {ElMessage} from 'element-plus'
 import HotPost from "@/components/HotPost";
+import Bottom from "@/components/Bottom";
+import home from "@/components/admin/home";
+import userList from "@/components/admin/user/userList";
 export default {
     name: "AdminIndex",
-    components: {HotPost, Home},
+    components: {HotPost, Bottom,home,userList},
     data() {
         return {
             isCollapse: false,
-            components: {Home},
-            whichToShow:"HotPost",
+            whichToShow: "",
             menuData: [{
                 id: "a",
                 title: "首页",
@@ -128,7 +132,7 @@ export default {
                     "                                        d=\"M1001.423238 494.592q21.504 20.48 22.528 45.056t-16.384 40.96q-19.456 17.408-45.056 16.384t-40.96-14.336q-5.12-4.096-31.232-28.672t-62.464-58.88-77.824-73.728-78.336-74.24-63.488-60.416-33.792-31.744q-32.768-29.696-64.512-28.672t-62.464 28.672q-10.24 9.216-38.4 35.328t-65.024 60.928-77.824 72.704-75.776 70.656-59.904 55.808-30.208 27.136q-15.36 12.288-40.96 13.312t-44.032-15.36q-20.48-18.432-19.456-44.544t17.408-41.472q6.144-6.144 37.888-35.84t75.776-70.656 94.72-88.064 94.208-88.064 74.752-70.144 36.352-34.304q38.912-37.888 83.968-38.4t76.8 30.208q6.144 5.12 25.6 24.064t47.616 46.08 62.976 60.928 70.656 68.096 70.144 68.096 62.976 60.928 48.128 46.592zM447.439238 346.112q25.6-23.552 61.44-25.088t64.512 25.088q3.072 3.072 18.432 17.408l38.912 35.84q22.528 21.504 50.688 48.128t57.856 53.248q68.608 63.488 153.6 142.336l0 194.56q0 22.528-16.896 39.936t-45.568 18.432l-193.536 0 0-158.72q0-33.792-31.744-33.792l-195.584 0q-17.408 0-24.064 10.24t-6.656 23.552q0 6.144-0.512 31.232t-0.512 53.76l0 73.728-187.392 0q-29.696 0-47.104-13.312t-17.408-37.888l0-203.776q83.968-76.8 152.576-139.264 28.672-26.624 57.344-52.736t52.224-47.616 39.424-36.352 19.968-18.944z\"\n" +
                     "                                        p-id=\"6980\"></path>\n" +
                     "                                </svg>",
-                url: "/admin/home",
+                url: "home",
                 subMenu: [],
             },
                 {
@@ -139,42 +143,41 @@ export default {
                         {
                             id: 'ba',
                             title: "人员管理",
+                            url: "userList",
                             icon: '<svg t="1651558381828" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3841" width="128" height="128"><path d="M754.663647 1019.071348a11.016988 11.016988 0 0 0-2.029445-2.609287 154.237826 154.237826 0 0 1-33.340884-28.992072L714.364666 985.730464h-10.727067l-14.496036 7.537939a22.323896 22.323896 0 0 1-28.992073-9.277463l-7.827859-14.785957a22.323896 22.323896 0 0 1 9.277463-28.992072l14.496036-7.537939v-4.05889a153.947905 153.947905 0 0 1-4.05889-41.748585 11.016988 11.016988 0 0 0-7.537939-12.466591l-15.655719-4.928652a22.323896 22.323896 0 0 1-14.785957-28.992073l4.928652-15.94564a22.323896 22.323896 0 0 1 28.992073-14.785957l15.655719 4.928653a11.016988 11.016988 0 0 0 13.046433-6.088336 154.237826 154.237826 0 0 1 26.672706-32.1812V756.11325l-7.537938-14.496036a22.323896 22.323896 0 0 1 9.277463-28.992072l14.785957-7.82786a22.323896 22.323896 0 0 1 28.992072 9.277463l2.319366 7.82786a64.362401 64.362401 0 0 0 2.609286 7.537939c2.319366 5.508494 8.987542 6.088335 15.075878 4.638731a154.237826 154.237826 0 0 1 43.198188-4.05889h2.319366a11.016988 11.016988 0 0 0 8.987542-7.537939l4.928653-15.655719a20.584371 20.584371 0 0 1 0-2.609286 439.519819 439.519819 0 0 0-231.93658-169.603624 282.382786 282.382786 0 1 0-262.958097 1.739524A448.507361 448.507361 0 0 0 47.546999 960.507361v33.630804a26.962627 26.962627 0 0 0 23.483579 24.063421h682.473386z" p-id="3842"></path><path d="M831.977386 879.758224m-32.802472 17.353357a37.109853 37.109853 0 1 0 65.604943-34.706715 37.109853 37.109853 0 1 0-65.604943 34.706715Z" p-id="3843"></path><path d="M725.961495 961.377123l10.727067-5.798414H743.356738a114.228766 114.228766 0 0 0 24.933183 20.584371l1.449603 2.029445a8.11778 8.11778 0 0 1 0 6.378256l-3.479048 11.596829a16.525481 16.525481 0 0 0 11.016987 20.584372l11.88675 3.768969a16.525481 16.525481 0 0 0 20.584371-11.016987l3.479049-11.596829h2.609287a115.96829 115.96829 0 0 0 32.1812-2.899207 8.11778 8.11778 0 0 1 8.697622 4.05889l5.798414 10.727066a16.525481 16.525481 0 0 0 22.323896 6.958098l11.016988-5.798415a16.525481 16.525481 0 0 0 6.958097-22.323895l-5.798414-10.727067a8.11778 8.11778 0 0 1 0-9.567384 114.228766 114.228766 0 0 0 20.584371-24.933182h7.82786l11.596829 3.479048a16.525481 16.525481 0 0 0 20.584371-11.016987l3.768969-11.88675a16.525481 16.525481 0 0 0-11.016987-20.584372l-11.596829-3.479048a8.11778 8.11778 0 0 1-5.798415-6.378256 114.228766 114.228766 0 0 0-2.899207-31.89128 8.11778 8.11778 0 0 1 0-1.449604v-3.189127l10.727067-5.798415a16.525481 16.525481 0 0 0 6.958097-22.323896l-5.798414-11.016987a16.525481 16.525481 0 0 0-22.323896-6.958098l-10.727067 5.798415a8.11778 8.11778 0 0 1-9.567384 0 115.96829 115.96829 0 0 0-24.933182-20.584372V790.033975l3.479049-11.596829a16.525481 16.525481 0 0 0-11.016988-20.584371l-11.88675-3.76897a16.525481 16.525481 0 0 0-20.584371 11.016988l-3.479049 11.596829a8.11778 8.11778 0 0 1-6.668176 5.798414h-1.739525a114.228766 114.228766 0 0 0-31.891279 2.899207 8.11778 8.11778 0 0 1-11.016988-3.479048 19.134768 19.134768 0 0 1 0-5.798415l-2.319366-5.798414a16.525481 16.525481 0 0 0-22.323896-6.958098l-11.016987 5.798415a16.525481 16.525481 0 0 0-6.958098 22.323896l5.798415 10.727067v5.798414a114.228766 114.228766 0 0 0-20.00453 23.773499 8.11778 8.11778 0 0 1-9.857305 4.638732l-11.596829-3.479049a16.525481 16.525481 0 0 0-20.584371 11.016988l-3.76897 11.88675a16.525481 16.525481 0 0 0 11.016988 20.584371l11.596829 3.479049a8.11778 8.11778 0 0 1 5.508494 9.277463 114.228766 114.228766 0 0 0 2.899207 31.021518v3.768969l-10.727067 5.798414a16.525481 16.525481 0 0 0-6.958097 22.323896l5.798414 11.016988a16.525481 16.525481 0 0 0 29.861835-1.739525z m80.887882-129.014722a53.635334 53.635334 0 1 1-22.323896 72.480181 53.635334 53.635334 0 0 1 22.613817-72.480181z" p-id="3844"></path></svg>'
                         }
                     ],
                 }
             ],
-            editableTabs: [
-                {
-                    title: '首页',
-                    name: '1',
-                    content: 'Home',
-                },
-                {
-                    title: '人员管理',
-                    name: '2',
-                    content: '',
-                },
-            ],
-            editableTabsValue:'1',
+            // editableTabs: [{
+            //     content: "home",
+            //     name: "a",
+            //     title: "首页"
+            // }],
+            editableTabs: [{
+                content: "userList",
+                name: "a",
+                title: "首页"
+            }],
+            editableTabsValue: 'a',
             apps: []
         };
     }, methods: {
+        //折叠菜单
         Collapses() {
             this.isCollapse = !this.isCollapse;
-            console.log(this.isCollapse)
         }
         //
-        ,addTab(){
+        , addTab() {
             // editableTabs.value.push({
             //     title: 'New Tab',
             //     name: newTabName,
             //     content: 'New Tab content',
             // })
         }
-
+        //移除tab标签
         , removeTab(targetName) {
-            if (this.editableTabs.length>1){
+            if (this.editableTabs.length > 1) {
                 const tabs = this.editableTabs
                 let activeName = this.editableTabsValue
                 if (activeName === targetName) {
@@ -189,12 +192,53 @@ export default {
                 }
                 this.editableTabsValue = activeName
                 this.editableTabs = tabs.filter((tab) => tab.name !== targetName)
-            }else {
+            } else {
                 ElMessage.error("包关兰")
             }
 
         }
-    },created () {
+        // 菜单点击事件
+        , menuSelect(index) {
+            let _this = this;
+            _this.menuData.forEach(item=>{
+                if (item.id === index){
+                    _this.addTabs({
+                        name:item.id,
+                        title: item.title,
+                        content: item.url,
+                    })
+                }else{
+                    if (item.subMenu){
+                        item.subMenu.forEach(item1=>{
+                            if (item1.id === index) {
+                                _this.addTabs({
+                                    name:item1.id,
+                                    title: item1.title,
+                                    content: item1.url,
+                                })
+                            }
+                        })
+                    }
+                }
+            })
+        }
+        // 没有就添加 存在就跳转
+        ,addTabs(tab){
+            let _this = this;
+            let isAdd = false;
+            console.log(tab)
+            _this.editableTabs.forEach(item=>{
+                if (item.name === tab.name) {
+                    isAdd = true;
+                }
+            })
+            if (!isAdd){
+                _this.editableTabs.push(tab)
+            }
+            this.editableTabsValue = tab.name
+
+        }
+    }, created() {
     }
 }
 </script>
@@ -223,31 +267,38 @@ export default {
 .el-aside {
     --el-aside-width: auto;
 }
-.el-tabs--card>.el-tabs__header .el-tabs__nav {
+
+.el-tabs--card > .el-tabs__header .el-tabs__nav {
     border: 1px solid @background-color4;
 }
-.el-tabs--card>.el-tabs__header {
+
+.el-tabs--card > .el-tabs__header {
     border-bottom: 1px solid @background-color4;
 }
-.el-tabs--card>.el-tabs__header .el-tabs__item.is-active {
+
+.el-tabs--card > .el-tabs__header .el-tabs__item.is-active {
     border-bottom-color: @background-color4;
 }
- .el-tabs--card>.el-tabs__header .el-tabs__item {
-     border-left: 1px solid @background-color4;
- }
- .el-tabs__item{
-     color: @font-color;
-     background-color: @background-color2;
- }
+
+.el-tabs--card > .el-tabs__header .el-tabs__item {
+    border-left: 1px solid @background-color4;
+}
+
+.el-tabs__item {
+    color: @font-color;
+    background-color: @background-color2;
+}
 
 .el-tabs__item.is-active {
     color: @font-color;
     background-color: @background-color4;
 }
+
 .el-tabs__item:hover {
     color: @font-color;
 }
-.el-tabs__content{
+
+.el-tabs__content {
     flex-grow: 1;
 }
 </style>
@@ -341,16 +392,19 @@ export default {
     height: auto;
     width: auto;
 }
-.tab-main{
+
+.tab-main {
     padding: 10px;
     flex-grow: 1;
 }
-.el-main{
+
+.el-main {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
 }
-.tabs{
+
+.tabs {
     height: 100%;
     display: flex;
     flex-direction: column;
