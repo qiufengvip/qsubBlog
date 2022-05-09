@@ -27,12 +27,12 @@ const routes = [
     name: 'Catalog',
     component: ()=>import('../views/Catalog.vue')
   },{
-    path: '/admin', //后端
+    path: '/Admin', //后端
     name: 'Login',
     component: ()=>import('../views/admin/Login.vue')
   },{
-    path: '/admin/index', //后端
-    name: 'admin',
+    path: '/Admin/Index', //后端
+    name: 'Admin',
     component: ()=>import('../views/admin/Index.vue')
   }
 ]

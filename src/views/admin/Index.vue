@@ -97,6 +97,7 @@
                             :key="item.name"
                             :label="item.title"
                             :name="item.name"
+                            style="height: 100%;"
                         >
                             <component :is="item.content">
                             </component>
@@ -156,10 +157,10 @@ export default {
             // }],
             editableTabs: [{
                 content: "userList",
-                name: "a",
-                title: "首页"
+                name: "ceshi",
+                title: "测试"
             }],
-            editableTabsValue: 'a',
+            editableTabsValue: 'ceshi',
             apps: []
         };
     }, methods: {
@@ -301,6 +302,45 @@ export default {
 .el-tabs__content {
     flex-grow: 1;
 }
+
+</style>
+<style lang="less">
+.el-table {
+    --el-table-border-color: @background-color4;
+    --el-table-border: 1px solid var(--el-table-border-color);
+    --el-table-text-color: @font-color;
+    --el-table-header-text-color: @font-color;
+    --el-table-row-hover-bg-color: @background-color4;
+    --el-table-current-row-bg-color: @background-color4;
+    --el-table-header-bg-color: @background-color2;
+    --el-table-fixed-box-shadow: 0 0 10px rgba(0, 0, 0, 0.12);
+    --el-table-bg-color: @background-color3;
+    --el-table-tr-bg-color: @background-color3;
+    --el-table-expanded-cell-bg-color: @background-color3;
+}
+:root {
+    --el-bg-color:@background-color4;
+    --el-color-white:@font-color;
+    --el-color-info:@font-color;
+    --el-border-base: var(--el-border-width-base) var(--el-border-style-base) @background-color4;
+    --el-border-color-light:@background-color4;
+    --el-text-color-regular:@font-color;
+}
+.el-popper.is-light .el-popper__arrow::before {
+    background: @background-color4;
+}
+
+.el-input-group__prepend {
+    border: 1px solid @background-color4;
+}
+.el-input{
+    --el-input-text-color:@font-color;
+    --el-input-bg-color:@background-color3;
+}
+.el-scrollbar{
+    background:@background-color;
+}
+
 </style>
 
 

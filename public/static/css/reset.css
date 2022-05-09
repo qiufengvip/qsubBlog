@@ -210,28 +210,37 @@ table {
 */
 
 
+.el-input,
+.el-button
+{
+    margin: 10px;
+}
+.el-select{
+    margin: 10px 20px 10px 10px;
+}
+
+
 
 /*//滚动条的宽度*/
 .your-table .el-table__body-wrapper::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+    width: 10px;
+    height: 10px;
 }
 
 /*//滚动条的滑块*/
 .your-table .el-table__body-wrapper::-webkit-scrollbar-thumb {
-  background-color: #a1a3a9;
-  border-radius: 3px;
+    background-color: #a1a3a9;
+    border-radius: 3px;
 }
 
 /*如果是整个页面的滚动条风格是一致的，直接改全局的滚动条样式也可以有效果*/
 /*//滚动条的宽度*/
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+    width: 10px;
+    height: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #a1a3a9;
-  border-radius: 3px;
+    background-color: #a1a3a9;
+    border-radius: 3px;
 }
-
