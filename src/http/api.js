@@ -8,6 +8,25 @@ export const request_signUp = (params) => post('/sysadmin/user/signUp', params)
 export const request_se = (params) => post('/sysadmin/user/sign', params)
 
 
+
+//角色管理
+//添加角色
+export const request_rule_addRole = (params) => post('/sysadmin/role/addRole', params)
+//查询角色
+export const request_rule_getRoleList = (params) => post('/sysadmin/role/getRoleList', params)
+
+
+
+
+
+
+
+
+
+
+
+
+
 export const USER_LIST = (params) => post('service-core/user_list', params)
 export const USER_LIST_ID = (params) => get(`service-core/user_list/${params.id}`)
 export const UPLOAD_USER_CARD = (params) => uploader('service-core/user_upload_card', params)

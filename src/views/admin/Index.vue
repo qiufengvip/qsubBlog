@@ -117,9 +117,10 @@ import HotPost from "@/components/HotPost";
 import Bottom from "@/components/Bottom";
 import home from "@/components/admin/home";
 import userList from "@/components/admin/user/userList";
+import ruleList from "@/components/admin/authority/ruleList";
 export default {
     name: "AdminIndex",
-    components: {HotPost, Bottom,home,userList},
+    components: {HotPost, Bottom,home,userList,ruleList},
     data() {
         return {
             isCollapse: false,
@@ -156,7 +157,7 @@ export default {
             //     title: "首页"
             // }],
             editableTabs: [{
-                content: "userList",
+                content: "ruleList",
                 name: "ceshi",
                 title: "测试"
             }],
