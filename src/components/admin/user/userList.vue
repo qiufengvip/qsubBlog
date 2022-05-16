@@ -33,7 +33,7 @@
                 <el-table-column prop="city" label="City" width="120"/>
                 <el-table-column prop="address" label="Address"/>
                 <el-table-column prop="zip" label="Zip"/>
-                <el-table-column fixed="right" label="Operations" width="120">
+                <el-table-column fixed="right" label="Operations" width="160">
                     <template #default>
                         <el-button type="primary"  size="small">编辑</el-button>
                         <el-button type="danger" size="small" @click="handleClick">删除</el-button>

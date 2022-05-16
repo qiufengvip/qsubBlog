@@ -117,10 +117,12 @@ import HotPost from "@/components/HotPost";
 import Bottom from "@/components/Bottom";
 import home from "@/components/admin/home";
 import userList from "@/components/admin/user/userList";
+import userEdit from "@/components/admin/user/userEdit";
+import userTest from "@/components/admin/user/userTest";
 import ruleList from "@/components/admin/authority/ruleList";
 export default {
     name: "AdminIndex",
-    components: {HotPost, Bottom,home,userList,ruleList},
+    components: {HotPost, Bottom,home,userList,userEdit,userTest,ruleList},
     data() {
         return {
             isCollapse: false,
@@ -161,7 +163,7 @@ export default {
                 name: "ceshi",
                 title: "测试"
             }],
-            editableTabsValue: 'ceshi',
+            editableTabsValue: 'userTest',
             apps: []
         };
     }, methods: {
@@ -306,6 +308,18 @@ export default {
 
 </style>
 <style lang="less">
+.el-card {
+    //分割线
+    --el-card-border-color: @background-color4;
+    //背景
+    --el-card-bg-color: @background-color3;
+}
+.el-card {
+    color: @font-color;
+}
+
+
+
 .el-table {
     --el-table-border-color: @background-color4;
     --el-table-border: 1px solid var(--el-table-border-color);
