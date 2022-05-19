@@ -2,28 +2,49 @@
 
 
     <div class="top-center-bottom">
-        <div class="top">
-            <el-input v-model="queryParam.userName" style="width: 200px" size="small" placeholder="昵称">
-                <template #prepend>昵称</template>
-            </el-input>
-            <el-input v-model="queryParam.phone" style="width: 230px" size="small" placeholder="手机号">
-                <template #prepend>手机号</template>
-            </el-input>
-            <el-input v-model="queryParam.email" style="width: 250px" size="small" placeholder="邮箱">
-                <template #prepend>邮箱</template>
-            </el-input>
-            <el-select v-model="queryParam.state" style="width: 150px"  size="small" placeholder="账户状态">
-                <el-option
-                    v-for="item in stateList"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                />
-            </el-select>
-            <el-button type="success" size="small">查询</el-button>
-            <el-button type="primary" size="small">修改密码</el-button>
-            <el-button type="warning" size="small">封禁账户</el-button>
-            <el-button type="danger" size="small">删除用户</el-button>
+        <div class="query-param-main">
+            <div class="query-param-term">
+                <div class="query-param">
+                    <el-input v-model="queryParam.userName" style="width: 200px" size="small" placeholder="昵称">
+                        <template #prepend>昵称</template>
+                    </el-input>
+                </div>
+                <div class="query-param">
+                    <el-input v-model="queryParam.phone" style="width: 230px" size="small" placeholder="手机号">
+                        <template #prepend>手机号</template>
+                    </el-input>
+                </div>
+                <div class="query-param">
+                    <el-input v-model="queryParam.email" style="width: 250px" size="small" placeholder="邮箱">
+                        <template #prepend>邮箱</template>
+                    </el-input>
+                </div>
+                <div class="query-param">
+                    <el-select v-model="queryParam.state" style="width: 150px" size="small" placeholder="账户状态">
+                        <el-option
+                            v-for="item in stateList"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value"
+                        />
+                    </el-select>
+                </div>
+            </div>
+            <div class="query-param-function">
+                <div class="query-param">
+                    <el-button type="success" size="small">查询</el-button>
+
+                </div>
+                <div class="query-param">
+                    <el-button type="primary" size="small">修改密码</el-button>
+                </div>
+                <div class="query-param">
+                    <el-button type="warning" size="small">封禁账户</el-button>
+                </div>
+                <div class="query-param">
+                    <el-button type="danger" size="small">删除用户</el-button>
+                </div>
+            </div>
         </div>
         <div class="center">
             <el-table border :data="tableData" style="">
@@ -33,9 +54,9 @@
                 <el-table-column prop="city" label="City" width="120"/>
                 <el-table-column prop="address" label="Address"/>
                 <el-table-column prop="zip" label="Zip"/>
-                <el-table-column fixed="right" label="Operations" width="160">
+                <el-table-column fixed="right" label="操作" width="160">
                     <template #default>
-                        <el-button type="primary"  size="small">编辑</el-button>
+                        <el-button type="primary" size="small">编辑</el-button>
                         <el-button type="danger" size="small" @click="handleClick">删除</el-button>
 
                     </template>
@@ -54,15 +75,15 @@ export default {
     data() {
         return {
             queryParam: {},
-            stateList:[{
-                value:"0",
-                label:"正常"
-            },{
-                value:"1",
-                label:"已封禁"
-            },{
-                value:"3",
-                label:"已删除"
+            stateList: [{
+                value: "0",
+                label: "正常"
+            }, {
+                value: "1",
+                label: "已封禁"
+            }, {
+                value: "3",
+                label: "已删除"
             },
             ],
             tableData: [
@@ -243,7 +264,6 @@ export default {
 
 
 <style scoped>
-
 
 
 .common-layout {

@@ -120,11 +120,18 @@ import userList from "@/components/admin/user/userList";
 import userEdit from "@/components/admin/user/userEdit";
 import userTest from "@/components/admin/user/userTest";
 import ruleList from "@/components/admin/authority/ruleList";
+import resourceList from "@/components/admin/authority/resourceList";
 export default {
     name: "AdminIndex",
-    components: {HotPost, Bottom,home,userList,userEdit,userTest,ruleList},
+    components: {HotPost, Bottom,home,userList,userEdit,userTest,ruleList,resourceList},
     data() {
         return {
+            editableTabs: [{
+                content: "resourceList",
+                name: "ceshi",
+                title: "测试"
+            }],
+            editableTabsValue: 'ceshi',
             isCollapse: false,
             whichToShow: "",
             menuData: [{
@@ -158,12 +165,7 @@ export default {
             //     name: "a",
             //     title: "首页"
             // }],
-            editableTabs: [{
-                content: "ruleList",
-                name: "ceshi",
-                title: "测试"
-            }],
-            editableTabsValue: 'userTest',
+
             apps: []
         };
     }, methods: {

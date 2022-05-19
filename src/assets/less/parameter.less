@@ -63,8 +63,9 @@ element 组件基础样式
 .el-divider--vertical {
   height: auto;
 }
+
 //tree 选中
-.el-tree--highlight-current .el-tree-node.is-current>.el-tree-node__content {
+.el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content {
   background-color: @background-color4;
 }
 
@@ -76,8 +77,18 @@ element 组件基础样式
 .el-dialog__title {
   color: @font-color;
 }
-.el-dialog__header{
-  border-bottom: @font-color2 solid 1px ;
+
+.el-dialog__header {
+  border-bottom: @font-color2 solid 1px;
 }
 
+
+// 输入框textarea
+.el-textarea {
+  --el-input-bg-color: @background-color3;
+}
+
+.el-popper {
+  fill: @font-color;
+}
 

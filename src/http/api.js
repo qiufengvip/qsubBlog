@@ -11,12 +11,15 @@ export const request_se = (params) => post('/sysadmin/user/sign', params)
 
 //角色管理
 //添加角色
-export const request_rule_addRole = (params) => post('/sysadmin/role/addRole', params)
+export const request_rule_addRole = (params) => post('/sysadmin/base/role/addRole', params)
 //查询角色
-export const request_rule_getRoleList = (params) => post('/sysadmin/role/getRoleList', params)
+export const request_rule_getRoleList = (params) => post('/sysadmin/base/role/getRoleList', params)
 
-
-
+//资源管理
+//资源列表
+export const request_resource_getResourceList = (params) => post('/sysadmin/base/Resource/getResourceList', params)
+//添加资源
+export const request_resource_saveOrUpdate = (params) => post('/sysadmin/base/Resource/saveOrUpdate', params)
 
 
 

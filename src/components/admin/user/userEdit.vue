@@ -88,9 +88,7 @@ export default {
         beforeImgUpload(rawFile) {
             if (rawFile.type !== 'image/jpeg'  ) {
                 //判断文件类型
-                ElMess
-
-                age.error('文件格式只能为jpg,png')
+                ElMessage.error('文件格式只能为jpg,png')
                 return false
             } else if (rawFile.size / 1024 / 1024 > 2) {
                 // 判断文件大小
