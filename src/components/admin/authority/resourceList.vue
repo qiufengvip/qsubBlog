@@ -11,6 +11,20 @@
             </div>
         </div>
     </div>
+    <div class="table-node-main">
+        <div class="custom-tree-node node-title">
+            <div class="node-a">
+                <div class="tree-resourceName">资源名称</div>
+            </div>
+            <div class="node-b">
+                <div class="tree-resourceType">资源类型</div>
+                <div class="tree-resourceValue">资源值</div>
+                <div class="resourceData">资源数据</div>
+                <div class="tree-bar">操作</div>
+            </div>
+        </div>
+    </div>
+
 
     <el-tree
         :data="tableData"
@@ -21,17 +35,20 @@
     >
         <template #default="{ node, data }">
             <div class="custom-tree-node">
-                <div class="tree-resourceName">{{ data.resourceName }}</div>
-                <template v-for="item in resourceType">
-                    <div class="tree-resourceType" v-if="item.value === data.resourceType">{{ item.label }}</div>
-                </template>
-                <div class="tree-resourceValue">{{ data.resourceValue }}</div>
-                <div class="tree-resourceType">{{ data.resourceType }}</div>
-                <div class="resourceData">{{ data.resourceData }}</div>
-                <div class="tree-bar">
-                    <el-button type="success" size="small" @click="addResource(node)">添加</el-button>
-                    <el-button type="primary" size="small" @click="exitResource(node)">编辑</el-button>
-                    <el-button type="danger" size="small" @click="deleteResource(node)">删除</el-button>
+                <div class="node-a">
+                    <div class="tree-resourceName">&nbsp{{ data.resourceName }}</div>
+                </div>
+                <div class="node-b">
+                    <template v-for="item in resourceType">
+                        <div class="tree-resourceType" v-if="item.value === data.resourceType">{{ item.label }}</div>
+                    </template>
+                    <div class="tree-resourceValue">&nbsp{{ data.resourceValue }}</div>
+                    <div class="resourceData">&nbsp{{ data.resourceData }}</div>
+                    <div class="tree-bar">
+                        <el-button type="success" size="small" @click="addResource(data)">添加</el-button>
+                        <el-button type="primary" size="small" @click="exitResource(data)">编辑</el-button>
+                        <el-button type="danger" size="small" @click="deleteResource(data)">删除</el-button>
+                    </div>
                 </div>
             </div>
         </template>
@@ -80,7 +97,7 @@
             </el-form-item>
             <el-form-item label="资源类型">
                 <el-select v-model="resourceAddData.resourceType" placeholder="选择资源类型">
-                    <el-option v-for=" item in resourceType" :label="item.label" :value='item.value'/>
+                    <el-option v-for="item in resourceType" :label="item.label" :value='item.value'/>
                 </el-select>
             </el-form-item>
             <el-form-item label="资源内容" prop="name">
@@ -232,44 +249,80 @@ export default {
         seekData(data, pid) {
 
         }
-
-
     }, created() {
         this.getTableData();
     }
 }
 </script>
-<style>
+<style lang="less">
 .el-tree-node__content {
     height: 50px !important;
+    border: 1px solid @background-color4;
+    margin-top: -1px;
 }
 
 </style>
-<style scoped>
+<style scoped lang="less">
 .custom-tree-node {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     width: 100%;
+    line-height: 50px;
+    font-size: 15px;
 }
-.tree-resourceName{
-    width: 30%;
+
+.node-a,
+.tree-resourceName {
+    //width: 30px;
 }
-.tree-resourceType{
+
+.node-b {
+    display: flex;
+    align-items: center;
+    //width: 1420px
+}
+.table-node-main{
+    width:100%;
+    display: flex;
+    font-size: 25px !important;
+    font-weight: bold;
+    color: @font-color;
+}
+
+.tree-resourceType {
     width: 210px;
+    border-left: 1px solid @background-color4;
+    padding-left: 10px;
 }
-.tree-resourceValue{
+
+.tree-resourceValue {
     width: 210px;
+    border-left: 1px solid @background-color4;
+    padding-left: 10px;
 }
-.resourceData{
+
+.resourceData {
     width: 600px;
-    overflow:hidden;
+    overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    -o-text-overflow:ellipsis;
+    -o-text-overflow: ellipsis;
+    border-left: 1px solid @background-color4;
+    padding-left: 10px;
 }
-.tree-bar{
+
+.tree-bar {
     width: 210px;
+    border-left: 1px solid @background-color4;
+    padding-left: 10px;
+}
+.node-title{
+    border: 1px solid @background-color4;
+    font-size: 17px !important;
+    .tree-resourceName{
+        padding-left: 10px;
+    }
 }
 
 </style>
