@@ -4,40 +4,64 @@
         <div class="query-param-term"></div>
         <div class="query-param-function">
             <div class="query-param">
-                <el-button type="primary" size="small">刷新</el-button>
+                <el-button type="primary" @click="getTableData" size="small">刷新</el-button>
             </div>
             <div class="query-param">
                 <el-button type="success" @click="addResource(false)" size="small">添加资源</el-button>
             </div>
         </div>
     </div>
-    <el-table
+
+    <el-tree
         :data="tableData"
-        style="width: 100%"
-        row-key="id"
-        border
-        lazy
-        :load="load"
-        :tree-props="{ children: 'children', hasChildren: 'id' }"
+        show-checkbox
+        node-key="id"
+        default-expand-all
+        :expand-on-click-node="false"
     >
-        <el-table-column label="类型" width="180">
-            <template v-slot="scope">
-                    <span v-if="scope.row.resourceType === 1 ">前端菜单</span>
-                    <span v-if="scope.row.resourceType === 2 ">api</span>
-                    <span v-if="scope.row.resourceType === 3 ">页面元素</span>
-            </template>
-        </el-table-column>
-        <el-table-column prop="resourceName" label="名称" width="180"/>
-        <el-table-column show-overflow-tooltip prop="resourceValue" label="资源值" width="180"/>
-        <el-table-column show-overflow-tooltip prop="resourceData" label="数据"/>
-        <el-table-column   fixed="right" label="操作" width="160">
-<!--            eslint-disable-next-line-->
-            <template v-slot="scope">
-                <el-button type="primary" size="small" @click="exitResource(scope.row)" >编辑</el-button>
-                <el-button type="danger"  size="small" @click="deleteResource(scope.row)">删除</el-button>
-            </template>
-        </el-table-column>
-    </el-table>
+        <template #default="{ node, data }">
+            <div class="custom-tree-node">
+                <div class="tree-resourceName">{{ data.resourceName }}</div>
+                <template v-for="item in resourceType">
+                    <div class="tree-resourceType" v-if="item.value === data.resourceType">{{ item.label }}</div>
+                </template>
+                <div class="tree-resourceValue">{{ data.resourceValue }}</div>
+                <div class="tree-resourceType">{{ data.resourceType }}</div>
+                <div class="resourceData">{{ data.resourceData }}</div>
+                <div class="tree-bar">
+                    <el-button type="success" size="small" @click="addResource(node)">添加</el-button>
+                    <el-button type="primary" size="small" @click="exitResource(node)">编辑</el-button>
+                    <el-button type="danger" size="small" @click="deleteResource(node)">删除</el-button>
+                </div>
+            </div>
+        </template>
+    </el-tree>
+    <!--    <el-table-->
+    <!--        :data="tableData"-->
+    <!--        style="width: 100%"-->
+    <!--        row-key="children"-->
+    <!--        border-->
+    <!--        default-expand-all-->
+    <!--    >-->
+    <!--        <el-table-column label="类型" width="180">-->
+    <!--            <template v-slot="scope">-->
+    <!--                <template v-for="item in resourceType">-->
+    <!--                    <span v-if="item.value === scope.row.resourceType">{{ item.label }}</span>-->
+    <!--                </template>-->
+    <!--            </template>-->
+    <!--        </el-table-column>-->
+    <!--        <el-table-column prop="resourceName" label="名称" width="180"/>-->
+    <!--        <el-table-column show-overflow-tooltip prop="resourceValue" label="资源值" width="180"/>-->
+    <!--        <el-table-column show-overflow-tooltip prop="resourceData" label="数据"/>-->
+    <!--        <el-table-column   fixed="right" label="操作" width="220">-->
+    <!--&lt;!&ndash;            eslint-disable-next-line&ndash;&gt;-->
+    <!--            <template v-slot="scope">-->
+    <!--                <el-button  type="success" size="small" @click="addResource(scope.row)" >添加</el-button>-->
+    <!--                <el-button type="primary" size="small" @click="exitResource(scope.row)" >编辑</el-button>-->
+    <!--                <el-button type="danger"  size="small" @click="deleteResource(scope.row)">删除</el-button>-->
+    <!--            </template>-->
+    <!--        </el-table-column>-->
+    <!--    </el-table>-->
 
     <el-dialog
         v-model="resourceAddVisible"
@@ -77,50 +101,32 @@
 </template>
 
 <script>
-import {request_resource_getResourceList, request_resource_saveOrUpdate} from "@/http/api";
+import {
+    request_resource_deletedById,
+    request_resource_getResourceList,
+    request_resource_saveOrUpdate
+} from "@/http/api";
 import {ElMessage} from "element-plus";
 
 export default {
     name: "resourceList",
     data() {
         return {
-            tableData: [
-                {
-                    id: 1,
-                    date: '2016-05-02',
-                    name: 'wangxiaohu',
-                },
-                {
-                    id: 2,
-                    date: '2016-05-04',
-                    name: 'wangxiaohu',
-                },
-                {
-                    id: 3,
-                    date: '2016-05-01',
-                    name: 'wangxiaohu',
-                    hasChildren: true,
-                },
-                {
-                    id: 4,
-                    date: '2016-05-03',
-                    name: 'wangxiaohu',
-                },
-            ],
+            tableData: [],
             resourceAddVisible: false,
             resourceAddTitle: '添加资源',
-            resourceType:[{
-                value:1,
-                label:'前端菜单'
-            },{
-                value:2,
-                label:'后端菜单'
-            },{
-                value:3,
-                label:'api'
-            },{
-                value:4,
-                label:'资源'
+            resourceType: [{
+                value: 1,
+                label: '前端菜单'
+            }, {
+                value: 2,
+                label: '后端菜单'
+            }, {
+                value: 3,
+                label: 'api'
+            }, {
+                value: 4,
+                label: '资源'
             }],
             resourceAddData: {
                 id: '',
@@ -128,81 +134,142 @@ export default {
                 resourceType: '',
                 resourceName: '',
                 resourceValue: '',
-                resourceData:'',
+                resourceData: '',
             },
         };
     },
     methods: {
         load(row, treeNode, resolve) {
-            setTimeout(() => {
-                resolve([
-                    {
-                        id: 31,
-                        date: '2016-05-01',
-                        name: 'wangxiaohu',
-                    },
-                    {
-                        id: 32,
-                        date: '2016-05-01',
-                        name: 'wangxiaohu',
-                    },
-                ])
-            }, 1000)
+            request_resource_getResourceList({pid: row.id}).then((res) => {
+                if (res.code === 0) {
+                    if (res.data.length === 0) {
+                        ElMessage.error("没有数据了")
+                        resolve([])
+                    } else {
+                        resolve(res.data)
+                    }
+                }
+            })
+
         }, // 确认添加资源
         resourceAddSubmit() {
-            let _this =this;
-            request_resource_saveOrUpdate(this.resourceAddData).then((res)=>{
-                if (res.code ===0) {
+            let _this = this;
+            request_resource_saveOrUpdate(this.resourceAddData).then((res) => {
+                if (res.code === 0) {
                     if (_this.resourceAddData.id) {
                         ElMessage.success("更新成功")
-                    }else{
+                    } else {
                         ElMessage.success("添加成功")
                     }
                     this.getTableData()
                     _this.resourceAddVisible = false;
-                }else{
+                } else {
                     ElMessage.error(res.msg);
                 }
             })
         },//添加资源
-        addResource(row){
+        addResource(row) {
             let _this = this;
             _this.resourceAddData = [];
-           if(row){
-               _this.resourceAddTitle = "添加子资源"
-               _this.resourceAddData.pid = row.id;
-           }
-           _this.resourceAddVisible = true;
+            if (row) {
+                _this.resourceAddTitle = "添加子资源"
+                _this.resourceAddData.pid = row.id;
+            }
+            _this.resourceAddVisible = true;
         }, //修改资源
-        exitResource(row){
+        exitResource(row) {
             console.log(JSON.parse(JSON.stringify(row)))
             this.resourceAddData = JSON.parse(JSON.stringify(row));
             this.resourceAddTitle = "修改资源"
             this.resourceAddVisible = true;
         },
         //删除资源
-        deleteResource(row){
-
-
-        },
-        getTableData(){
+        deleteResource(row) {
             let data = {
-                pid: 'rootNode'
+                resourceId: row.id
             }
+            let _this = this;
+            request_resource_deletedById(data).then((res) => {
+                if (res.code === 0) {
+                    ElMessage.success(res.msg);
+                    _this.getTableData();
+                } else {
+                    ElMessage.error(res.msg);
+                }
+            })
+        },
+        getTableData() {
+            let data = {}
+            let _this = this;
             request_resource_getResourceList(data).then((res) => {
                 if (res.code === 0) {
-                    this.tableData = res.data;
+                    this.tableData = _this.toTree(res.data, null, null);
+                    console.log(this.tableData);
                 }
-
             })
+        },
+        toTree(data, pid, pdata) {
+            let a = [], b = [];
+            data.forEach((item) => {
+                if (item.pid === pid) {
+                    a.push(item)
+                } else {
+                    b.push(item)
+                }
+            })
+            if (pdata === null) {
+                pdata = a;
+            } else {
+                pdata["children"] = a;
+            }
+            if (b.length > 0) {
+                a.forEach(item => {
+                    this.toTree(b, item.id, item);
+                })
+            }
+            return a;
+        },
+        seekData(data, pid) {
+
         }
+
+
     }, created() {
         this.getTableData();
     }
 }
 </script>
+<style>
+.el-tree-node__content {
+    height: 50px !important;
+}
 
+</style>
 <style scoped>
-
+.custom-tree-node {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+}
+.tree-resourceName{
+    width: 30%;
+}
+.tree-resourceType{
+    width: 210px;
+}
+.tree-resourceValue{
+    width: 210px;
+}
+.resourceData{
+    width: 600px;
+    overflow:hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -o-text-overflow:ellipsis;
+}
+.tree-bar{
+    width: 210px;
+}
 
 </style>

@@ -20,7 +20,8 @@ export const request_rule_getRoleList = (params) => post('/sysadmin/base/role/ge
 export const request_resource_getResourceList = (params) => post('/sysadmin/base/Resource/getResourceList', params)
 //添加资源
 export const request_resource_saveOrUpdate = (params) => post('/sysadmin/base/Resource/saveOrUpdate', params)
-
+//删除资源
+export const request_resource_deletedById = (parent)=>post('/sysadmin/base/Resource/deletedById',parent);
 
 
 
