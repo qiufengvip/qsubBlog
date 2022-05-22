@@ -24,14 +24,15 @@
             </div>
         </div>
     </div>
-
-
+<div  class="resourceList">
     <el-tree
         :data="tableData"
-        show-checkbox
         node-key="id"
         default-expand-all
+        ref="resourceTree"
         :expand-on-click-node="false"
+        :draggable="true"
+        @node-drag-end="nodeDragEnd"
     >
         <template #default="{ node, data }">
             <div class="custom-tree-node">
@@ -43,6 +44,7 @@
                         <div class="tree-resourceType" v-if="item.value === data.resourceType">{{ item.label }}</div>
                     </template>
                     <div class="tree-resourceValue">&nbsp{{ data.resourceValue }}</div>
+<!--                    <div class="tree-resourceValue">&nbsp{{ data.resourceValue }}</div>-->
                     <div class="resourceData">&nbsp{{ data.resourceData }}</div>
                     <div class="tree-bar">
                         <el-button type="success" size="small" @click="addResource(data)">添加</el-button>
@@ -53,33 +55,7 @@
             </div>
         </template>
     </el-tree>
-    <!--    <el-table-->
-    <!--        :data="tableData"-->
-    <!--        style="width: 100%"-->
-    <!--        row-key="children"-->
-    <!--        border-->
-    <!--        default-expand-all-->
-    <!--    >-->
-    <!--        <el-table-column label="类型" width="180">-->
-    <!--            <template v-slot="scope">-->
-    <!--                <template v-for="item in resourceType">-->
-    <!--                    <span v-if="item.value === scope.row.resourceType">{{ item.label }}</span>-->
-    <!--                </template>-->
-    <!--            </template>-->
-    <!--        </el-table-column>-->
-    <!--        <el-table-column prop="resourceName" label="名称" width="180"/>-->
-    <!--        <el-table-column show-overflow-tooltip prop="resourceValue" label="资源值" width="180"/>-->
-    <!--        <el-table-column show-overflow-tooltip prop="resourceData" label="数据"/>-->
-    <!--        <el-table-column   fixed="right" label="操作" width="220">-->
-    <!--&lt;!&ndash;            eslint-disable-next-line&ndash;&gt;-->
-    <!--            <template v-slot="scope">-->
-    <!--                <el-button  type="success" size="small" @click="addResource(scope.row)" >添加</el-button>-->
-    <!--                <el-button type="primary" size="small" @click="exitResource(scope.row)" >编辑</el-button>-->
-    <!--                <el-button type="danger"  size="small" @click="deleteResource(scope.row)">删除</el-button>-->
-    <!--            </template>-->
-    <!--        </el-table-column>-->
-    <!--    </el-table>-->
-
+</div>
     <el-dialog
         v-model="resourceAddVisible"
         :title="resourceAddTitle"
@@ -121,10 +97,11 @@
 import {
     request_resource_deletedById,
     request_resource_getResourceList,
+    request_resource_mobileData,
     request_resource_saveOrUpdate
 } from "@/http/api";
 import {ElMessage} from "element-plus";
-
+import {toTree} from "@/utils/dataDispose";
 export default {
     name: "resourceList",
     data() {
@@ -220,34 +197,111 @@ export default {
             let _this = this;
             request_resource_getResourceList(data).then((res) => {
                 if (res.code === 0) {
-                    this.tableData = _this.toTree(res.data, null, null);
+                    this.tableData = toTree(res.data, null, null,"children")
                     console.log(this.tableData);
                 }
             })
         },
-        toTree(data, pid, pdata) {
-            let a = [], b = [];
-            data.forEach((item) => {
-                if (item.pid === pid) {
-                    a.push(item)
-                } else {
-                    b.push(item)
-                }
-            })
-            if (pdata === null) {
-                pdata = a;
-            } else {
-                pdata["children"] = a;
-            }
-            if (b.length > 0) {
-                a.forEach(item => {
-                    this.toTree(b, item.id, item);
-                })
-            }
-            return a;
-        },
         seekData(data, pid) {
 
+        },// 位于目标位置的方向(node:未移动  before:之上 after:之下  inner 插入 )
+        nodeDragEnd(Node,endNode,location,event){
+            console.log(Node.data);
+            console.log(endNode.data);
+            console.log(location);
+            console.log(event);
+            let _this = this;
+            let current = Node.data;
+            let reference = endNode.data;
+            console.log(current)
+            console.log(reference)
+            // return;
+            if (location==="inner"){
+                // 跑到下面
+                // current.pid == reference.id
+                console.log("跑到下面",{
+                    cid:current.id,
+                    cname:current.resourceName,
+                    cpid:reference.id,
+                })
+                // return;
+                request_resource_mobileData({
+                    cid:current.id,
+                    cpid:reference.id
+                }).then(res=>{
+                    if (res.code ===0) {
+                        _this.getTableData();
+                    }else{
+                        ElMessage.error(res.msg);
+                    }
+                })
+            //之上
+            }else if(location==="before" || location==="after"){
+                if (current.pid === reference.pid){
+                    // 位置调整 互换rn
+                    // current.rn = reference.rn     reference.rn = current.rn;
+                    console.log("位置调整 互换rn",{
+                        cname:current.resourceName,
+                        cid:current.id,
+                        rid:reference.id,
+                        rname:reference.resourceName,
+                        crn:reference.rn,
+                        rrn:current.rn
+                    })
+                    // return;
+                    request_resource_mobileData({
+                        cid:current.id,
+                        rid:reference.id,
+                        crn:reference.rn,
+                        rrn:current.rn
+                    }).then(res=>{
+                        if (res.code ===0) {
+                            _this.getTableData();
+                        }else{
+                            ElMessage.error(res.msg);
+                        }
+                    })
+                }else{
+                    // 移动层级
+                    // current.pid == reference.pid
+                    let data = {};
+                    data = {
+                        cid:current.id,
+                        cpid:reference.pid===null?'null':reference.pid,
+                    }
+                    //上移
+                    if(location==="before"){
+                        if (current.rn>reference.rn){
+                            data = {
+                                cid:current.id,
+                                cpid:reference.pid===null?'null':reference.pid,
+                                rid:reference.id,
+                                crn:reference.rn,
+                                rrn:current.rn
+                            }
+                        }
+                    }else{
+                        //下移动
+                        if (current.rn<reference.rn){
+                            data = {
+                                cid:current.id,
+                                cpid:reference.pid===null?'null':reference.pid,
+                                rid:reference.id,
+                                crn:reference.rn,
+                                rrn:current.rn
+                            }
+                        }
+                    }
+                    console.log("移动层级",data)
+                    request_resource_mobileData(data).then(res=>{
+                        if (res.code ===0) {
+                            _this.getTableData();
+                        }else{
+                            ElMessage.error(res.msg);
+                        }
+                    })
+                }
+            }
         }
     }, created() {
         this.getTableData();
@@ -255,11 +309,14 @@ export default {
 }
 </script>
 <style lang="less">
-.el-tree-node__content {
-    height: 50px !important;
-    border: 1px solid @background-color4;
-    margin-top: -1px;
+.resourceList{
+    .el-tree-node__content {
+        height: 50px !important;
+        border: 1px solid @background-color4;
+        margin-top: -1px;
+    }
 }
+
 
 </style>
 <style scoped lang="less">

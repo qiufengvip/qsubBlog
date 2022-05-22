@@ -15,6 +15,8 @@ export const request_rule_addRole = (params) => post('/sysadmin/base/role/addRol
 //查询角色
 export const request_rule_getRoleList = (params) => post('/sysadmin/base/role/getRoleList', params)
 
+
+
 //资源管理
 //资源列表
 export const request_resource_getResourceList = (params) => post('/sysadmin/base/Resource/getResourceList', params)
@@ -22,9 +24,10 @@ export const request_resource_getResourceList = (params) => post('/sysadmin/base
 export const request_resource_saveOrUpdate = (params) => post('/sysadmin/base/Resource/saveOrUpdate', params)
 //删除资源
 export const request_resource_deletedById = (parent)=>post('/sysadmin/base/Resource/deletedById',parent);
-
-
-
+//移动资源顺序
+export const request_resource_mobileData = (parent)=>post('/sysadmin/base/Resource/mobileData',parent);
+//查询某个资源下的所有资源
+export const request_resource_getSubset = (parent)=>post('/sysadmin/base/Resource/getSubset',parent);
 
 
 

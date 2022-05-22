@@ -38,8 +38,23 @@
                 @node-click="handleNodeClick"/>
         </el-col>
         <el-divider direction="vertical"/>
-        <el-col :span="21">
-            <div class="grid-content bg-purple"/>
+        <el-col :span="20">
+            <div class="grid-content bg-purple">
+                <template v-for="item in resourceList">
+                    <el-card class="box-card" >
+                        <template #header>
+                            <div class="card-header">
+                                <span v-text="item.resourceName"></span>
+                            </div>
+                        </template>
+                        <div class="qsub-box-main">
+                            <div v-for="o in item.children" class="box-item">
+                                <el-checkbox v-model="o.checked" :label="o.resourceName" size="large" />
+                            </div>
+                        </div>
+                    </el-card>
+                </template>
+            </div>
         </el-col>
     </el-row>
 
@@ -66,11 +81,12 @@
 </template>
 
 <script>
-import {request_rule_addRole, request_rule_getRoleList} from "@/http/api";
+import {request_resource_getSubset, request_rule_addRole, request_rule_getRoleList} from "@/http/api";
 import {ElMessage} from "element-plus";
+import {lookingBranch} from "@/utils/dataDispose";
 
 export default {
-    name: "ruleList",
+    name: "roleList",
     data() {
         return {
             roleTreeData: [],
@@ -78,7 +94,7 @@ export default {
                 // children: 'children',  //子集 这里不用
                 label: 'ruleName',
             },
-            roleChecked: '2',
+            roleChecked: "36ded9bd88d24cd39dbed61f09d4356f",
             addRuleVisible: false,  // 添加角色弹窗
             roleData: {
                 roleName: '',
@@ -87,6 +103,9 @@ export default {
                 name: [
                     {min: 1, max: 8, message: '长度3-8之间', trigger: 'blur'},
                 ],
+            },
+            resourceList:{
+
             }
         };
     },
@@ -115,7 +134,7 @@ export default {
             request_rule_addRole(this.roleData).then((res) => {
                 if (res.code === 0) {
                     ElMessage.success(res.msg);
-                    this_.getRuleList()
+                    this_.getroleList()
                     this_.addRuleVisible = false;
                     this_.roleData.roleName = undefined;
                 } else {
@@ -123,20 +142,50 @@ export default {
                 }
             })
         },
-        getRuleList() {
+        getroleList() {
             let _this = this;
             request_rule_getRoleList({type: 1}).then((res) => {
-                if (res.code ===0){
+                if (res.code === 0) {
                     _this.roleTreeData = res.data
-                }else {
+                    _this.roleChecked = res.data[0].id
+                } else {
                     ElMessage.error(res.msg);
+                }
+            })
+        },// 获取资源  角色id
+        getResourceList(roleId){
+            let _this = this;
+            _this.roleChecked = roleId;
+
+        }, //获取角色拥有的资源
+        getRoleResource(data,resourceId){
+            // 获取所有资源
+            let _this = this;
+            resourceId = "522296bc9cd044de80df33f386575672";
+            request_resource_getSubset({resourceId:resourceId}).then((res)=>{
+                if(res.code === 0){
+                    let data = res.data;
+                    let a= [],b = [];
+                    data.forEach(item=>{
+                        if (item.pid === resourceId){
+                            a.push(item)
+                        }else{
+                            b.push(item)
+                        }
+                    })
+                    a.forEach(item=>{
+                        item["children"] = lookingBranch(b,item.id);
+                    })
+                    _this.resourceList = a;
+                    console.log(a);
                 }
             })
         }
 
     },
     mounted() {
-        this.getRuleList();
+        this.getroleList();
+        this.getRoleResource();
     }
 
 }
@@ -163,4 +212,13 @@ export default {
     margin-left: 10px;
 }
 
+.box-card {
+    margin-bottom: 20px;
+}
+.qsub-box-main{
+    display: flex;
+}
+.box-item{
+    padding: 10px;
+}
 </style>

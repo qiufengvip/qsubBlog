@@ -119,15 +119,15 @@ import home from "@/components/admin/home";
 import userList from "@/components/admin/user/userList";
 import userEdit from "@/components/admin/user/userEdit";
 import userTest from "@/components/admin/user/userTest";
-import ruleList from "@/components/admin/authority/ruleList";
+import roleList from "@/components/admin/authority/roleList";
 import resourceList from "@/components/admin/authority/resourceList";
 export default {
     name: "AdminIndex",
-    components: {HotPost, Bottom,home,userList,userEdit,userTest,ruleList,resourceList},
+    components: {HotPost, Bottom,home,userList,userEdit,userTest,roleList,resourceList},
     data() {
         return {
             editableTabs: [{
-                content: "resourceList",
+                content: "roleList",
                 name: "ceshi",
                 title: "测试"
             }],
