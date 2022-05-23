@@ -1,11 +1,11 @@
 // 封装后台接口方法
 import { get, post, put, del, uploader } from './http'
 //登录
-export const request_login = (params) => post('/sysadmin/user/signIn', params)
+export const request_login = (params) => post('/sysadmin/base/user/signIn', params)
 //注册
-export const request_signUp = (params) => post('/sysadmin/user/signUp', params)
+export const request_signUp = (params) => post('/sysadmin/base/user/signUp', params)
 //注册
-export const request_se = (params) => post('/sysadmin/user/sign', params)
+export const request_se = (params) => post('/sysadmin/base/user/sign', params)
 
 
 
@@ -14,6 +14,11 @@ export const request_se = (params) => post('/sysadmin/user/sign', params)
 export const request_rule_addRole = (params) => post('/sysadmin/base/role/addRole', params)
 //查询角色
 export const request_rule_getRoleList = (params) => post('/sysadmin/base/role/getRoleList', params)
+//给角色添加资源
+export const request_resource_roleAddResource = (parent)=>post('/sysadmin/base/RoleResource/roleAddResource',parent);
+//查询角色拥有的资源id
+export const request_resource_queryRuleResource = (parent)=>post('/sysadmin/base/RoleResource/queryRuleResource',parent);
+
 
 
 
@@ -28,6 +33,10 @@ export const request_resource_deletedById = (parent)=>post('/sysadmin/base/Resou
 export const request_resource_mobileData = (parent)=>post('/sysadmin/base/Resource/mobileData',parent);
 //查询某个资源下的所有资源
 export const request_resource_getSubset = (parent)=>post('/sysadmin/base/Resource/getSubset',parent);
+
+
+
+
 
 
 

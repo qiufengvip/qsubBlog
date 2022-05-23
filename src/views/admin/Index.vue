@@ -119,11 +119,12 @@ import home from "@/components/admin/home";
 import userList from "@/components/admin/user/userList";
 import userEdit from "@/components/admin/user/userEdit";
 import userTest from "@/components/admin/user/userTest";
-import roleList from "@/components/admin/authority/roleList";
+import authorityList from "@/components/admin/authority/authorityList";
 import resourceList from "@/components/admin/authority/resourceList";
+import roleList from "@/components/admin/authority/roleList";
 export default {
     name: "AdminIndex",
-    components: {HotPost, Bottom,home,userList,userEdit,userTest,roleList,resourceList},
+    components: {HotPost, Bottom,home,userList,userEdit,userTest,authorityList,resourceList,roleList},
     data() {
         return {
             editableTabs: [{
@@ -292,7 +293,7 @@ export default {
 
 .el-tabs__item {
     color: @font-color;
-    background-color: @background-color2;
+    background-color: #00000000;
 }
 
 .el-tabs__item.is-active {

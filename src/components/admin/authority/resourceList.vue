@@ -40,7 +40,7 @@
                     <div class="tree-resourceName">&nbsp{{ data.resourceName }}</div>
                 </div>
                 <div class="node-b">
-                    <template v-for="item in resourceType">
+                    <template v-for="item in resourceType" v-slot="scope">
                         <div class="tree-resourceType" v-if="item.value === data.resourceType">{{ item.label }}</div>
                     </template>
                     <div class="tree-resourceValue">&nbsp{{ data.resourceValue }}</div>
