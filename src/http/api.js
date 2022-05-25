@@ -18,7 +18,8 @@ export const request_rule_getRoleList = (params) => post('/sysadmin/base/role/ge
 export const request_resource_roleAddResource = (parent)=>post('/sysadmin/base/RoleResource/roleAddResource',parent);
 //查询角色拥有的资源id
 export const request_resource_queryRuleResource = (parent)=>post('/sysadmin/base/RoleResource/queryRuleResource',parent);
-
+//删除角色
+export const request_rule_deleted = (parent)=>post('/sysadmin/base/role/deleted',parent);
 
 
 

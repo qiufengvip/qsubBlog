@@ -104,7 +104,7 @@ export default {
             roleTreeData: [],
             TreeProps: {
                 // children: 'children',  //子集 这里不用
-                label: 'ruleName',
+                label: 'roleName',
             },
             roleChecked: "36ded9bd88d24cd39dbed61f09d4356f",
             addRuleVisible: false,  // 添加角色弹窗

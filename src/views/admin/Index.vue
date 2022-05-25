@@ -128,7 +128,7 @@ export default {
     data() {
         return {
             editableTabs: [{
-                content: "roleList",
+                content: "userList",
                 name: "ceshi",
                 title: "测试"
             }],

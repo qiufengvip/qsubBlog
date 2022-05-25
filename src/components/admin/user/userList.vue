@@ -62,8 +62,11 @@
                     </template>
                 </el-table-column>
             </el-table>
+
         </div>
-        <div class="bottom"></div>
+        <div class="bottom">
+            <el-pagination background layout="prev, pager, next" :total="1000" />
+        </div>
     </div>
 
 
