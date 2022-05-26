@@ -4,8 +4,12 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import router from './router'
 import store from './store'
+import * as echarts from "echarts";
+
 // 全局变量
 import '../src/assets/less/parameter.less'
+// 语言
+import locale from 'element-plus/lib/locale/lang/zh-cn'
 // MD编辑器
 import VueMarkdownEditor from '@kangc/v-md-editor';
 // MD编辑器基础样式
@@ -20,7 +24,6 @@ import '@kangc/v-md-editor/lib/plugins/copy-code/copy-code.css';
 import Prism from 'prismjs';
 // MD编辑器 代码高亮渲染器2
 import hljs from 'highlight.js';
-
 
 // MD编辑器 vuepress 主题 解析器
 import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js';
@@ -41,11 +44,11 @@ VueMarkdownEditor.use(vuepressTheme, {
 VueMarkdownEditor.use(createCopyCodePlugin());
 VueMarkdownEditor.use(createLineNumbertPlugin());
 
-
-
 const app = createApp(App)
 app.use(VueMarkdownEditor);
-app.use(ElementPlus)
+app.use(ElementPlus,{locale})
 app.use(store);
 app.use(router);
 app.mount('#app');
+
+createApp.prototype.$echarts = echarts;
