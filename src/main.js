@@ -50,5 +50,3 @@ app.use(ElementPlus,{locale})
 app.use(store);
 app.use(router);
 app.mount('#app');
-
-createApp.prototype.$echarts = echarts;

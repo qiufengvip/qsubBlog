@@ -20,7 +20,7 @@
                     <template v-slot="scope">
                         <template v-for="item in roleType">
                             <div class="tree-resourceType" v-if="item.value === scope.row.roleType">
-                                {{item.label }}
+                                {{ item.label }}
                             </div>
                         </template>
                     </template>
@@ -58,27 +58,61 @@
 
     </el-dialog>
 
+
+    <el-dialog
+        v-model="addUserToRoleVisible"
+        :title="addUserToRole"
+        width="700px"
+    >
+        <div class="dialog-main">
+            <el-transfer
+                v-model="transferValue"
+                :props="{
+                  key: 'rn',
+                  label: 'account',
+                }"
+                :data="transferData"
+            />
+        </div>
+        <template #footer>
+            <span class="dialog-footer">
+                  <el-button type="danger" @click="addUserToRoleVisible = false">取消</el-button>
+                  <el-button type="primary" @click="addUserToRoleCom">确定</el-button>
+            </span>
+        </template>
+
+    </el-dialog>
+
 </template>
 
 <script>
-import {request_rule_addRole, request_rule_deleted, request_rule_getRoleList} from "@/http/api";
+import {
+    request_rule_addRole,
+    request_rule_deleted,
+    request_rule_getRoleList,
+    request_user_getUserList
+} from "@/http/api";
 import {ElMessage} from "element-plus";
 
 export default {
     name: "roleList",
     data() {
         return {
-            tableData: [],
-            roleType: [{
+            tableData: [],    //角色list
+            roleType: [{   //角色 Type
                 label: '普通角色',
                 value: 1,
             }, {
                 label: '用户',
                 value: 2,
             }],
-            addRoleVisible: false,
-            roleData: {roleName: ''},
-            addRoleTable: '添加角色',
+            addRoleVisible: false,  //添加角色框
+            roleData: {roleName: ''},  //添加或修改角色data
+            addRoleTable: '添加角色',   //添加或修改角色标题
+            addUserToRole: "添加用户",   //添加用户框标题
+            addUserToRoleVisible: true,  // 添加用户框
+            transferData:[],//添加用户穿梭框data
+            transferValue:[],
         }
     },
     methods: {
@@ -94,21 +128,17 @@ export default {
         }, // 删除
         deleted(row) {
             let data = {
-                id:row.id
+                id: row.id
             }
             let _this = this;
-            request_rule_deleted(data).then(res=>{
-                if (res.code ===0){
+            request_rule_deleted(data).then(res => {
+                if (res.code === 0) {
                     _this.getRoleList();
                     ElMessage.success(res.msg);
-                }else {
+                } else {
                     ElMessage.error(res.msg);
                 }
-
             })
-
-
-
         },
         //添加角色 提交
         addRuleSubmit() {
@@ -143,11 +173,27 @@ export default {
             };
             console.log(this.roleData)
             this.addRoleVisible = true;
+        },
+        //
+        addUserToRoleCom(){
+
+        },
+        //获取用户
+        getTransferData(){
+            let _this = this;
+            request_user_getUserList({pageSizeZero:true,pageSize:0}).then(res=>{
+                if (res.code) {
+                    ElMessage.error(res.msg);
+                }else{
+                    _this.transferData = res.list;
+                }
+            })
         }
 
     },
     mounted() {
         this.getRoleList()
+        this.getTransferData()
     }
 }
 </script>

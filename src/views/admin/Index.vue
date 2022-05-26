@@ -129,7 +129,7 @@ export default {
     data() {
         return {
             editableTabs: [{
-                content: "hello",
+                content: "roleList",
                 name: "ceshi",
                 title: "测试"
             }],
