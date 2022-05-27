@@ -46,7 +46,7 @@ VueMarkdownEditor.use(createLineNumbertPlugin());
 
 const app = createApp(App)
 app.use(VueMarkdownEditor);
-app.use(ElementPlus,{locale})
+app.use(ElementPlus)
 app.use(store);
 app.use(router);
 app.mount('#app');

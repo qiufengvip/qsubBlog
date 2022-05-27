@@ -28,7 +28,7 @@
                 <el-table-column fixed="right" label="操作" width="300">
                     <template v-slot="scope" #default>
                         <el-button type="primary" @click="exitRole(scope.row)" size="small">编辑</el-button>
-                        <el-button type="success" size="small">添加人员</el-button>
+                        <el-button type="success" size="small" @click="addUser(scope.row)">添加人员</el-button>
                         <el-button type="danger" size="small" @click="deleted(scope.row)">删除</el-button>
                     </template>
                 </el-table-column>
@@ -67,9 +67,10 @@
         <div class="dialog-main">
             <el-transfer
                 v-model="transferValue"
+                :titles="['未添加', '已添加']"
                 :props="{
-                  key: 'rn',
-                  label: 'account',
+                  key: 'virtualUserId',
+                  label: 'userName',
                 }"
                 :data="transferData"
             />
@@ -90,7 +91,7 @@ import {
     request_rule_addRole,
     request_rule_deleted,
     request_rule_getRoleList,
-    request_user_getUserList
+    request_user_getUserList, request_virtualUserRole_getUserRole, request_virtualUserRole_virtualUserRole
 } from "@/http/api";
 import {ElMessage} from "element-plus";
 
@@ -110,9 +111,10 @@ export default {
             roleData: {roleName: ''},  //添加或修改角色data
             addRoleTable: '添加角色',   //添加或修改角色标题
             addUserToRole: "添加用户",   //添加用户框标题
-            addUserToRoleVisible: true,  // 添加用户框
+            addUserToRoleVisible: false,  // 添加用户框
             transferData:[],//添加用户穿梭框data
-            transferValue:[],
+            transferValue:[], //已经添加用户
+            roleId:'',//当前选中的roleId
         }
     },
     methods: {
@@ -176,7 +178,22 @@ export default {
         },
         //
         addUserToRoleCom(){
+            let roleIds = [];
+            roleIds.push(this.roleId);
+            let data = {
+                roleIds:JSON.stringify( roleIds),
+                userIds:JSON.stringify(this.transferValue)
+            }
+            request_virtualUserRole_virtualUserRole(data).then(res=>{
+                if (res.code ===0){
+                    ElMessage.success(res.msg)
+                    this.addUserToRoleVisible = false;
+                }else{
+                    ElMessage.error(res.msg);
+                }
 
+            })
+            console.log(this.transferValue);
         },
         //获取用户
         getTransferData(){
@@ -186,6 +203,19 @@ export default {
                     ElMessage.error(res.msg);
                 }else{
                     _this.transferData = res.list;
+                    // _this.transferValue = res.list[0].id;
+                }
+            })
+        },
+        addUser(row){
+            this.roleId = row.id;
+            request_virtualUserRole_getUserRole({roleId:row.id}).then(res=>{
+                if (res.code === 0) {
+                    this.addUserToRoleVisible = true;
+                    this.transferData = res.data.list;
+                    this.transferValue= res.data.includeList;
+                }else {
+                    ElMessage.error(res.code)
                 }
             })
         }
@@ -193,7 +223,6 @@ export default {
     },
     mounted() {
         this.getRoleList()
-        this.getTransferData()
     }
 }
 </script>

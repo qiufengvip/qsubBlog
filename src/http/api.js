@@ -49,4 +49,9 @@ export const request_resource_getSubset = (parent)=>post('/sysadmin/base/Resourc
 export const request_user_getUserList = (parent)=>post('/sysadmin/base/user/getUserList',parent);
 
 
+/**
+ * 角色人员管理
+ */
+export const request_virtualUserRole_getUserRole = (parent)=>post('/sysadmin/base/virtualUserRole/getUserRole',parent);
+export const request_virtualUserRole_virtualUserRole = (parent)=>post('/sysadmin/base/virtualUserRole/saveUserRole',parent);
 
