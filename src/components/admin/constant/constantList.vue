@@ -70,7 +70,7 @@
     <el-dialog
         v-model="addConstantDataVisible"
         :title="addConstantDataTable"
-        width="500px"
+        width="600px"
     >
         <div class="query-param-main" ref="queryParamMain">
             <div class="query-param-term">
@@ -83,14 +83,13 @@
             </div>
         </div>
         <el-table border :data="constantDataList" ref="userTable" style="height: 100%">
-            <el-table-column fixed type="index" width="50" label="序号"/>
-            <el-table-column fixed prop="code" label="名称" width="150"/>
-            <el-table-column fixed prop="name" label="名称" width="150"/>
-            <el-table-column prop="explanation" label="介绍"/>
-            <el-table-column fixed="right" label="操作" width="210">
+<!--            <el-table-column fixed type="index" width="50" label="序号"/>-->
+            <el-table-column fixed prop="value" label="值" width="150"/>
+            <el-table-column prop="label" label="介绍"/>
+            <el-table-column fixed="right" label="操作" width="150">
                 <template v-slot="scope" #default>
-                    <el-button type="primary" @click="" size="small">编辑</el-button>
-                    <el-button type="danger" size="small" @click="">删除</el-button>
+                    <el-button type="primary" @click="exitData(scope.row)" size="small">编辑</el-button>
+                    <el-button type="danger" size="small" @click="deleteData(scope.row.id)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -211,8 +210,8 @@ export default {
         },
         //查看常量值
         getConstantData(id) {
-            if (id ===undefined && this.addConstantDataVisible !==undefined){
-                id = this.addConstantDataVisible;
+            if (id ===undefined && this.currentConstantValue !==undefined){
+                id = this.currentConstantValue;
             }
             post(API.selectConstantData, {id: id}).then(res => {
                 if (res.code === 0) {
@@ -235,18 +234,32 @@ export default {
                 if (res.code === 0) {
                     this.getConstantData();
                     ElMessage.success(res.msg)
+                    this.addData = false;
                 }else{
                     ElMessage.error(res.msg)
                 }
             })
 
-        }
+        },//修改值
+        exitData(row){
+            this.addData = true;
+            this.addDataTable = "修改变量值";
+            this.addDataForm = row;
+        },
+        deleteData(id){
+            post(API.deleteConstantData,{id:id}).then(res=>{
+                if (res.code===0) {
+                    this.getConstantData();
+                    ElMessage.success(res.msg);
+                }else {
+                    ElMessage.error(res.msg);
+                }
+            })
 
+        }
     },
     mounted() {
         this.getList();
-
-
     }
 }
 </script>
