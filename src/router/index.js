@@ -35,6 +35,8 @@ const routes = [
     name: 'Admin',
     component: ()=>import('../views/admin/Index.vue')
   }
+
+
 ]
 
 const router = createRouter({

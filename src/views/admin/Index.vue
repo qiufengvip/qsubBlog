@@ -123,13 +123,14 @@ import authorityList from "@/components/admin/authority/authorityList";
 import resourceList from "@/components/admin/authority/resourceList";
 import roleList from "@/components/admin/authority/roleList";
 import hello from "@/components/admin/user/hello";
+import constantList from "@/components/admin/constant/constantList";
 export default {
     name: "AdminIndex",
-    components: {HotPost, Bottom,home,userList,userEdit,userTest,authorityList,resourceList,roleList,hello},
+    components: {HotPost, Bottom,home,userList,userEdit,userTest,authorityList,resourceList,roleList,hello,constantList},
     data() {
         return {
             editableTabs: [{
-                content: "roleList",
+                content: "constantList",
                 name: "ceshi",
                 title: "测试"
             }],
