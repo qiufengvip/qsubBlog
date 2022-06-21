@@ -1,6 +1,7 @@
 // 一、配置axios
 import axios from 'axios'
 import qs from 'qs';
+import {ElMessage} from "element-plus";
 // import store from '@/store/index' 如果使用vuex，那么token，userinfo都可以在登录以后存储到store中，不需要使用storage
 // 获取浏览器的接口地址。
 let baseUrl = window.location.origin
@@ -18,7 +19,7 @@ axios.interceptors.request.use(config => {
     return config
 }, error => {
     // 可以安装elementui等ui组件，将错误信息输出到界面。
-    console.log(error)
+    ElMessage.error(error)
     return Promise.error(error)
 })
 // 响应拦截器

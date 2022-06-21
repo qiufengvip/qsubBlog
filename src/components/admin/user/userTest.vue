@@ -62,10 +62,10 @@ export default {
 </script>
 
 <style>
-img {
-    width: 73% !important;
-    height: 100% !important;
-}
+/*img {*/
+/*    width: 73% !important;*/
+/*    height: 100% !important;*/
+/*}*/
 
 .goods-list {
     white-space: nowrap;

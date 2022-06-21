@@ -133,7 +133,8 @@ export default {
     methods: {
         //树形图被点击
         handleNodeClick(data) {
-            console.log(data);
+            this.roleChecked = data.id;
+            this.getRoleResource();
         },
         //添加角色 提交
         addRuleSubmit() {

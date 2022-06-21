@@ -27,17 +27,16 @@
                     <template v-for="item in menuData">
                         <template v-if="item.subMenu">
                             <template v-if="item.subMenu.length>0">
-
                                 <el-sub-menu :index="item.id" class="menu-item">
                                     <template #title>
-                                        <el-icon class="el-icon" v-html="item.icon"></el-icon>
-                                        <span v-text="item.title"></span>
+                                        <el-icon class="el-icon" v-html="item.resourceData"></el-icon>
+                                        <span v-text="item.resourceName"></span>
                                     </template>
                                     <el-menu-item-group>
                                         <template v-for="itemas  in  item.subMenu">
                                             <el-menu-item :index="itemas.id">
-                                                <el-icon class="el-icon" v-html="itemas.icon"></el-icon>
-                                                <span v-text="itemas.title"></span>
+                                                <el-icon class="el-icon" v-html="itemas.resourceData"></el-icon>
+                                                <span v-text="itemas.resourceName"></span>
                                             </el-menu-item>
                                         </template>
                                     </el-menu-item-group>
@@ -45,15 +44,15 @@
                             </template>
                             <template v-else>
                                 <el-menu-item :index="item.id">
-                                    <el-icon class="el-icon" v-html="item.icon"></el-icon>
-                                    <span v-text="item.title"></span>
+                                    <el-icon class="el-icon" v-html="item.resourceData"></el-icon>
+                                    <span v-text="item.resourceName"></span>
                                 </el-menu-item>
                             </template>
                         </template>
                         <template v-else>
                             <el-menu-item :index="item.id">
-                                <el-icon class="el-icon" v-html="item.icon"></el-icon>
-                                <span v-text="item.title"></span>
+                                <el-icon class="el-icon" v-html="item.resourceData"></el-icon>
+                                <span v-text="item.resourceName"></span>
                             </el-menu-item>
                         </template>
                     </template>
@@ -73,7 +72,7 @@
                         </el-icon>
                     </div>
                     <div class="head-f">
-                        <el-icon class="el-icon-menu">
+                        <el-icon class="el-icon-menu exit" @click="exit()">
                             <svg t="1651568974862" class="icon" viewBox="0 0 1024 1024" version="1.1"
                                  xmlns="http://www.w3.org/2000/svg" p-id="6970" width="128" height="128">
                                 <path
@@ -113,8 +112,6 @@
 <script>
 
 import {ElMessage} from 'element-plus'
-import HotPost from "@/components/HotPost";
-import Bottom from "@/components/Bottom";
 import home from "@/components/admin/home";
 import userList from "@/components/admin/user/userList";
 import userEdit from "@/components/admin/user/userEdit";
@@ -124,43 +121,40 @@ import resourceList from "@/components/admin/authority/resourceList";
 import roleList from "@/components/admin/authority/roleList";
 import hello from "@/components/admin/user/hello";
 import constantList from "@/components/admin/constant/constantList";
+import {post} from "@/http/http";
+import {API} from "@/http/api";
+import {toTree} from "@/utils/dataDispose";
+import postList from "@/components/admin/posts/postList";
+import postAdd from "@/components/admin/posts/postAdd";
+import siteConfig from "@/components/admin/site/siteConfig";
 export default {
     name: "AdminIndex",
-    components: {HotPost, Bottom,home,userList,userEdit,userTest,authorityList,resourceList,roleList,hello,constantList},
+    components: {
+        home,      //首页
+        userList,   //用户列表
+        userEdit,   //用户修改
+        userTest,   //
+        authorityList,  //角色分配资源
+        resourceList,  //资源管理
+        roleList,   //角色管理
+        hello,
+        constantList,  //数据字典
+        postList,  //文章列表
+        postAdd,   //添加文章
+        siteConfig, //站点配置
+    },
     data() {
         return {
             editableTabs: [{
-                content: "constantList",
-                name: "ceshi",
-                title: "测试"
+                content: "postAdd",
+                name: "a769333502464d968ff6705bfc9fc4a4",
+                title: "首页"
             }],
-            editableTabsValue: 'ceshi',
+            editableTabsValue: 'a769333502464d968ff6705bfc9fc4a4',
             isCollapse: false,
             whichToShow: "",
-            menuData: [{
-                id: "a",
-                title: "首页",
-                icon: "<svg t=\"1604641432983\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"3454\" width=\"200\" height=\"200\">\n" +
-                    "    <path d=\"M512 51c62.26 0 122.62 12.18 179.43 36.21 54.89 23.22 104.2 56.46 146.55 98.82 42.35 42.35 75.6 91.66 98.82 146.55C960.82 389.38 973 449.74 973 512s-12.18 122.62-36.21 179.43c-23.22 54.89-56.46 104.2-98.82 146.55-42.35 42.35-91.66 75.6-146.55 98.82C634.62 960.82 574.26 973 512 973s-122.62-12.18-179.43-36.21c-54.89-23.22-104.2-56.46-146.55-98.82-42.35-42.35-75.6-91.66-98.82-146.55C63.18 634.62 51 574.26 51 512s12.18-122.62 36.21-179.43c23.22-54.89 56.46-104.2 98.82-146.55 42.35-42.35 91.66-75.6 146.55-98.82C389.38 63.18 449.74 51 512 51m0-51C229.23 0 0 229.23 0 512s229.23 512 512 512 512-229.23 512-512S794.77 0 512 0z\" p-id=\"3455\"></path>\n" +
-                    "    <path d=\"M512 512m-256 0a256 256 0 1 0 512 0 256 256 0 1 0-512 0Z\" p-id=\"3456\"></path>\n" +
-                    "</svg>",
-                url: "home",
-                subMenu: [],
-            },
-                {
-                    id: "b",
-                    title: "系统设置",
-                    icon: "<svg t=\"1651558184227\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"2094\" width=\"128\" height=\"128\"><path d=\"M450.7648 768l177.3568 102.4H307.2a51.2 51.2 0 0 1 0-102.4h143.5648zM716.8 358.4l221.696 128v256L716.8 870.4l-221.696-128v-256L716.8 358.4z m102.4-204.8a51.2 51.2 0 0 1 51.2 51.2v191.0784L716.8 307.2 450.7648 460.8l-0.0512 256H204.8a51.2 51.2 0 0 1-51.2-51.2V204.8a51.2 51.2 0 0 1 51.2-51.2h614.4z m-102.4 358.4a102.4 102.4 0 1 0 0 204.8 102.4 102.4 0 0 0 0-204.8z m0 51.2a51.2 51.2 0 1 1 0 102.4 51.2 51.2 0 0 1 0-102.4z\" p-id=\"2095\"></path></svg>",
-                    subMenu: [
-                        {
-                            id: 'ba',
-                            title: "人员管理",
-                            url: "userList",
-                            icon: '<svg t="1651558381828" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3841" width="128" height="128"><path d="M754.663647 1019.071348a11.016988 11.016988 0 0 0-2.029445-2.609287 154.237826 154.237826 0 0 1-33.340884-28.992072L714.364666 985.730464h-10.727067l-14.496036 7.537939a22.323896 22.323896 0 0 1-28.992073-9.277463l-7.827859-14.785957a22.323896 22.323896 0 0 1 9.277463-28.992072l14.496036-7.537939v-4.05889a153.947905 153.947905 0 0 1-4.05889-41.748585 11.016988 11.016988 0 0 0-7.537939-12.466591l-15.655719-4.928652a22.323896 22.323896 0 0 1-14.785957-28.992073l4.928652-15.94564a22.323896 22.323896 0 0 1 28.992073-14.785957l15.655719 4.928653a11.016988 11.016988 0 0 0 13.046433-6.088336 154.237826 154.237826 0 0 1 26.672706-32.1812V756.11325l-7.537938-14.496036a22.323896 22.323896 0 0 1 9.277463-28.992072l14.785957-7.82786a22.323896 22.323896 0 0 1 28.992072 9.277463l2.319366 7.82786a64.362401 64.362401 0 0 0 2.609286 7.537939c2.319366 5.508494 8.987542 6.088335 15.075878 4.638731a154.237826 154.237826 0 0 1 43.198188-4.05889h2.319366a11.016988 11.016988 0 0 0 8.987542-7.537939l4.928653-15.655719a20.584371 20.584371 0 0 1 0-2.609286 439.519819 439.519819 0 0 0-231.93658-169.603624 282.382786 282.382786 0 1 0-262.958097 1.739524A448.507361 448.507361 0 0 0 47.546999 960.507361v33.630804a26.962627 26.962627 0 0 0 23.483579 24.063421h682.473386z" p-id="3842"></path><path d="M831.977386 879.758224m-32.802472 17.353357a37.109853 37.109853 0 1 0 65.604943-34.706715 37.109853 37.109853 0 1 0-65.604943 34.706715Z" p-id="3843"></path><path d="M725.961495 961.377123l10.727067-5.798414H743.356738a114.228766 114.228766 0 0 0 24.933183 20.584371l1.449603 2.029445a8.11778 8.11778 0 0 1 0 6.378256l-3.479048 11.596829a16.525481 16.525481 0 0 0 11.016987 20.584372l11.88675 3.768969a16.525481 16.525481 0 0 0 20.584371-11.016987l3.479049-11.596829h2.609287a115.96829 115.96829 0 0 0 32.1812-2.899207 8.11778 8.11778 0 0 1 8.697622 4.05889l5.798414 10.727066a16.525481 16.525481 0 0 0 22.323896 6.958098l11.016988-5.798415a16.525481 16.525481 0 0 0 6.958097-22.323895l-5.798414-10.727067a8.11778 8.11778 0 0 1 0-9.567384 114.228766 114.228766 0 0 0 20.584371-24.933182h7.82786l11.596829 3.479048a16.525481 16.525481 0 0 0 20.584371-11.016987l3.768969-11.88675a16.525481 16.525481 0 0 0-11.016987-20.584372l-11.596829-3.479048a8.11778 8.11778 0 0 1-5.798415-6.378256 114.228766 114.228766 0 0 0-2.899207-31.89128 8.11778 8.11778 0 0 1 0-1.449604v-3.189127l10.727067-5.798415a16.525481 16.525481 0 0 0 6.958097-22.323896l-5.798414-11.016987a16.525481 16.525481 0 0 0-22.323896-6.958098l-10.727067 5.798415a8.11778 8.11778 0 0 1-9.567384 0 115.96829 115.96829 0 0 0-24.933182-20.584372V790.033975l3.479049-11.596829a16.525481 16.525481 0 0 0-11.016988-20.584371l-11.88675-3.76897a16.525481 16.525481 0 0 0-20.584371 11.016988l-3.479049 11.596829a8.11778 8.11778 0 0 1-6.668176 5.798414h-1.739525a114.228766 114.228766 0 0 0-31.891279 2.899207 8.11778 8.11778 0 0 1-11.016988-3.479048 19.134768 19.134768 0 0 1 0-5.798415l-2.319366-5.798414a16.525481 16.525481 0 0 0-22.323896-6.958098l-11.016987 5.798415a16.525481 16.525481 0 0 0-6.958098 22.323896l5.798415 10.727067v5.798414a114.228766 114.228766 0 0 0-20.00453 23.773499 8.11778 8.11778 0 0 1-9.857305 4.638732l-11.596829-3.479049a16.525481 16.525481 0 0 0-20.584371 11.016988l-3.76897 11.88675a16.525481 16.525481 0 0 0 11.016988 20.584371l11.596829 3.479049a8.11778 8.11778 0 0 1 5.508494 9.277463 114.228766 114.228766 0 0 0 2.899207 31.021518v3.768969l-10.727067 5.798414a16.525481 16.525481 0 0 0-6.958097 22.323896l5.798414 11.016988a16.525481 16.525481 0 0 0 29.861835-1.739525z m80.887882-129.014722a53.635334 53.635334 0 1 1-22.323896 72.480181 53.635334 53.635334 0 0 1 22.613817-72.480181z" p-id="3844"></path></svg>'
-                        }
-                    ],
-                }
-            ],
+            menuData: [],
+            menuDataOriginal:[],//非树形图的menuData
             // editableTabs: [{
             //     content: "home",
             //     name: "a",
@@ -170,6 +164,18 @@ export default {
             apps: []
         };
     }, methods: {
+        init(){
+           post(API.queryRuleResource,{resourceType:2}).then(res=>{
+               if (res.code === 0) {
+                   this.menuDataOriginal = res.data;
+                   this.menuData = toTree(res.data, "522296bc9cd044de80df33f386575672", null,"subMenu")
+                   console.log(this.menuData);
+               }else {
+                   ElMessage.error(res.code)
+               }
+           })
+        },
+
         //折叠菜单
         Collapses() {
             this.isCollapse = !this.isCollapse;
@@ -207,25 +213,14 @@ export default {
         // 菜单点击事件
         , menuSelect(index) {
             let _this = this;
-            _this.menuData.forEach(item=>{
+            console.log(index);
+            this.menuDataOriginal.forEach(item=>{
                 if (item.id === index){
                     _this.addTabs({
                         name:item.id,
-                        title: item.title,
-                        content: item.url,
+                        title: item.resourceName,
+                        content: item.resourceValue,
                     })
-                }else{
-                    if (item.subMenu){
-                        item.subMenu.forEach(item1=>{
-                            if (item1.id === index) {
-                                _this.addTabs({
-                                    name:item1.id,
-                                    title: item1.title,
-                                    content: item1.url,
-                                })
-                            }
-                        })
-                    }
                 }
             })
         }
@@ -244,9 +239,13 @@ export default {
             }
             this.editableTabsValue = tab.name
 
+        },
+        exit(){
+            localStorage.setItem("token",undefined);
+            window.location.href = '/admin'
         }
     }, created() {
-        console.log(this.menuData)
+        this.init();
     }
 }
 </script>
@@ -385,7 +384,7 @@ export default {
 .el-main {
     padding: 0 !important;
     padding-top: 0px !important;
-    background-color: @background-color3;
+    background-color: @background-color2;
 }
 
 .el-menu-vertical {
@@ -415,7 +414,7 @@ export default {
 
 .header {
     width: 100%;
-    background-color: @background-color2;
+    background-color: @background-color;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -468,6 +467,9 @@ export default {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
+}
+.exit{
+    cursor:pointer;
 }
 
 </style>

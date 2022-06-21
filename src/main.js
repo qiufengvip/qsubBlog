@@ -4,7 +4,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import router from './router'
 import store from './store'
-import * as echarts from "echarts";
+import * as echarts from "echarts";  //echarts图表
 
 // 全局变量
 import '../src/assets/less/parameter.less'

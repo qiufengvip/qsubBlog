@@ -6,12 +6,8 @@ const API = {
     , signUp: '/sysadmin/base/user/signUp' //注册
 
 
-
-
-
-
-
-
+    //首页
+    ,queryRuleResource:    '/sysadmin/base/Resource/getMenuData' //查询用户的菜单
 
 
     /**
@@ -21,9 +17,22 @@ const API = {
     , deleteConstant: '/sysadmin/base/constant/deleteConstant'              // 删除变量
     , selectConstantList: '/sysadmin/base/constant/selectList'                      // 查询变量列表
     , selectConstantData:  '/sysadmin/base/constant/selectConstantData' //查询常量值
-
     , addConstantData: '/sysadmin/base/constant/data/addConstantData'       // 添加常量值
     , deleteConstantData: '/sysadmin/base/constant/data/deleteConstantData' // 删除变量值
+
+
+    /**
+     * 站点配置管理
+     */
+    ,  getConfigList:'/sysadmin/blog/blogConfig/getConfigList'// 配置项列表
+    ,  updateBlogConfig:'/sysadmin/blog/blogConfig/update'// 添加或更新
+    ,  deletedBlogConfig:'/sysadmin/blog/blogConfig/deleted'// 删除配置项
+    ,  getConfigData:'/sysadmin/blog/blogConfig/getConfigData'// 获取配置项信息
+
+
+
+
+
 }
 
 
@@ -83,3 +92,6 @@ export const request_user_getUserList = (parent) => post('/sysadmin/base/user/ge
 export const request_virtualUserRole_getUserRole = (parent) => post('/sysadmin/base/virtualUserRole/getUserRole', parent);
 export const request_virtualUserRole_virtualUserRole = (parent) => post('/sysadmin/base/virtualUserRole/saveUserRole', parent);
 
+
+
+export const uploadFile =(parent)=> uploader("/sysadmin/base/sysFile/upload",parent);

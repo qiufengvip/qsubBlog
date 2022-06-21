@@ -15,6 +15,7 @@
         <div class="center">
             <el-table border :data="tableData" style="">
                 <el-table-column prop="id" label="id" width="300"/>
+                <el-table-column prop="roleCode" label="角色code" width="200"/>
                 <el-table-column prop="roleName" label="角色名称" width="200"/>
                 <el-table-column prop="roleType" label="角色类型">
                     <template v-slot="scope">
@@ -46,6 +47,9 @@
             <div>
                 <el-form-item label="角色名称" prop="name">
                     <el-input size="large" v-model="roleData.roleName"/>
+                </el-form-item>
+                <el-form-item label="角色code" prop="name">
+                    <el-input size="large" v-model="roleData.roleCode"/>
                 </el-form-item>
             </div>
         </el-form>
@@ -108,7 +112,7 @@ export default {
                 value: 2,
             }],
             addRoleVisible: false,  //添加角色框
-            roleData: {roleName: ''},  //添加或修改角色data
+            roleData: {roleName: '',roleCode:''},  //添加或修改角色data
             addRoleTable: '添加角色',   //添加或修改角色标题
             addUserToRole: "添加用户",   //添加用户框标题
             addUserToRoleVisible: false,  // 添加用户框
@@ -171,7 +175,8 @@ export default {
             this.addRoleTable = "修改角色"
             this.roleData = {
                 id: row.id,
-                roleName: row.roleName
+                roleName: row.roleName,
+                roleCode: row.roleCode
             };
             console.log(this.roleData)
             this.addRoleVisible = true;

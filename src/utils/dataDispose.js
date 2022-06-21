@@ -6,6 +6,9 @@
  * @param children  字集的名称
  * @returns {*[]}
  */
+import {post} from "@/http/http";
+import {API} from "@/http/api";
+
 export const toTree = (data, pid, pdata, children) => {
     let a = [], b = [];
     data.forEach((item) => {
@@ -28,18 +31,18 @@ export const toTree = (data, pid, pdata, children) => {
     return a;
 }
 //寻找树形结构的树杈
-export const lookingBranch = (data,pid)=>{
-    let a = [],b = [],c = [];
-    data.forEach(item =>{
-        if(item.pid === pid){
+export const lookingBranch = (data, pid) => {
+    let a = [], b = [], c = [];
+    data.forEach(item => {
+        if (item.pid === pid) {
             a.push(item);
-        }else{
+        } else {
             b.push(item);
         }
     })
-    if (a.length>0){
-        a.forEach(item=>{
-            c = lookingBranch(b,item.id);
+    if (a.length > 0) {
+        a.forEach(item => {
+            c = lookingBranch(b, item.id);
         })
     }
     a.concat(c);
@@ -59,3 +62,9 @@ export const copyText = function (txt) {
     document.execCommand('Copy')
     document.body.removeChild(input)
 }
+
+export const imgFileType = [
+    "", "", "", "", "image/tiff", "image/tiff", "image/vnd.svf", "image/png", "image/jpeg", "image/jpeg", "image/jpeg", "image/jp2", "image/gif", "image/vnd.dxf", "image/vnd.dwg",
+]
+
+

@@ -85,25 +85,16 @@
 </template>
 
 <script>
-import {request_user_getUserList} from "@/http/api";
+import {API, request_user_getUserList} from "@/http/api";
 import {ElMessage} from "element-plus";
+import {post} from "@/http/http";
 
 export default {
     name: "userList",
     data() {
         return {
             queryParam: {},
-            stateList: [{
-                value: "0",
-                label: "正常"
-            }, {
-                value: "1",
-                label: "已封禁"
-            }, {
-                value: "3",
-                label: "已删除"
-            },
-            ],
+            stateList: [],
             tableData: [],
             pagination:{
                 pageSize:20,  //每页多少条
@@ -144,6 +135,11 @@ export default {
             _this.getUserList();
         },
     }, mounted() {
+        post(API.selectConstantData, {code: "userState"}).then( res =>{
+            if (res.code === 0) {
+                this.stateList = res.data;
+            }
+        })
         this.getUserList();
     }
 }

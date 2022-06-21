@@ -95,13 +95,15 @@
 
 <script>
 import {
+    API,
     request_resource_deletedById,
     request_resource_getResourceList,
     request_resource_mobileData,
     request_resource_saveOrUpdate
 } from "@/http/api";
 import {ElMessage} from "element-plus";
-import {toTree} from "@/utils/dataDispose";
+import {getDataDictionary, toTree} from "@/utils/dataDispose";
+import {post} from "@/http/http";
 export default {
     name: "resourceList",
     data() {
@@ -109,19 +111,7 @@ export default {
             tableData: [],
             resourceAddVisible: false,
             resourceAddTitle: '添加资源',
-            resourceType: [{
-                value: 1,
-                label: '前端菜单'
-            }, {
-                value: 2,
-                label: '后端菜单'
-            }, {
-                value: 3,
-                label: 'api'
-            }, {
-                value: 4,
-                label: '资源'
-            }],
+            resourceType: [],
             resourceAddData: {
                 id: '',
                 pid: '',
@@ -304,7 +294,13 @@ export default {
             }
         }
     }, created() {
+        post(API.selectConstantData, {code: "resourceType"}).then( res =>{
+            if (res.code === 0) {
+                this.resourceType = res.data;
+            }
+        })
         this.getTableData();
+
     }
 }
 </script>

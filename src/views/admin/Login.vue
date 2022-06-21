@@ -42,7 +42,8 @@ export default {
       request_login(_this.user).then(res => {
         if (res.code===0){
           ElMessage.success(res.msg);
-          localStorage.setItem("token",{name:res.data.tokenName,value:res.data.tokenValue})
+          localStorage.setItem("token",{name:res.data.tokenName,value:res.data.tokenValue});
+          window.location.href = '/admin/index';
         }else{
           ElMessage.error(res.msg);
         }

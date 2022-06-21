@@ -8,7 +8,10 @@
             <div></div>
             <div></div>
           </div>
-          <v-md-editor :model-value="data.text" @copy-code-success="handleCopyCodeSuccess" mode="preview"></v-md-editor>
+          <v-md-editor
+              :model-value="data.text" @copy-code-success="handleCopyCodeSuccess"
+
+          ></v-md-editor>
         </div>
 <!--        评论 -->
         <div class="comment">
