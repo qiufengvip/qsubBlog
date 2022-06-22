@@ -98,7 +98,7 @@
                             :name="item.name"
                             style="height: 100%;"
                         >
-                            <component :is="item.content">
+                            <component @removeTab="removeTab" :is="item.content">
                             </component>
                         </el-tab-pane>
                     </el-tabs>
@@ -190,6 +190,7 @@ export default {
         }
         //移除tab标签
         , removeTab(targetName) {
+            console.log(targetName)
             if (this.editableTabs.length > 1) {
                 const tabs = this.editableTabs
                 let activeName = this.editableTabsValue
@@ -208,11 +209,11 @@ export default {
             } else {
                 ElMessage.error("包关兰")
             }
-
         }
         // 菜单点击事件
         , menuSelect(index) {
             let _this = this;
+
             console.log(index);
             this.menuDataOriginal.forEach(item=>{
                 if (item.id === index){
@@ -223,6 +224,7 @@ export default {
                     })
                 }
             })
+
         }
         // 没有就添加 存在就跳转
         ,addTabs(tab){

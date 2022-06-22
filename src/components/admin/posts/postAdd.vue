@@ -4,51 +4,51 @@
         <div class="top">
             <el-form :model="form" label-width="120px" style="width: 50%">
                 <el-form-item label="文章标题">
-                    <el-input v-model="form.name" show-word-limit/>
+                    <el-input v-model="form.title" show-word-limit/>
                 </el-form-item>
                 <div class="top">
                     <el-form-item label="文章分类">
-                        <el-cascader :options="subtotal" placeholder="输入关键字" v-model="form.classify" :props="props1"
+                        <el-cascader :options="subtotal" :key="subtotalKey" placeholder="输入关键字" v-model="resourceId"
+                                     :props="props1"
                                      filterable/>
                     </el-form-item>
                     <el-form-item label="发布状态">
-                        <el-select v-model="form.region" placeholder="文章状态">
-                            <el-option label="草稿" value="shanghai"/>
-                            <el-option label="发布" value="beijing"/>
+                        <el-select v-model="form.state" disabled placeholder="文章状态">
+                            <el-option v-for="i in postReleaseList" :label="i.label" :value="i.value"/>
                         </el-select>
                     </el-form-item>
                     <el-form-item label="审核状态">
                         <el-select v-model="form.releases" disabled placeholder="审核状态">
-                            <el-option label="待提交" value="1"/>
-                            <el-option label="待审核" value="2"/>
-                            <el-option label="审核中" value="3"/>
-                            <el-option label="已通过" value="4"/>
-                            <el-option label="未通过" value="5"/>
+                            <el-option v-for="i in postStateList" :label="i.label" :value="i.value"/>
                         </el-select>
                     </el-form-item>
                 </div>
 
                 <el-form-item label="简述">
-                    <el-input v-model="form.desc" rows="4" type="textarea" show-word-limit/>
+                    <el-input v-model="form.subtitle" rows="4" type="textarea" show-word-limit/>
                 </el-form-item>
             </el-form>
 
-            <el-form :model="form" label-width="120px">
+            <div style="padding-left: 60px;width: 45%;">
 
-                <el-form-item label="缩略图">
-                    <el-upload
-                        class="avatar-uploader"
-                        action="#"
-                        :show-file-list="false"
-                        :on-success="handleAvatarSuccess"
-                        :before-upload="beforeAvatarUpload"
-                        :file-list="postsImg"
-                        :auto-upload="true"
-                        :limit="1"
-                    >
-                        <template v-if="form.postsImg">
-                            <img class="el-upload-list__item-thumbnail avatar" :src="form.postsImg" alt=""/>
-                            <span class="el-upload-list__item-actions">
+                <div class="qsub-form">
+                    <div class="qsub-form-item">
+                        <div class="qsub-form-label">
+                            缩略图
+                        </div>
+                        <el-upload
+                            class="avatar-uploader"
+                            action="#"
+                            :show-file-list="false"
+                            :on-success="handleAvatarSuccess"
+                            :before-upload="beforeAvatarUpload"
+                            :file-list="postsImg"
+                            :auto-upload="true"
+                            :limit="1"
+                        >
+                            <template v-if="form.postsImg">
+                                <img class="el-upload-list__item-thumbnail avatar" :src="form.postsImg" alt=""/>
+                                <span class="el-upload-list__item-actions">
                               <span
                                   class="el-upload-list__item-preview"
                                   @click="handlePostsImg(form.postsImg,1)"
@@ -56,21 +56,19 @@
                                 <el-icon><zoom-in/></el-icon>
                               </span>
                               <span
-                                  v-if="!disabled"
                                   class="el-upload-list__item-preview"
                                   @click="handlePostsImg(form.postsImg,2)"
                               >
                                 <el-icon><Download/></el-icon>
                               </span>
                               <span
-                                  v-if="!disabled"
                                   class="el-upload-list__item-preview"
                                   @click="handlePostsImg(form.postsImg,3)"
                               >
                                 <el-icon><Delete/></el-icon>
                               </span>
                             </span>
-                        </template>
+                            </template>
 
                             <template #trigger>
                                 <template v-if="!form.postsImg">
@@ -79,38 +77,48 @@
                                     </el-icon>
                                 </template>
                             </template>
-                    </el-upload>
+                        </el-upload>
+                    </div>
+                    <div>
+                        <el-button type="primary" @click="staging">查看本文历史数据</el-button>
+                        <el-button type="primary" @click="staging">查看历史</el-button>
+                        <el-button type="primary" @click="removePage">清除本页</el-button>
+                    </div>
+                </div>
 
+                <div class="qsub-form">
+                    <div class="qsub-form-item">
+                        <div class="qsub-form-label">文章标签</div>
+                        <div class="labels">
+                            <el-tag
+                                v-for="tag in labels"
+                                class="mx-1"
+                                closable
+                                :disable-transitions="false"
+                                @close="handleClose(tag,'labels')"
+                                :type="getType()"
+                            >
+                                {{ tag }}
+                            </el-tag>
+                            <el-input
+                                v-if="labelsInputVisible"
+                                ref="labelsInputRef"
+                                v-model="labelsInputValue"
+                                class="tagInput"
+                                show-word-limit
+                                size="small"
+                                @keyup.enter="handleInputConfirm('labelsInputValue','labels')"
+                                @blur="handleInputConfirm('labelsInputValue','labels','labelsInputVisible')"
+                            />
+                            <el-button type="success" v-else class="button-new-tag ml-1" size="small"
+                                       @click="showInput('labelsInputVisible','labelsInputRef')">
+                                + 添加标签
+                            </el-button>
+                        </div>
+                    </div>
+                </div>
 
-                </el-form-item>
-
-                <el-form-item label="文章标签" class="postTag">
-                    <el-tag
-                        v-for="tag in form.postTag"
-                        :key="tag"
-                        class="mx-1"
-                        closable
-                        :disable-transitions="false"
-                        @close="handleClose(tag,'postTag')"
-                        :type="getType()"
-                    >
-                        {{ tag }}
-                    </el-tag>
-                    <el-input
-                        v-if="postTagInputVisible"
-                        ref="postTagInputRef"
-                        v-model="postTagInputValue"
-                        class="tagInput"
-                        size="small"
-                        @keyup.enter="handleInputConfirm('postTagInputValue','postTag')"
-                        @blur="handleInputConfirm('postTagInputValue','postTag','postTagInputVisible')"
-                    />
-                    <el-button type="success" v-else class="button-new-tag ml-1" size="small"
-                               @click="showInput('postTagInputVisible','postTagInputRef')">
-                        + 添加标签
-                    </el-button>
-                </el-form-item>
-            </el-form>
+            </div>
 
         </div>
 
@@ -120,18 +128,16 @@
                              @save="articleSave"
                              @copy-code-success="handleCopyCodeSuccess"
                              :disabled-menus="[]"
-                             @upload-image="handleUploadImage"
+                             @upload-image="uploadImage"
                              v-model="form.content"
                              height="820px"></v-md-editor>
             </el-form-item>
 
             <el-form-item>
-                <el-button type="primary">暂存</el-button>
+                <el-button type="primary" @click="staging">存草稿</el-button>
                 <el-button type="success" @click="submits">发布</el-button>
             </el-form-item>
         </el-form>
-
-
     </div>
     <!--    图片预览组件-->
     <el-dialog v-model="dialogVisible">
@@ -143,8 +149,10 @@
 <script>
 import {Plus, ZoomIn, Download, Delete} from '@element-plus/icons'
 import {nextTick} from "vue";
-import {ElMessage} from "element-plus";
-import {uploadFile} from "@/http/api";
+import {ElMessage, ElNotification} from "element-plus";
+import {API, uploadFile} from "@/http/api";
+import {post} from "@/http/http";
+import {toTree} from "@/utils/dataDispose";
 
 export default {
     name: "postAdd",
@@ -158,6 +166,8 @@ export default {
             props1: {
                 checkStrictly: true,
             },
+            postStateList: [], //文章审核状态
+            postReleaseList: [],  //文章发布状态
             subtotal: [
                 {
                     value: '1',
@@ -181,51 +191,141 @@ export default {
                 },
             ], //分类菜单
             form: {
-                releases:'1', //审核状态
-                name: '',
-                region: '',
-                date1: '',
-                date2: '',
-                delivery: false,
-                type: [],
-                resource: '',
-                desc: '',
-                postTag: ["java", "spring"],
-                searchKey: ["分布式锁子"], //搜索关键词
-                classify: '',  //分类
-                content: '',
-                postsImg: '' //缩略图
+                id: '',  //文章id
+                title: '', //文章标题
+                postsImg: '', //缩略图
+                resourceId: '', //栏目id
+                state: 1,      //发布状态
+                releases: 1,  //审核状态
+                subtitle: '', //文章副标题
+                content: '',  //主体内容
+                labels: [],//标签
             },
+            subtotalKey: -5,//key
+            resourceId: [], //栏目id
+            labels: [],//标签
             postsImg: [],
-            postTagInputVisible: false,
-            postTagInputValue: '', //
+            labelsInputVisible: false,
+            labelsInputValue: '', //
             searchKeyInputVisible: false,
             searchKeyInputValue: '', //
+            model: 1,  //默认是一 加载缓存库中最新的数据
+            tabsId:'f8a013b9ae1d4615b047fcf0550e8a71',//本页面的id
         };
     },
     mounted() {
-
+        post(API.selectConstantData, {code: "postRelease"}).then(res => {
+            if (res.code === 0) {
+                this.postReleaseList = res.data;
+            }
+        })
+        post(API.selectConstantData, {code: "postState"}).then(res => {
+            if (res.code === 0) {
+                this.postStateList = res.data;
+            }
+        })
+        this.readData();
     },
     methods: {
+        readData() {
+            if (this.model === 1) {
+                //获取文章分类
+                let _this = this;
+                post(API.queryRuleResource, {resourceType: 1}).then(res => {
+                    if (res.code === 0) {
+                        let data = res.data;
+                        data.forEach(item => {
+                            item.label = item.resourceName;
+                            item.value = item.id;
+                        })
+                        this.subtotal = toTree(data, "0b23919cb72a40afb15d9f2d533ed48b", null, "children")
+                        console.log(this.subtotal);
+                        //加载帖子数据
+                        post(API.postGetCache).then(res => {
+                            if (res.code === 0) {
+                                if (res.data) {
+                                    this.labels = JSON.parse(res.data.labels);
+                                    this.getResourceId(res.data.resourceId, this.subtotal)
+                                    console.log("最终结果", this.resourceId)
+                                    this.subtotalKey = 5;
+                                    this.form = res.data;
+                                    if (this.form.postsImg) {
+                                        document.getElementsByClassName("el-upload")[0].style.display = "none";
+                                    }
+                                    //自动缓存
+                                    setInterval(function () {
+                                        _this.automaticStorage()
+                                    }, 60000)
+                                }
+                            }
+                        })
+                    } else {
+                        ElMessage.error(res.msg)
+                    }
+                })
+            }
+        },
+        getResourceId(resourceId, total) {
+            let ret = false;
+            total.forEach(
+                item => {
+                    if (item.id === resourceId) {
+                        console.log(1)
+                        this.resourceId.push(item.id);
+                        ret = true;
+                        return true;
+                    } else {
+                        //有子集
+                        if (item.children) {
+                            console.log(3, item.id)
+                            if (this.getResourceId(resourceId, item.children)) {
+                                console.log(2)
+                                let list = this.resourceId;
+                                let list2 = [];
+                                list2.push(item.id)
+                                this.resourceId = list2.concat(list);
+                                return true;
+                            }
+                            console.log(4, item.id)
+                        }
+                    }
+                }
+            )
+            return ret;
+        },
         handleCopyCodeSuccess(code) {
             console.log(code);
         },
-        handleUploadImage(event, insertImage, files) {
+        uploadImage(event, insertImage, files) {
+            ElNotification({
+                title: '上传提示',
+                message: '正在快马加鞭，努力上传中...',
+                type: 'success',
+            })
             // 拿到 files 之后上传到文件服务器，然后向编辑框中插入对应的内容
             console.log(files);
             let name1 = files[0].name;
+
             // 此处只做示例
-            insertImage({
-                url:
-                    'http://file.luanshiliunian.cn/f8abff5039d246999b7b9658e2a92994-1654915027822.jpg',
-                desc: name1,
-            });
+            uploadFile(files[0]).then(res => {
+                if (res.code === 0) {
+                    insertImage({
+                        url: res.data,
+                        desc: name1,
+                    });
+                    this.handleAvatarSuccess()
+                } else {
+                    ElMessage.error(res.msg);
+                }
+            })
+
+
         },
         articleSave() {
             console.log("文章保存")
         },
         submits() {
-            console.log(this.form);
+            this.automaticStorage(2);  //发布
         },
         getType() {
             let number = parseInt(5 * Math.random());
@@ -242,7 +342,7 @@ export default {
             }
         },
         handleClose(tag, type) {
-            this.form[type].splice(this.form[type].indexOf(tag), 1)
+            this[type].splice(this[type].indexOf(tag), 1)
         },
         showInput(a, b) {
             this[a] = true
@@ -255,14 +355,14 @@ export default {
             console.log("取消", c)
             this[c] = false;
             if (this[type]) {
-                this.form[b].push(this[type])
+                this[b].push(this[type])
             }
             this[type] = ''
         },
         //缩略图上传
         handleAvatarSuccess(response, uploadFile) {
-            document.getElementsByClassName("el-upload")[0].style.display ="none";
-            console.log("成功",uploadFile);
+            document.getElementsByClassName("el-upload")[0].style.display = "none";
+            console.log("成功", uploadFile);
         },
         //缩略图格式验证器
         beforeAvatarUpload(rawFile) {
@@ -272,11 +372,11 @@ export default {
             } else if (rawFile.size / 1024 / 1024 > 40) {
                 ElMessage.error('不能大于 40MB!')
             }
-            uploadFile(rawFile).then(res=>{
+            uploadFile(rawFile).then(res => {
                 if (res.code === 0) {
                     this.form.postsImg = res.data;
                     this.handleAvatarSuccess()
-                }else{
+                } else {
                     ElMessage.error(res.msg);
                 }
             })
@@ -284,7 +384,7 @@ export default {
             return false
         },
 
-        handlePostsImg(fileUrl,index) {
+        handlePostsImg(fileUrl, index) {
             switch (index) {
                 case 1:
                     this.dialogVisible = true;
@@ -295,23 +395,84 @@ export default {
                     break;
                 case 3:
                     this.form.postsImg = '';
-                    document.getElementsByClassName("el-upload")[0].style.display ="block";
+                    document.getElementsByClassName("el-upload")[0].style.display = "block";
                     break;
             }
-            console.log("点击",index)
+            console.log("点击", index)
+        },
+        //自动缓存
+        automaticStorage(state) {
+            this.form.resourceId = this.resourceId[this.resourceId.length - 1]
+            this.form.labels = JSON.stringify(this.labels);
+            let data = JSON.parse(JSON.stringify(this.form));
+            data.state = 1;
+            if (state){
+                data.state = state;
+            }
+            post(API.postSetCache, data).then(res => {
+                if (res.code === 0) {
+                    if (state===2){
+                        ElNotification({
+                            title: '发布',
+                            message: '发布成功',
+                            type: 'success',
+                        })
+                        this.$emit('removeTab',this.tabsId);
+                    }else{
+                        ElNotification({
+                            title: '远程存储',
+                            message: res.msg,
+                            type: 'success',
+                        })
+                    }
+                    this.form.id = res.data;
+                } else {
+                    if (state===2){
+                        ElMessage.error(res.msg);
+                    }else{
+                        ElNotification({
+                            title: '远程存储',
+                            message: res.msg,
+                            type: 'error',
+                        })
+                    }
 
-        }
+                }
+            })
+        },
+        //暂存按钮
+        staging() {
+            this.automaticStorage(1);  //存草稿
+        },
 
+        // 初始化
+        removePage() {
+            this.form = {
+                id: '',  //文章id
+                title: '', //文章标题
+                postsImg: '', //缩略图
+                resourceId: '', //栏目id
+                state: 1,      //发布状态
+                releases: 1,  //审核状态
+                subtitle: '', //文章副标题
+                content: '',  //主体内容
+                labels: [],//标签
+            };
+            this.resourceId = []; //栏目id
+            this.labels = [];//标签
+            this.postsImg = [];
 
+        },
     }
 }
 </script>
 <style lang="less">
-.el-dialog__body{
-    img{
+.el-dialog__body {
+    img {
         width: 100%;
     }
 }
+
 .postAdd {
     .el-tag {
         margin: 0 10px 0 0;
@@ -359,7 +520,7 @@ export default {
 //    background-color: @background-color2;
 //}
 //
-.avatar-uploader{
+.avatar-uploader {
     border: 1px dashed @font-color;
 }
 
@@ -395,6 +556,28 @@ export default {
 </style>
 
 <style scoped lang="less">
+
+.qsub-form {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.qsub-form-item {
+    display: flex;
+}
+
+.qsub-form-label {
+    text-align: right;
+    font-size: var(--el-form-label-font-size);
+    color: var(--el-text-color-regular);
+    line-height: 34px;
+    width: 90px;
+    padding: 0 22px 0 0;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+
 .top {
     display: flex;
 }
@@ -416,7 +599,8 @@ export default {
     align-items: center;
     justify-content: space-evenly;
 }
-.avatar{
+
+.avatar {
     border-radius: 6px;
     width: auto;
     height: auto;
@@ -425,7 +609,7 @@ export default {
     position: relative;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
 }
 
 .avatar-uploader:hover {

@@ -30,8 +30,12 @@ const API = {
     ,  getConfigData:'/sysadmin/blog/blogConfig/getConfigData'// 获取配置项信息
 
 
-
-
+    /**
+     * 帖子相关
+     */
+    , postAdd:'/sysadmin/blog/BlogPosts/addPost' //添加帖子
+    , postSetCache:'/sysadmin/blog/BlogPosts/setPostCache' //缓存帖子
+    , postGetCache:'/sysadmin/blog/BlogPosts/getPostCache' //获取帖子缓存数据
 
 }
 
