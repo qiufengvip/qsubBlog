@@ -1,5 +1,5 @@
 <template>
-    <!--  新增文章  -->
+    <!--    修改文章  -->
     <div class="postAdd">
         <div class="top">
             <el-form :model="form" label-width="120px" style="width: 50%">
@@ -153,9 +153,10 @@ import {ElMessage, ElNotification} from "element-plus";
 import {API, uploadFile} from "@/http/api";
 import {post} from "@/http/http";
 import {toTree} from "@/utils/dataDispose";
+import { ElLoading } from 'element-plus'
 
 export default {
-    emits:[  //抛出的方法
+    emits:[
         "addTabs",
         "removeTab",// 移除标签
     ],
@@ -214,8 +215,9 @@ export default {
             searchKeyInputVisible: false,
             searchKeyInputValue: '', //
             model: 1,  //默认是一 加载缓存库中最新的数据
-            tabsId: 'f8a013b9ae1d4615b047fcf0550e8a71',//本页面的id
-            automaticallySaved: false,
+            tabsId:'f8a013b9ae1d4615b047fcf0550e8a71',//本页面的id
+            automaticallySaved:false,
+            postEdit:true,
         };
     },
     mounted() {
@@ -229,14 +231,21 @@ export default {
                 this.postStateList = res.data;
             }
         })
+        // console.log(this.$parent)
         this.readData();
     },
     methods: {
-        automatically() {
-            console.log('新建文章关闭自动保存方法')
-            this.automaticallySaved = false;
+        automatically(){
+            console.log('编辑文章-> 关闭自动保存方法')
+            this.automaticallySaved=false;
         },
-        readData() {
+        readData(postId) {
+            const loading = ElLoading.service({
+                lock: true,
+                text: '正在为您加载...',
+                background: 'rgba(0, 0, 0, 0.7)',
+            })
+            postId = this.$parent.name;
             if (this.model === 1) {
                 //获取文章分类
                 let _this = this;
@@ -248,29 +257,36 @@ export default {
                             item.value = item.id;
                         })
                         this.subtotal = toTree(data, "0b23919cb72a40afb15d9f2d533ed48b", null, "children")
+                        console.log(this.subtotal);
                         //加载帖子数据
-                        // post(API.postGetCache).then(res => {
-                        //     if (res.code === 0) {
-                        //         if (res.data) {
-                        //             this.labels = JSON.parse(res.data.labels);
-                        //             this.getResourceId(res.data.resourceId, this.subtotal)
-                        //             console.log("最终结果", this.resourceId)
-                        //             this.subtotalKey = 5;
-                        //             this.form = res.data;
-                        //             if (this.form.postsImg) {
-                        //                 document.getElementsByClassName("el-upload")[0].style.display = "none";
-                        //             }
-                        //             this.automaticallySaved = true;
-                        //             //自动缓存
-                        //             setInterval(function () {
-                        //                 _this.automaticStorage()
-                        //             }, 60000)
-                        //         }
-                        //     }
-                        // })
-                        setInterval(function () {
-                            _this.automaticStorage()
-                        }, 60000)
+                        post(API.postGetCache,{postId:postId}).then(res => {
+                            if (res.code === 0) {
+                                if (res.data) {
+                                    if (res.data.list){
+                                        if (res.data.list.length > 0){
+                                            let postData = JSON.parse(res.data.list[0].postJsonData);
+                                            if (postData.labels){
+                                                this.labels = JSON.parse(postData.labels);
+                                            }
+                                            this.getResourceId(postData.resourceId, this.subtotal)
+                                            console.log("最终结果", this.resourceId)
+                                            this.subtotalKey = 5;
+                                            this.form = postData;
+                                            if (this.form.postsImg) {
+                                                document.getElementsByClassName("el-upload")[0].style.display = "none";
+                                            }
+                                            this.automaticallySaved = true;
+                                            //自动缓存
+                                            setInterval(function () {
+                                                _this.automaticStorage()
+                                            }, 60000)
+                                            loading.close();
+                                        }
+                                    }
+
+                                }
+                            }
+                        })
                     } else {
                         ElMessage.error(res.msg)
                     }
@@ -333,7 +349,7 @@ export default {
             console.log("文章保存")
         },
         submits() {
-            this.automaticStorage(2,true);  //发布
+            this.automaticStorage(2);  //发布
         },
         getType() {
             let number = parseInt(5 * Math.random());
@@ -387,6 +403,7 @@ export default {
                     ElMessage.error(res.msg);
                 }
             })
+
             return false
         },
 
@@ -407,33 +424,28 @@ export default {
             console.log("点击", index)
         },
         //自动缓存
-        automaticStorage(state ,user) {
-            if (user){
-
-            }else {
-                if (!this.automaticallySaved) {
-                    return;
-                }
+        automaticStorage(state) {
+            if (!this.automaticallySaved){
+                return;
             }
-
             this.form.resourceId = this.resourceId[this.resourceId.length - 1]
             this.form.labels = JSON.stringify(this.labels);
             let data = JSON.parse(JSON.stringify(this.form));
             data.state = 1;
-            if (state) {
+            if (state){
                 data.state = state;
             }
             post(API.postSetCache, data).then(res => {
                 if (res.code === 0) {
-                    if (state === 2) {
+                    if (state===2){
                         ElNotification({
                             title: '发布',
                             message: '发布成功',
                             type: 'success',
                         })
                         this.automaticallySaved = false;
-                        this.$emit('removeTab', this.tabsId);
-                    } else {
+                        this.$emit('removeTab',this.form.id);
+                    }else{
                         ElNotification({
                             title: '远程存储',
                             message: res.msg,
@@ -442,9 +454,9 @@ export default {
                     }
                     this.form.id = res.data;
                 } else {
-                    if (state === 2) {
+                    if (state===2){
                         ElMessage.error(res.msg);
-                    } else {
+                    }else{
                         ElNotification({
                             title: '远程存储',
                             message: res.msg,
@@ -457,7 +469,7 @@ export default {
         },
         //暂存按钮
         staging() {
-            this.automaticStorage(1,true);  //存草稿
+            this.automaticStorage(1);  //存草稿
         },
 
         // 初始化

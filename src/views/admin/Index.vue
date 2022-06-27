@@ -98,7 +98,7 @@
                             :name="item.name"
                             style="height: 100%;"
                         >
-                            <component @removeTab="removeTab" :is="item.content">
+                            <component @removeTab="removeTab" @addTabs="addTabs" ref="tabs" :is="item.content">
                             </component>
                         </el-tab-pane>
                     </el-tabs>
@@ -127,6 +127,7 @@ import {toTree} from "@/utils/dataDispose";
 import postList from "@/components/admin/posts/postList";
 import postAdd from "@/components/admin/posts/postAdd";
 import siteConfig from "@/components/admin/site/siteConfig";
+import postEdit from "@/components/admin/posts/postEdit";
 export default {
     name: "AdminIndex",
     components: {
@@ -141,12 +142,13 @@ export default {
         constantList,  //数据字典
         postList,  //文章列表
         postAdd,   //添加文章
+        postEdit,// 编辑文章
         siteConfig, //站点配置
     },
     data() {
         return {
             editableTabs: [{
-                content: "postAdd",
+                content: "home",
                 name: "a769333502464d968ff6705bfc9fc4a4",
                 title: "首页"
             }],
@@ -190,7 +192,13 @@ export default {
         }
         //移除tab标签
         , removeTab(targetName) {
-            console.log(targetName)
+            console.log("移除tab标签",targetName)
+            // 文章编辑页面
+            this.$refs.tabs.forEach(item=>{
+                if (item['automaticallySaved'] !== undefined){
+                    item.automatically();
+                }
+            })
             if (this.editableTabs.length > 1) {
                 const tabs = this.editableTabs
                 let activeName = this.editableTabsValue
@@ -240,7 +248,6 @@ export default {
                 _this.editableTabs.push(tab)
             }
             this.editableTabsValue = tab.name
-
         },
         exit(){
             localStorage.setItem("token",undefined);

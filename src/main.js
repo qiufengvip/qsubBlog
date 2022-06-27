@@ -4,6 +4,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import router from './router'
 import store from './store'
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import * as echarts from "echarts";  //echarts图表
 
 // 全局变量
@@ -46,7 +47,9 @@ VueMarkdownEditor.use(createLineNumbertPlugin());
 
 const app = createApp(App)
 app.use(VueMarkdownEditor);
-app.use(ElementPlus)
+app.use(ElementPlus, {
+    locale: zhCn,
+})
 app.use(store);
 app.use(router);
 app.mount('#app');
