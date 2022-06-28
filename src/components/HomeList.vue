@@ -262,7 +262,7 @@ export default {
 
 .qsub-data-loading:hover{
   color: @font-color;
-  -webkit-box-shadow: -2px -2px 2px @background-color4, 2px 2px 2px @background-color4;
+  box-shadow: -2px -2px 2px @background-color4, 2px 2px 2px @background-color4;
 }
 
 </style>
