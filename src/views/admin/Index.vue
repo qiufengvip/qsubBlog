@@ -128,6 +128,7 @@ import postList from "@/components/admin/posts/postList";
 import postAdd from "@/components/admin/posts/postAdd";
 import siteConfig from "@/components/admin/site/siteConfig";
 import postEdit from "@/components/admin/posts/postEdit";
+import labelList from "@/components/admin/label/labelList";
 export default {
     name: "AdminIndex",
     components: {
@@ -144,11 +145,12 @@ export default {
         postAdd,   //添加文章
         postEdit,// 编辑文章
         siteConfig, //站点配置
+        labelList, // 标签管理
     },
     data() {
         return {
             editableTabs: [{
-                content: "home",
+                content: "labelList",
                 name: "a769333502464d968ff6705bfc9fc4a4",
                 title: "首页"
             }],
@@ -392,7 +394,7 @@ export default {
 
 .el-main {
     padding: 0 !important;
-    padding-top: 0px !important;
+    padding-top: 0 !important;
     background-color: @background-color2;
 }
 

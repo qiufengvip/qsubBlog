@@ -7,7 +7,7 @@ const API = {
 
 
     //首页
-    ,queryRuleResource:    '/sysadmin/base/Resource/getMenuData' //查询用户的菜单
+    , queryRuleResource: '/sysadmin/base/Resource/getMenuData' //查询用户的菜单
 
 
     /**
@@ -16,7 +16,7 @@ const API = {
     , addConstant: '/sysadmin/base/constant/addConstant'                    // 添加常量
     , deleteConstant: '/sysadmin/base/constant/deleteConstant'              // 删除变量
     , selectConstantList: '/sysadmin/base/constant/selectList'                      // 查询变量列表
-    , selectConstantData:  '/sysadmin/base/constant/selectConstantData' //查询常量值
+    , selectConstantData: '/sysadmin/base/constant/selectConstantData' //查询常量值
     , addConstantData: '/sysadmin/base/constant/data/addConstantData'       // 添加常量值
     , deleteConstantData: '/sysadmin/base/constant/data/deleteConstantData' // 删除变量值
 
@@ -24,19 +24,31 @@ const API = {
     /**
      * 站点配置管理
      */
-    ,  getConfigList:'/sysadmin/blog/blogConfig/getConfigList'// 配置项列表
-    ,  updateBlogConfig:'/sysadmin/blog/blogConfig/update'// 添加或更新
-    ,  deletedBlogConfig:'/sysadmin/blog/blogConfig/deleted'// 删除配置项
-    ,  getConfigData:'/sysadmin/blog/blogConfig/getConfigData'// 获取配置项信息
+    , getConfigList: '/sysadmin/blog/blogConfig/getConfigList'// 配置项列表
+    , updateBlogConfig: '/sysadmin/blog/blogConfig/update'// 添加或更新
+    , deletedBlogConfig: '/sysadmin/blog/blogConfig/deleted'// 删除配置项
+    , getConfigData: '/sysadmin/blog/blogConfig/getConfigData'// 获取配置项信息
 
 
     /**
      * 帖子相关
      */
-    , postAdd:'/sysadmin/blog/BlogPosts/addPost' //添加帖子
-    , postSetCache:'/sysadmin/blog/BlogPosts/setPostCache' //缓存帖子
-    , postGetCache:'/sysadmin/blog/BlogPosts/getPostCache' //获取帖子缓存数据
-    , getPostList:  '/sysadmin/blog/BlogPosts/getPostList' //获取帖子列表
+    , postAdd: '/sysadmin/blog/BlogPosts/addPost' //添加帖子
+    , postSetCache: '/sysadmin/blog/BlogPosts/setPostCache' //缓存帖子
+    , postGetCache: '/sysadmin/blog/BlogPosts/getPostCache' //获取帖子缓存数据
+    , getPostList: '/sysadmin/blog/BlogPosts/getPostList' //获取帖子列表
+
+    /**
+     * 标签管理
+     */
+    , getLabelList: '/sysadmin/blog/BlogPostsLabel/getLabelList'  //获取标签列表
+    , deletedLabel: '/sysadmin/blog/BlogPostsLabel/deletedLabel'  //删除标签
+
+
+    /**
+     * 客户端页
+     */
+    , getIndexInfo :'/blog/index/getIndexInfo'  //首页信息
 
 }
 
@@ -83,8 +95,6 @@ export const request_resource_mobileData = (parent) => post('/sysadmin/base/Reso
 export const request_resource_getSubset = (parent) => post('/sysadmin/base/Resource/getSubset', parent);
 
 
-
-
 /**
  * 人员管理
  */
@@ -98,5 +108,4 @@ export const request_virtualUserRole_getUserRole = (parent) => post('/sysadmin/b
 export const request_virtualUserRole_virtualUserRole = (parent) => post('/sysadmin/base/virtualUserRole/saveUserRole', parent);
 
 
-
-export const uploadFile =(parent)=> uploader("/sysadmin/base/sysFile/upload",parent);
+export const uploadFile = (parent) => uploader("/sysadmin/base/sysFile/upload", parent);

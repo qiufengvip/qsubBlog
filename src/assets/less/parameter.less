@@ -16,6 +16,22 @@
 @font-color2: #747474;
 
 
+// 导出变量
+//:export{
+//  name: "less";
+//  backgroundColor: @background-color;
+//  backgroundColor2: @background-color2;
+//  backgroundColor3: @background-color3;
+//  backgroundColor4: @background-color4;
+//  fontColor: @font-color;
+//  fontColor2: @font-color2;
+//}
+
+
+
+
+
+
  // // 明亮主题
 //////菜单栏背景
 //@background-color: #f5f5f5;
@@ -150,4 +166,26 @@ element 组件基础样式
 
 :root{
   --el-border-color-extra-light:@font-color2;
+}
+
+
+// 抽屉
+.el-drawer {
+  background-color: @background-color;
+}
+
+
+//禁止文字选择
+.selected{
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Chrome/Safari/Opera */
+  -khtml-user-select: none;
+  /* Konqueror */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
 }

@@ -78,7 +78,6 @@ body {
 
 .el-main {
   padding: 0 !important;
-  padding-top: 1px !important;
 }
 .body{
   width: 100vm;
