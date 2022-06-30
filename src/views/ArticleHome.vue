@@ -1,36 +1,34 @@
 <template>
-  <div class="body">
-    <div class="main">
-      <div class="left">
-        <div class="left-main">
-          <!--  展示 -->
-          <div class="article-top">
-            <div></div>
-            <div></div>
-          </div>
-          <v-md-editor
-              :model-value="data.text" @copy-code-success="handleCopyCodeSuccess"
+    <div class="body">
+        <div class="main">
+            <div class="left">
+                <div class="left-main">
+                    <!--  展示 -->
+                    <div class="article-top">
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <v-md-editor :model-value="data.text" @copy-code-success="handleCopyCodeSuccess"
+                                 mode="preview"></v-md-editor>
+                </div>
+                <!--        评论 -->
+                <div class="comment">
+                    <comment></comment>
+                </div>
 
-          ></v-md-editor>
+
+            </div>
+            <div class="right">
+                <div class="right-main">
+                    <hot-post></hot-post>
+                    <hot-comments></hot-comments>
+                </div>
+
+            </div>
         </div>
-<!--        评论 -->
-        <div class="comment">
-          <comment></comment>
-        </div>
 
 
-      </div>
-      <div class="right">
-        <div class="right-main">
-          <hot-post></hot-post>
-          <hot-comments></hot-comments>
-        </div>
-
-      </div>
     </div>
-
-
-  </div>
 </template>
 
 <script>
@@ -39,18 +37,18 @@ import HotComments from "@/components/HotComments";
 import Comment from "@/components/Comment";
 
 export default {
-  name: "ArticleHome",
-  components: {HotComments, HotPost,Comment},
-  data() {
-    return {
-      data:{
-        img: "http://file.luanshiliunian.cn/11111_1637034086344.jpg",
-        title: "",
-        content: "夜深了，世界安静了，风不再呼喊，树也不再摇曳，更像是睡着了。是否你也和树做了一个同样的梦，向往着星辰大海，向往着盛世繁华。",
-        date: "2021-11-26",
-        look: 51,
-        comment: 85,
-        text: `
+    name: "ArticleHome",
+    components: {HotComments, HotPost, Comment},
+    data() {
+        return {
+            data: {
+                img: "http://file.luanshiliunian.cn/11111_1637034086344.jpg",
+                title: "",
+                content: "夜深了，世界安静了，风不再呼喊，树也不再摇曳，更像是睡着了。是否你也和树做了一个同样的梦，向往着星辰大海，向往着盛世繁华。",
+                date: "2021-11-26",
+                look: 51,
+                comment: 85,
+                text: `
 # SpringCloud微服务框架
 
 ## 什么是微服务
@@ -73,158 +71,6 @@ export default {
 
 Java EE部署架构，通过展现层打包WAR包，业务层划分到JARs最后部署为EAR一个大包，而微服务则打开了这个黑盒子，把应用拆分成为一个一个的单个服务，应用Docker技术，不依赖任何服务器和数据模型，是一个全栈应用，可以通过自动化方式独立部署，每个服务运行在自己的进程中，通过轻量的通讯机制联系，经常是基于HTTP资源API，这些服务基于业务能力构建，能实现集中化管理（因为服务太多啦，不集中管理就无法DevOps啦）。
 
-\`\`\`
-简而言之 就是多个项目相互协作共同实现某个项目的所有功能
-\`\`\`
-
-
-
-## 初始微服务
-
-- 我们先创建一个常规的项目
-
-### pom文件
-
-\`\`\`xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>springcloud01Root</artifactId>
-        <groupId>org.example</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>pro.qsub.usermodule</groupId>
-    <artifactId>springcloud01UserModule</artifactId>
-
-    <dependencies>
-        <dependency>
-            <groupId>pro.qsub.common</groupId>
-            <artifactId>springcloud01common</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus</artifactId>
-        </dependency>
-        <!--test-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-test</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jetty</artifactId>
-        </dependency>
-        <!--热部署-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-        </dependency>
-    </dependencies>
-</project>
-\`\`\`
-
-- dao层代码
-
-\`\`\`java
-package pro.qsub.usermodule.dao;
-
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import pro.qsub.common.dao.User;
-
-
-public interface UserMapper extends BaseMapper<User> {
-
-}
-\`\`\`
-
-
-
-- service层代码
-
-\`\`\`java
-package pro.qsub.usermodule.service;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import pro.qsub.common.dao.User;
-import pro.qsub.common.utils.Putdata;
-import pro.qsub.usermodule.dao.UserMapper;
-
-import java.util.Map;
-
-@Service
-public class UserServiceImpl implements IUserService{
-    @Autowired
-    private UserMapper userMapper;
-
-    /**
-     * 查询所有用户
-     * @return 用户的请求信息
-     */
-    public Map<String, Object> selectUser(){
-        return Putdata.printf(0,"请求成功",userMapper.selectList(null));
-    }
-}
-
-\`\`\`
-
-- service层接口
-
-\`\`\`java
-package pro.qsub.usermodule.service;
-
-import pro.qsub.common.dao.User;
-
-import java.util.Map;
-
-public interface IUserService {
-
-    /**
-     * 查询所有用户
-     * @return 用户的请求信息
-     */
-    public Map<String, Object> selectUser();
-}
-
-\`\`\`
-
-
-
-- Controller层代码
-
-\`\`\`java
-没写
-\`\`\`
-
-
-
 - 启动类
 
 \`\`\`java
@@ -237,34 +83,34 @@ public interface IUserService {
 
 
 `
-      },
-    };
-  },
-  methods: {
-    handleCopyCodeSuccess(code) {
-      console.log(code);
+            },
+        };
     },
-    handleUploadImage(event, insertImage, files) {
-      // 拿到 files 之后上传到文件服务器，然后向编辑框中插入对应的内容
-      console.log(files);
+    methods: {
+        handleCopyCodeSuccess(code) {
+            console.log(code);
+        },
+        handleUploadImage(event, insertImage, files) {
+            // 拿到 files 之后上传到文件服务器，然后向编辑框中插入对应的内容
+            console.log(files);
 
-      // 此处只做示例
-      insertImage({
-        url:
-            'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1269952892,3525182336&fm=26&gp=0.jpg',
-        desc: '七龙珠',
-        // width: 'auto',
-        // height: 'auto',
-      });
+            // 此处只做示例
+            insertImage({
+                url:
+                    'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1269952892,3525182336&fm=26&gp=0.jpg',
+                desc: '七龙珠',
+                // width: 'auto',
+                // height: 'auto',
+            });
+        },
     },
-  },
 }
 </script>
 
 <style lang="less">
 .vuepress-markdown-body {
-  color: @font-color !important;
-  background-color: @background-color3 !important;
+    color: @font-color !important;
+    background-color: @background-main !important;
 }
 
 
@@ -272,53 +118,60 @@ public interface IUserService {
 
 <style lang="less" scoped>
 .body {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  background: @background-color2;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: @background;
 }
-.v-md-editor{
-  background-color: #00000000 !important;
+
+.v-md-editor {
+    background-color: #00000000 !important;
 }
-.vuepress-markdown-body{
-  background-color: #00000000 !important;
+
+.vuepress-markdown-body {
+    background-color: #00000000 !important;
 }
 
 .main {
-  width: 1300px;
-  display: flex;
-  background-color: @background-color3;
+    width: 1300px;
+    display: flex;
+    background-color: @background-main;
 }
 
 
 .left {
-  width: 900px;
+    width: 900px;
 }
 
 .right {
-  width: 400px;
+    width: 400px;
 }
-.right-main{
-  padding: 10px;
-}
-.left-main{
-  padding: 10px;
-}
-.comment{
-  padding: 10px;
-}
-@media screen and (max-width: 1400px) {
-  .left {
-    width: 100%;
-  }
-  .right {
-    width: 100%;
-    /*display: none;*/
-  }
 
-  .main{
-    flex-direction:column;
-  }
+.right-main {
+    padding: 10px;
+}
+
+.left-main {
+    padding: 10px;
+}
+
+.comment {
+    padding: 10px;
+}
+
+@media screen and (max-width: 1400px) {
+    .left {
+        width: 100%;
+    }
+
+    .right {
+        width: 100%;
+        /*display: none;*/
+    }
+
+    .main {
+        flex-direction: column;
+    }
 }
 
 

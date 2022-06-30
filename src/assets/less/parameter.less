@@ -1,28 +1,59 @@
 //字体颜色
 //@font-color: #212146;
 
+
+
 // 暗黑主题
 //菜单栏背景
-@background-color: #212121;
+//@background-menu-immerse: rgba(32, 32, 32, 0.5);
+//@background-menu: #202020;
+////背景
+//@background: #171717;
+////内容背景
+//@background-main: #252525;
+//// 选中内容背景
+//@background-up: #414141;
+////字体
+//@font-color: #D4D4D5;
+////子标题
+//@font-color2: #A49EA0;
+
+
+//@background-menu-immerse: rgba(255, 255, 255, 0.5);
+//@background-menu:#ffffff;
+////背景
+//@background:#f5f7f9;
+//// 内容背景
+//@background-main:#fefeff;
+//// 选中内容背景
+//@background-up: #f5f5f5;
+////字体
+//@font-color: #3c4248;
+////子标题
+//@font-color2: #757575;
+
+
+@background-menu-immerse: rgba(233, 237, 246, 0.5);
+@background-menu: #d7dce8;
 //背景
-@background-color2: #181818;
-//内容背景
-@background-color3: #252525;
+@background:#dae0ef;
+// 内容背景
+@background-main: #e9edf6;
 // 选中内容背景
-@background-color4: #414141;
+@background-up: #ced4ea;
 //字体
-@font-color: #FFFFFF;
+@font-color: #4d5153;
 //子标题
-@font-color2: #747474;
+@font-color2: #4d5153;
 
 
 // 导出变量
 //:export{
 //  name: "less";
-//  backgroundColor: @background-color;
-//  backgroundColor2: @background-color2;
-//  backgroundColor3: @background-color3;
-//  backgroundColor4: @background-color4;
+//  backgroundColor: @background;
+//  backgroundColor2: @background;
+//  backgroundColor3: @background-main;
+//  backgroundColor4: @background-up;
 //  fontColor: @font-color;
 //  fontColor2: @font-color2;
 //}
@@ -34,13 +65,13 @@
 
  // // 明亮主题
 //////菜单栏背景
-//@background-color: #f5f5f5;
+//@background: #f5f5f5;
 ////背景
-//@background-color2: #eeeeee;
+//@background: #eeeeee;
 ////内容背景
-//@background-color3: #ececec;
+//@background-main: #ececec;
 //// 选中内容背景
-//@background-color4: #e0e0e0;
+//@background-up: #e0e0e0;
 ////字体
 //@font-color: #000000;
 ////子标题
@@ -54,6 +85,11 @@
 @logo-color: #E87955;
 
 
+
+.el-button{
+  color: #ffffff;
+}
+
 /**
 element 组件基础样式
  */
@@ -61,14 +97,14 @@ element 组件基础样式
 .el-tree {
   position: relative;
   cursor: default;
-  background: @background-color3;
+  background: @background-main;
   color: @font-color;
 }
 
 // 水平分割线
 .el-divider__text {
   position: absolute;
-  background-color: @background-color3;
+  background-color: @background-main;
   padding: 0 20px;
   font-weight: 500;
   color: @font-color;
@@ -82,12 +118,12 @@ element 组件基础样式
 
 //tree 选中
 .el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content {
-  background-color: @background-color4;
+  background-color: @background-up;
 }
 
 // 弹出框
 .el-dialog {
-  --el-dialog-bg-color: @background-color3;
+  --el-dialog-bg-color: @background-main;
 }
 
 .el-dialog__title {
@@ -101,7 +137,7 @@ element 组件基础样式
 
 // 输入框textarea
 .el-textarea {
-  --el-input-bg-color: @background-color3;
+  --el-input-bg-color: @background-main;
 }
 
 .el-popper {
@@ -119,18 +155,18 @@ element 组件基础样式
 }
 //
 .el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li {
-  background-color:@background-color4;
+  background-color:@background-up;
 }
 
 //穿梭框
 .el-transfer {
   //描边
-  --el-transfer-border-color: @background-color2;
+  --el-transfer-border-color: @background;
   //标题
-  --el-transfer-panel-header-bg-color:@background-color;
+  --el-transfer-panel-header-bg-color:@background;
 }
 .el-transfer-panel {
-  background: @background-color4;
+  background: @background-up;
 }
 .el-transfer-panel .el-transfer-panel__header .el-checkbox .el-checkbox__label {
   color: @font-color;
@@ -138,7 +174,7 @@ element 组件基础样式
 
 //通知框
 .el-notification{
-  background-color: @background-color2;
+  background-color: @background;
 }
 .el-notification__title{
   color: @font-color;
@@ -152,16 +188,16 @@ element 组件基础样式
   border-radius: 6px 0 0 3px;
 }
 .el-input__inner{
-  background-color: @background-color2;
+  background-color: @background;
 }
 .el-picker-panel {
   color: @font-color;
 }
 .el-picker-panel__content{
-  background: @background-color2;
+  background: @background;
 }
 .el-date-table td.in-range .el-date-table-cell{
-  background: @background-color3;
+  background: @background-main;
 }
 
 :root{
@@ -171,7 +207,7 @@ element 组件基础样式
 
 // 抽屉
 .el-drawer {
-  background-color: @background-color;
+  background-color: @background;
 }
 
 

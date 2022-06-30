@@ -163,7 +163,7 @@ export default {
 
 .qsub-hot {
   /*margin: 10px;*/
-  background: @background-color3;
+  background: @background-main;
   border-radius: 5px;
 }
 
@@ -211,7 +211,7 @@ export default {
 
 .qsub-hot-content-bottom {
 
-  background: @background-color4;
+  background: @background-up;
   padding: 8px 8px 0 8px;
   border-radius: 5px;
   font-size: 15px;
@@ -232,9 +232,9 @@ export default {
 .qsub-hot-content-main::before {
   content: " ";
   border-left: 8px solid transparent;
-  border-top: 0 solid @background-color4;
+  border-top: 0 solid @background-up;
   border-right: 8px solid transparent;
-  border-bottom: 8px solid @background-color4;
+  border-bottom: 8px solid @background-up;
   position: absolute;
   left: 10px;
   top: -8px;

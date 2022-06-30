@@ -107,7 +107,7 @@ export default {
 <style  lang="less" scoped>
 
 .comment-body{
-  background-color: @background-color3;
+  background-color: @background-main;
 }
 
 .title{

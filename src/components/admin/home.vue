@@ -130,9 +130,9 @@
         <!--        注册人数-->
         <!--        发帖量-->
         <!--        点赞浏览-->
-        <div ref="myChart" :style="{ width: '1000px', height: '500px' }"></div>
+        <div ref="myChart" class="chart" :style="{ width: '1000px', height: '500px' }"></div>
         <!--        总帖 本人帖-->
-        <div ref="myChartDoughnut" :style="{ width: '600px', height: '500px' }"></div>
+        <div ref="myChartDoughnut" class="chart" :style="{ width: '600px', height: '500px' }"></div>
     </div>
 
 
@@ -160,7 +160,7 @@ export default {
                 color: [
                     new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                         {offset: 0, color: "#E7B115"},
-                        {offset: 1, color: "#F5814C"}
+                        {offset: 1, color: "#f5ed08"}
                     ]),
                     new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                         {offset: 0, color: "#02CEFC"},
@@ -170,8 +170,8 @@ export default {
 
                 ],
                 grid: {
-                    x: 32,
-                    y: 50,
+                    x: 50,
+                    y: 80,
                     x2: 32,
                     y2: 50
                 },
@@ -221,10 +221,10 @@ export default {
                 legend: {     //一个漂浮的数据展示 可以定义样式
                     data: ['浏览量', '点赞量'],
                     textStyle: {  //标题样式
-                        color: '#ffffff',
+                        color: '#000',
                         fontSize: 13
                     },
-                    // right:'50%',
+                    top:'20',
                 },
                 yAxis: {
                     type: 'value',
@@ -249,11 +249,11 @@ export default {
                             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                                 {
                                     offset: 0,
-                                    color: '#F5814C'
+                                    color: '#f5ed08'
                                 },
                                 {
                                     offset: 1,
-                                    color: 'rgba(0,0,0,0)'
+                                    color: 'rgba(151,151,151,0)'
                                 }
                             ])
                         },
@@ -273,7 +273,7 @@ export default {
                                 },
                                 {
                                     offset: 1,
-                                    color: 'rgba(0,0,0,0)'
+                                    color: 'rgba(146,146,146,0)'
                                 }
                             ])
                         },
@@ -296,7 +296,7 @@ export default {
                         left: "65%",
                         top: "45%",
                         textStyle: {  //标题样式
-                            color: '#ffffff',
+                            color: '#000000',
                             fontSize: 13
                         },
                     },
@@ -341,10 +341,10 @@ export default {
                                 normal: {
                                     show: true,
                                     position: 'center',
-                                    color: '#4c4a4a',
+                                    color: '#030303',
                                     formatter: '{total| 522}' + '\n\r' + '{active|我发布的文章}', rich: {
-                                        total: {fontSize: 35, fontFamily: "微软雅黑", color: '#ffffff', fontWeight: 'bold',},
-                                        active: {fontFamily: "微软雅黑", fontSize: 16, color: '#cdcdcd', lineHeight: 30,},
+                                        total: {fontSize: 35, fontFamily: "微软雅黑", color: '#000000', fontWeight: 'bold',},
+                                        active: {fontFamily: "微软雅黑", fontSize: 16, color: '#000000', lineHeight: 30,},
                                     }
                                 }, emphasis: {//中间文字显示
                                     show: true,
@@ -358,7 +358,8 @@ export default {
                             data: [
                                 {total: 55, value: 152, name: '全部文章'},
                                 {total: 55, value: 12, name: '我的文章'},
-                            ]
+                            ],
+
                         }
                     ]
                 }
@@ -399,7 +400,7 @@ export default {
             margin: 10px;
 
             .t-tle {
-                color: @font-color;
+                color: #fff;
                 font-size: 20px;
                 font-weight: bold;
             }
@@ -437,7 +438,7 @@ export default {
             .t-d-1 {
                 display: flex;
                 align-items: flex-end;
-                color: @font-color;
+                color: #fff;
                 font-weight: bold;
 
                 .t-d-1-1 {
@@ -452,7 +453,7 @@ export default {
 
             .t-d-2 {
                 padding: 8px;
-                color: @font-color;
+                color: #fff;
                 font-size: 13px;
             }
         }
@@ -485,7 +486,7 @@ export default {
 
             .i-i-d {
                 padding: 0 20px;
-                color: @font-color;
+                color: #fff;
                 font-size: 25px;
                 font-weight: bold;
             }
@@ -518,10 +519,17 @@ export default {
 
 .tj {
     margin: 20px 20px 10px 20px;
-    padding: 20px 10px 10px 10px;
     border-radius: 5px;
-    background: @background-color3;
+    background: @background-main;
     display: flex;
+    justify-content: space-between;
+}
+.chart{
+    background-color: #ffb29e;
+    border-radius: 8px;
+}
+.chart2{
+
 }
 
 </style>

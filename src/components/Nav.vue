@@ -20,7 +20,7 @@ export default {
   display: flex;
   justify-content: center;
   width: 100%;
-  background: @background-color3;
+  background: @background-main;
   margin: 10px 0;
 }
 .qsub-nav-item{
@@ -35,7 +35,7 @@ export default {
   color: @font-color;
 }
 .qsub-nav-item:hover{
-  background: @background-color4;
+  background: @background-up;
 }
 
 </style>

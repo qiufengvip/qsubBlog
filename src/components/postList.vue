@@ -36,7 +36,7 @@
 import {Clock, View} from '@element-plus/icons'
 
 export default {
-  name: "HomeList",
+  name: "postList",
   components: {
     Clock,
     View,
@@ -174,7 +174,7 @@ export default {
   margin: 20px 0;
   width: 100%;
   border-radius: 5px;
-  background: @background-color3;
+  background: @background-main;
 }
 
 .qsub-homeList-vessel {
@@ -252,7 +252,7 @@ export default {
   text-align:center;
   line-height: 60px;
   border-radius: 5px;
-  background: @background-color3;
+  background: @background-main;
   font-size: 16px;
   font-weight: bold;
   color: @font-color;
@@ -262,7 +262,7 @@ export default {
 
 .qsub-data-loading:hover{
   color: @font-color;
-  box-shadow: -2px -2px 2px @background-color4, 2px 2px 2px @background-color4;
+  box-shadow: -2px -2px 2px @background-up, 2px 2px 2px @background-up;
 }
 
 </style>

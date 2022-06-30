@@ -299,6 +299,6 @@ export default {
     align-items: center;
     width: 100%;
     height: 100%;
-    background-color: @background-color4;
+    background-color: @background-up;
 }
 </style>

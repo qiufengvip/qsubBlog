@@ -20,7 +20,7 @@
                 </div>
                 <el-menu
                     default-active="2"
-                    class="el-menu-vertical"
+                    class="el-menu-vertical selected"
                     :collapse="isCollapse"
                     @select="menuSelect"
                 >
@@ -267,15 +267,15 @@ export default {
 
 .el-sub-menu__title:hover,
 .el-menu-item:hover {
-    background-color: @background-color4 !important;
+    background-color: @background-up !important;
 }
 
 .el-menu {
-    background-color: @background-color !important;
+    background-color: @background-menu !important;
 }
 
 .el-menu-item.is-active {
-    background-color: @background-color4;
+    background-color: @background-up;
 }
 
 .el-menu-item {
@@ -287,19 +287,19 @@ export default {
 }
 
 .el-tabs--card > .el-tabs__header .el-tabs__nav {
-    border: 1px solid @background-color4;
+    border: 1px solid @background-up;
 }
 
 .el-tabs--card > .el-tabs__header {
-    border-bottom: 1px solid @background-color4;
+    border-bottom: 1px solid @background-up;
 }
 
 .el-tabs--card > .el-tabs__header .el-tabs__item.is-active {
-    border-bottom-color: @background-color4;
+    border-bottom-color: @background-up;
 }
 
 .el-tabs--card > .el-tabs__header .el-tabs__item {
-    border-left: 1px solid @background-color4;
+    border-left: 1px solid @background-up;
 }
 
 .el-tabs__item {
@@ -309,7 +309,7 @@ export default {
 
 .el-tabs__item.is-active {
     color: @font-color;
-    background-color: @background-color4;
+    background-color: @background-up;
 }
 
 .el-tabs__item:hover {
@@ -324,9 +324,9 @@ export default {
 <style lang="less">
 .el-card {
     //分割线
-    --el-card-border-color: @background-color4;
+    --el-card-border-color: @background-up;
     //背景
-    --el-card-bg-color: @background-color3;
+    --el-card-bg-color: @background-main;
 }
 .el-card {
     color: @font-color;
@@ -335,39 +335,39 @@ export default {
 
 
 .el-table {
-    --el-table-border-color: @background-color4;
+    --el-table-border-color: @background-up;
     --el-table-border: 1px solid var(--el-table-border-color);
     --el-table-text-color: @font-color;
     --el-table-header-text-color: @font-color;
-    --el-table-row-hover-bg-color: @background-color4;
-    --el-table-current-row-bg-color: @background-color4;
-    --el-table-header-bg-color: @background-color2;
+    --el-table-row-hover-bg-color: @background-up;
+    --el-table-current-row-bg-color: @background-up;
+    --el-table-header-bg-color: @background;
     --el-table-fixed-box-shadow: 0 0 10px rgba(0, 0, 0, 0.12);
-    --el-table-bg-color: @background-color3;
-    --el-table-tr-bg-color: @background-color3;
-    --el-table-expanded-cell-bg-color: @background-color3;
+    --el-table-bg-color: @background-main;
+    --el-table-tr-bg-color: @background-main;
+    --el-table-expanded-cell-bg-color: @background-main;
 }
 :root {
-    --el-bg-color:@background-color4;
+    --el-bg-color:@background-up;
     --el-color-white:@font-color;
     --el-color-info:@font-color;
-    --el-border-base: var(--el-border-width-base) var(--el-border-style-base) @background-color4;
-    --el-border-color-light:@background-color4;
+    --el-border-base: var(--el-border-width-base) var(--el-border-style-base) @background-up;
+    --el-border-color-light:@background-up;
     --el-text-color-regular:@font-color;
 }
 .el-popper.is-light .el-popper__arrow::before {
-    background: @background-color4;
+    background: @background-up;
 }
 
 .el-input-group__prepend {
-    border: 1px solid @background-color4;
+    border: 1px solid @background-up;
 }
 .el-input{
     --el-input-text-color:@font-color;
-    --el-input-bg-color:@background-color3;
+    --el-input-bg-color:@background-main;
 }
 .el-scrollbar{
-    background:@background-color;
+    background:@background;
 }
 
 </style>
@@ -395,20 +395,20 @@ export default {
 .el-main {
     padding: 0 !important;
     padding-top: 0 !important;
-    background-color: @background-color2;
+    background-color: @background;
 }
 
 .el-menu-vertical {
-    background-color: @background-color;
+    background-color: @background;
     height: auto;
-    border-right: solid 1px @background-color4;
+    border-right: solid 1px @background-up;
     color: @font-color;
     flex-grow: 1;
 }
 
 .aside {
     height: 100%;
-    background-color: @background-color;
+    background-color: @background;
     display: flex;
     flex-direction: column;
 }
@@ -425,7 +425,7 @@ export default {
 
 .header {
     width: 100%;
-    background-color: @background-color;
+    background-color: @background-menu;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -440,7 +440,7 @@ export default {
     height: 60px;
     line-height: 60px;
     text-align: center;
-    background-color: @background-color3;
+    background-color: @background-main;
     color: @font-color;
     display: flex;
     font-weight: bold;
@@ -463,6 +463,7 @@ export default {
 }
 
 .tab-main {
+    background-color: @background-main;
     padding: 10px;
     flex-grow: 1;
 }

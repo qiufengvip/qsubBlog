@@ -1,3 +1,4 @@
+<!--网站底部-->
 <template>
 <div class="qsub-bottom" >
   <div class="qsub-bottom-main">
@@ -46,7 +47,7 @@ export default {
 }
 
 .qsub-bottom{
-  background-color: @background-color;
+  background-color: @background-menu;
   display: flex;
   justify-content: center;
   width: 100%;

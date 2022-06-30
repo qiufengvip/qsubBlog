@@ -308,7 +308,7 @@ export default {
 .resourceList{
     .el-tree-node__content {
         height: 50px !important;
-        border: 1px solid @background-color4;
+        border: 1px solid @background-up;
         margin-top: -1px;
     }
 }
@@ -345,13 +345,13 @@ export default {
 
 .tree-resourceType {
     width: 210px;
-    border-left: 1px solid @background-color4;
+    border-left: 1px solid @background-up;
     padding-left: 10px;
 }
 
 .tree-resourceValue {
     width: 210px;
-    border-left: 1px solid @background-color4;
+    border-left: 1px solid @background-up;
     padding-left: 10px;
 }
 
@@ -361,17 +361,17 @@ export default {
     white-space: nowrap;
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
-    border-left: 1px solid @background-color4;
+    border-left: 1px solid @background-up;
     padding-left: 10px;
 }
 
 .tree-bar {
     width: 210px;
-    border-left: 1px solid @background-color4;
+    border-left: 1px solid @background-up;
     padding-left: 10px;
 }
 .node-title{
-    border: 1px solid @background-color4;
+    border: 1px solid @background-up;
     font-size: 17px !important;
     .tree-resourceName{
         padding-left: 10px;

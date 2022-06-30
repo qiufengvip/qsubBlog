@@ -85,12 +85,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: @background-color2;
+  background-color: @background;
   color: @font-color;
 }
 
 .login{
-  background-color: @background-color3;
+  background-color: @background-main;
   width: 400px;
   height: 300px;
   border-radius: 5px;
@@ -106,7 +106,7 @@ body {
   padding: 20px;
   font-size: 23px;
   font-weight: bold;
-  border-bottom: 1px solid @background-color4;
+  border-bottom: 1px solid @background-up;
 }
 
 .form{

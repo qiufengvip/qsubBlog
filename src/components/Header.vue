@@ -1,4 +1,5 @@
 <template>
+    <!--    站点头部 -->
     <transition name="el-zoom-in-top">
         <div v-show="show" id="qsub-header" ref="transitionBox" @click="searchData" class="qsub-header selected">
             <div class="qsub-header-body">
@@ -81,16 +82,16 @@
     </transition>
 
 
-    <el-drawer v-model="menuMobile" size="500" :direction="direction"  :with-header="false">
+    <el-drawer v-model="menuMobile" size="500" :direction="direction" :with-header="false">
         <div class="mobile-top selected">
-            <el-avatar :size="100" :src="userImg" />
+            <el-avatar :size="100" :src="userImg"/>
             <div class="user-name">Hi! &nbsp 欢迎登录</div>
         </div>
 
         <div class="menu-mobile selected">
 
             <ul>
-                <li class="menu-mobile-li"  v-for="item in  menuData">
+                <li class="menu-mobile-li" v-for="item in  menuData">
                     <div class="menu-mobile-item" @click="menuMobileClick(item)">
                         <div class="menu-mobile-item-title">
                             <div v-html="item.resourceData">
@@ -99,7 +100,8 @@
                         </div>
                         <div v-html="arrowXia" v-if="item.sub.length>0"></div>
                     </div>
-                    <div :style="item.mobileShow?'height:' + (item.sub.length*45)+ 'px':'height:0'" class="menu-mobile-list" v-if="item.sub.length>0">
+                    <div :style="item.mobileShow?'height:' + (item.sub.length*45)+ 'px':'height:0'"
+                         class="menu-mobile-list" v-if="item.sub.length>0">
                         <div class="menu-mobile-item" v-for="item2  in item.sub">
                             <div class="menu-mobile-item-a">
                                 <div v-html="item2.resourceData">
@@ -132,7 +134,7 @@ export default {
     },
     data() {
         return {
-            userImg:'http://file.qsub.cn/userimg.png',
+            userImg: 'http://file.qsub.cn/userimg.png',
             show: false,
             activeIndex: '',
             oldScrollTop: 0, // 滚动前，滚动条距顶部的距离
@@ -155,10 +157,10 @@ export default {
         };
     },
     methods: {
-        menuMobileClick:function (item){
-            if (item.mobileShow){
+        menuMobileClick: function (item) {
+            if (item.mobileShow) {
                 item.mobileShow = false;
-            }else {
+            } else {
                 item.mobileShow = true;
             }
 
@@ -178,9 +180,9 @@ export default {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop ||
                 document.body.scrollTop
             let attribute;
-            try{
+            try {
                 attribute = this.$refs.transitionBox.getAttribute('id');
-            }catch (e) {
+            } catch (e) {
 
             }
             console.log(attribute)
@@ -242,38 +244,41 @@ export default {
 
 <style lang="less" scoped>
 
-.menu-mobile-list{
+.menu-mobile-list {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     //display: none;
-    height:0;
-    transition:height 0.3s;
+    height: 0;
+    transition: height 0.3s;
     margin-left: 20px;
 }
-.menu-mobile-list-up{
+
+.menu-mobile-list-up {
 }
 
 
-
-.menu-mobile-item-title{
-    display: flex;
-    align-items: center;
-}
-.menu-mobile-item-a{
+.menu-mobile-item-title {
     display: flex;
     align-items: center;
 }
 
-.menu-mobile-item{
+.menu-mobile-item-a {
+    display: flex;
+    align-items: center;
+}
+
+.menu-mobile-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-radius: 5px;
     height: 25px;
-    padding:10px 10px;
+    padding: 10px 10px;
 }
-.menu-mobile-li{
+
+.menu-mobile-li {
+
 
     color: @font-color;
 
@@ -282,22 +287,26 @@ export default {
     font-size: 15px;
     font-weight: bold;
 }
-.menu-mobile-item:hover{
-    background: @background-color4;
+
+.menu-mobile-item:hover {
+    background: @background-up;
 }
-.menu-mobile-title{
+
+.menu-mobile-title {
     margin-left: 10px;
 }
-.menu-mobile{
+
+.menu-mobile {
     width: 180px;
 }
 
-.mobile-top{
+.mobile-top {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.user-name{
+
+.user-name {
     margin: 20px 0;
     color: @font-color;
     font-size: 16px;
@@ -305,8 +314,7 @@ export default {
 }
 
 #qsub-header-bg {
-    background-color: @background-color2;
-    opacity: 0.8;
+    background-color: @background-menu;
 }
 
 .qsub-menu-list {
@@ -341,7 +349,7 @@ export default {
 }
 
 .qsub-menu-li:hover {
-    //background: @background-color4;
+    //background: @background-up;
 
     //.qsub-menu-list {
     //    display: block;
@@ -376,7 +384,7 @@ export default {
 
 
 .qsub-menu-item:hover {
-    background: @background-color4;
+    background: @background-up;
     border-radius: 5px;
 
 }
@@ -390,15 +398,14 @@ export default {
 
 
 .qsub-header {
-    transition:background-color 1s;
+    transition: background-color 1s;
     display: flex;
     justify-content: center;
     position: fixed;
     width: 100%;
     height: 60px;
     z-index: 800;
-
-
+    background-color: @background-menu-immerse;
     -webkit-touch-callout: none;
     /* iOS Safari */
     -webkit-user-select: none;
@@ -413,71 +420,71 @@ export default {
 }
 
 .qsub-header-body {
-width: 100%;
-display: flex;
-justify-content: space-between;
-align-items: center;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .qsub-logo {
-width: 120px;
-font-size: 20px;
-font-weight: bold;
-padding-left: 20px;
-color: @font-color;
-display: flex;
-align-items: center;
-padding-right: 20px;
+    width: 120px;
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 20px;
+    color: @font-color;
+    display: flex;
+    align-items: center;
+    padding-right: 20px;
 }
 
 .qsub-menu-title {
-color: @font-color;
-font-weight: bold;
-font-size: 14px;
+    color: @font-color;
+    font-weight: bold;
+    font-size: 14px;
 }
 
 .qsub-menu-mobile > .qsub-menu {
-width: 100%;
+    width: 100%;
 }
 
 
 .qsub-menu-web {
-display: flex;
-align-items: center;
-height: 100%;
+    display: flex;
+    align-items: center;
+    height: 100%;
 }
 
 .qsub-menu-mobile {
-display: none;
+    display: none;
 }
 
 
 @media screen and (max-width: 1000px) {
-.qsub-menu-web {
-display: none;
-}
+    .qsub-menu-web {
+        display: none;
+    }
 
-.qsub-menu-mobile {
-display: block;
-}
+    .qsub-menu-mobile {
+        display: block;
+    }
 
-.qsub-menu-mobile > .qsub-menu {
-width: 100%;
-}
+    .qsub-menu-mobile > .qsub-menu {
+        width: 100%;
+    }
 
 
 }
 
 .qsub-logo svg {
-width: 30px !important;
-height: 30px;
-padding-right: 10px;
-fill: @logo-color;
+    width: 30px !important;
+    height: 30px;
+    padding-right: 10px;
+    fill: @logo-color;
 }
 
 .icons {
-width: 35px;
-height: 35px;
+    width: 35px;
+    height: 35px;
 }
 
 

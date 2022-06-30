@@ -1,38 +1,31 @@
 <template>
     <el-container>
-
         <!-- 顶部导航  -->
-        <!-- <transition name="el-fade-in el-zoom-in-top" duration="2"> -->
-        <!--        <div v-show="show" ref="transitionBox" class="transitionBox">-->
-        <!--          <p>qiufeng</p>-->
-        <!--          <ul>-->
-        <!--            <li>搜索</li>-->
-        <!--            <li>首页</li>-->
-        <!--            <li>发现</li>-->
-        <!--            <li>娱乐</li>-->
-        <!--            <li>登录</li>-->
-        <!--          </ul>-->
-        <!--        </div>-->
-        <!-- </transition> -->
         <Header></Header>
-
         <el-main>
-
-            <!--顶部轮播 -->
+            <!--顶部 -->
             <div class="qsub-main"
                  :style=" w/h > 1.6 ?'background-size:'+ (100+ scrollTop) +'% auto':'background-size:auto '+ (100+ scrollTop) +'%' ">
-                <h1>个人博客</h1>
-                <h1>—— 质胜文则野，文胜质则史，文质彬彬，然后君子。</h1>
+                <div class="hitokoto" v-text="data.hitokoto"></div>
                 <p class="down" @click="toMain"><img src="@/assets/icon_down.png"/></p>
-                <!-- <div class="chest">
-                   <div class="heart left side top"></div>
-                   <div class="heart center"></div>
-                   <div class="heart right side"></div>
-               </div> -->
             </div>
-
             <!--主体-->
-            <Home ref="main" id="main"></Home>
+            <div class="body">
+                <div class="main">
+                    <div class="left">
+                        <div class="left-main">
+                            <Nav></Nav>
+                            <post-list></post-list>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="right-main">
+                            <hot-post></hot-post>
+                            <hot-comments></hot-comments>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!--底部 版权数据 -->
             <bottom></bottom>
         </el-main>
@@ -44,22 +37,26 @@
 
 
 import Header from "@/components/Header";
-import Home from "@/views/Home";
-import Carousel from "@/components/Carousel";
 import Bottom from "@/components/Bottom";
+import HotComments from "@/components/HotComments";
+import HotPost from "@/components/HotPost";
+import postList from "@/components/postList";
+import Nav from "@/components/Nav";
 
 export default {
     name: "Index",
     components: {
         Bottom,
-        Carousel,
-        Home,
+        HotComments, HotPost, postList, Nav,
         Header
     },
     data() {
         return {
             show: true,  //导航头
             scrollTop: 0,
+            data:{
+                hitokoto:"小时候，我妈说我的手指长，将来能当钢琴家，然后我成了码农"
+            },
             w: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
             h: window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight,
         };
@@ -295,6 +292,53 @@ body {
         top: -100%;
         color: transparent;
     }
+}
+
+
+.body{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: @background;
+}
+.main{
+    width: 1300px;
+    display: flex;
+}
+.left{
+    width: 900px;
+}
+.right{
+    width: 400px;
+}
+.right-main{
+    padding: 10px;
+}
+.left-main{
+    padding: 10px;
+}
+
+
+
+@media screen and (max-width: 1400px){
+    .right{
+        width: 100%;
+    }
+    .left{
+        width: 100%;
+    }
+    .main{
+        flex-direction:column;
+    }
+
+}
+.hitokoto{
+    font-weight: bold;
+    font-size: 1.501rem;
+    text-align: center;
+    line-height: 180%;
+    margin: 30px;
+    color: @font-color2;
 }
 
 </style>

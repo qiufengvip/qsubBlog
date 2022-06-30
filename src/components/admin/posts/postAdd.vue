@@ -499,7 +499,7 @@ export default {
 }
 
 .v-md-editor {
-    background-color: @background-color3 !important;
+    background-color: @background-main !important;
 }
 
 .v-md-textarea-editor textarea {
@@ -507,16 +507,16 @@ export default {
 }
 
 .v-md-editor--editable .v-md-editor__editor-wrapper {
-    border-right: 1px solid @background-color4;
+    border-right: 1px solid @background-up;
 }
 
 .v-md-editor__toolbar {
-    border-bottom: 1px solid @background-color4;
+    border-bottom: 1px solid @background-up;
 }
 
 .vuepress-markdown-body {
     color: @font-color;
-    background-color: @background-color3;
+    background-color: @background-main;
 }
 
 .v-md-editor__toolbar-item {
@@ -524,15 +524,15 @@ export default {
 }
 
 .v-md-editor__toolbar-item:hover {
-    background-color: @background-color4;
+    background-color: @background-up;
 }
 
 .v-md-editor__toolbar-item--active, .v-md-editor__toolbar-item--active:hover {
-    background: @background-color4;
+    background: @background-up;
 }
 
 //.scrollbar__wrap{
-//    background-color: @background-color2;
+//    background-color: @background;
 //}
 //
 .avatar-uploader {
