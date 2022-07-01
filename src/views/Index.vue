@@ -4,7 +4,7 @@
         <Header></Header>
         <el-main>
             <!--顶部 -->
-            <div class="qsub-main"
+            <div class="qsub-main selected"
                  :style=" w/h > 1.6 ?'background-size:'+ (100+ scrollTop) +'% auto':'background-size:auto '+ (100+ scrollTop) +'%' ">
                 <div class="hitokoto" v-text="data.hitokoto"></div>
                 <p class="down" @click="toMain"><img src="@/assets/icon_down.png"/></p>
@@ -14,7 +14,9 @@
                 <div class="main">
                     <div class="left">
                         <div class="left-main">
-                            <Nav></Nav>
+                            <div class="qsub-nav-main selected">
+                                <div class="qsub-nav-item" v-for="item in nav">{{ item }}</div>
+                            </div>
                             <post-list></post-list>
                         </div>
                     </div>
@@ -36,22 +38,24 @@
 <script>
 
 
-import Header from "@/components/Header";
-import Bottom from "@/components/Bottom";
-import HotComments from "@/components/HotComments";
-import HotPost from "@/components/HotPost";
-import postList from "@/components/postList";
-import Nav from "@/components/Nav";
+import Header from "@/components/blog/Header";
+import Bottom from "@/components/blog/Bottom";
+import HotComments from "@/components/blog/HotComments";
+import HotPost from "@/components/blog/HotPost";
+import postList from "@/components/blog/postList";
 
 export default {
     name: "Index",
     components: {
         Bottom,
-        HotComments, HotPost, postList, Nav,
+        HotComments,
+        HotPost,
+        postList,
         Header
     },
     data() {
         return {
+            nav:["最新","前端","后端","随笔"],
             show: true,  //导航头
             scrollTop: 0,
             data:{
@@ -106,6 +110,7 @@ export default {
 body {
     overflow-x: hidden;
     overflow-y: hidden;
+    width: 100vm;
 }
 
 .el-header {
@@ -310,27 +315,22 @@ body {
 }
 .right{
     width: 400px;
-}
-.right-main{
-    padding: 10px;
-}
-.left-main{
-    padding: 10px;
+    padding:10px 20px;
 }
 
 
 
 @media screen and (max-width: 1400px){
     .right{
-        width: 100%;
+        width: auto;
     }
     .left{
-        width: 100%;
+        width:auto;
+        padding:10px 20px;
     }
     .main{
         flex-direction:column;
     }
-
 }
 .hitokoto{
     font-weight: bold;
@@ -339,6 +339,32 @@ body {
     line-height: 180%;
     margin: 30px;
     color: @font-color2;
+}
+
+</style>
+
+
+<style lang="less" scoped>
+.qsub-nav-main{
+    display: flex;
+    justify-content: center;
+    background: @background-main;
+    margin: 10px 0;
+    border-radius: 0.3rem;
+}
+.qsub-nav-item{
+    padding: 0 10px;
+    height: 2.101rem;
+    text-align: center;
+    line-height: 2.101rem;
+    border-radius: 0.3rem;
+    margin: 0.6rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: @font-color;
+}
+.qsub-nav-item:hover{
+    background: @background-up;
 }
 
 </style>

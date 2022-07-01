@@ -1,6 +1,6 @@
 <!--网站底部-->
 <template>
-<div class="qsub-bottom" >
+<div class="qsub-bottom selected" >
   <div class="qsub-bottom-main">
     <div class="qsub-bottom-top">
       <div>

@@ -1,9 +1,9 @@
 <template>
     <!--    站点头部 -->
     <transition name="el-zoom-in-top">
-        <div v-show="show" id="qsub-header" ref="transitionBox" @click="searchData" class="qsub-header selected">
-            <div class="qsub-header-body">
-                <div class="qsub-logo">
+        <div v-show="show"   class="qsub-header">
+            <div ref="transitionBox" id="qsub-header" class="qsub-header-body">
+                <div class="qsub-logo selected">
                     <svg t="1651565904861" class="" viewBox="0 0 1024 1024" version="1.1"
                          xmlns="http://www.w3.org/2000/svg" p-id="1876" width="128" height="128">
                         <path
@@ -16,7 +16,7 @@
                     <div>秋枫博客</div>
                 </div>
                 <!-- 移动端 -->
-                <div class="qsub-menu-mobile">
+                <div class="qsub-menu-mobile selected">
                     <ul class="qsub-menu">
                         <li class="qsub-menu-li">
                             <div class="qsub-menu-item-f" @click="menuMobile =true">
@@ -51,7 +51,7 @@
                 </div>
 
                 <!--       网页版菜单   -->
-                <div class="qsub-menu-web">
+                <div class="qsub-menu-web selected">
                     <ul class="qsub-menu">
                         <li class="qsub-menu-li" v-for="item in  menuData">
                             <div class="qsub-menu-item-f" @mouseenter="menuHover(item)" @mouseleave="menuHover(item)">
@@ -165,9 +165,6 @@ export default {
             }
 
         },
-        searchData: function searchData() {
-            this.show = true;
-        },
         menuHover: function (item) {
             if (item.show) {
                 item.show = false;
@@ -185,7 +182,6 @@ export default {
             } catch (e) {
 
             }
-            console.log(attribute)
             if (scrollTop > 30) {
                 if (attribute === "qsub-header") {
                     this.$refs.transitionBox.setAttribute('id', 'qsub-header-bg')
@@ -318,7 +314,7 @@ export default {
 }
 
 .qsub-menu-list {
-    background-color: #212121;
+    background-color:@background-menu;
     width: 150px;
     padding: 8px 6px;
     border-radius: 5px;
@@ -355,6 +351,9 @@ export default {
     //    display: block;
     //    height:500px;
     //}
+}
+.qsub-menu-item-f:hover {
+    opacity: 0.8;
 }
 
 .qsub-menu-item-f {
@@ -398,28 +397,19 @@ export default {
 
 
 .qsub-header {
-    transition: background-color 1s;
+
     display: flex;
     justify-content: center;
     position: fixed;
     width: 100%;
     height: 60px;
     z-index: 800;
-    background-color: @background-menu-immerse;
-    -webkit-touch-callout: none;
-    /* iOS Safari */
-    -webkit-user-select: none;
-    /* Chrome/Safari/Opera */
-    -khtml-user-select: none;
-    /* Konqueror */
-    -moz-user-select: none;
-    /* Firefox */
-    -ms-user-select: none;
-    /* Internet Explorer/Edge */
-    user-select: none;
+
 }
 
 .qsub-header-body {
+    transition: background-color 1s;
+    background-color: @background-menu-immerse;
     width: 100%;
     display: flex;
     justify-content: space-between;

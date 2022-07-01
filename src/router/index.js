@@ -11,21 +11,13 @@ const routes = [
     name: '/404',
     component: ()=>import('../views/404.vue')
   },{
-    path: '/Md',
-    name: 'Md',
-    component: ()=>import('../views/Md.vue')
-  },{
     path: '/posts',
     name: 'posts',
     component: ()=>import('../views/posts.vue')
   },{
-    path: '/Qianming',
-    name: 'Qianming',
-    component: ()=>import('../views/Qianming.vue')
-  },{
     path: '/catalog', //分类专栏
-    name: 'Catalog',
-    component: ()=>import('../views/Catalog.vue')
+    name: 'catalog',
+    component: ()=>import('../views/catalog.vue')
   },{
     path: '/Admin', //后端
     name: 'Login',

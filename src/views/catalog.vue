@@ -48,15 +48,15 @@
 <script>
 
 
-import Header from "@/components/Header";
-import Bottom from "@/components/Bottom";
+import Header from "@/components/blog/Header";
+import Bottom from "@/components/blog/Bottom";
 import ArticleHome from "@/views/ArticleHome";
-import HotPost from "@/components/HotPost";
-import postList from "@/components/postList";
-import HotComments from "@/components/HotComments";
+import HotPost from "@/components/blog/HotPost";
+import postList from "@/components/blog/postList";
+import HotComments from "@/components/blog/HotComments";
 
 export default {
-    name: "Article",
+    name: "catalog",
     components: {
         ArticleHome,
         Bottom,
