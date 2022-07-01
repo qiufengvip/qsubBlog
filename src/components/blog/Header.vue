@@ -1,7 +1,7 @@
 <template>
     <!--    站点头部 -->
     <transition name="el-zoom-in-top">
-        <div v-show="show"   class="qsub-header">
+        <div v-show="show" class="qsub-header">
             <div ref="transitionBox" id="qsub-header" class="qsub-header-body">
                 <div class="qsub-logo selected">
                     <svg t="1651565904861" class="" viewBox="0 0 1024 1024" version="1.1"
@@ -35,7 +35,8 @@
                                         <path
                                             d="M358.81 450.87m17 0l554.19 0q17 0 17 17l0 88.25q0 17-17 17l-554.19 0q-17 0-17-17l0-88.25q0-17 17-17Z"
                                             fill="#AEF0FF" p-id="41455"></path>
-                                        <path d="MNaN NaNmNaN NaNaNaN NaN NaN 1 0 NaN NaN NaN NaN NaN 1 0 NaN NaNZ"
+                                        <path
+                                            d="M164.561021 789.464931m-100.572442 0.012598a87.6 70.6 0 1 0 200-0 87.6 70.6 0 1 0-180.144886 0Z"
                                               fill="#EF6A6A" p-id="41456"></path>
                                         <path
                                             d="M358.81 728.32m17 0l554.19 0q17 0 17 17l0 88.25q0 17-17 17l-554.19 0q-17 0-17-17l0-88.25q0-17 17-17Z"
@@ -314,7 +315,7 @@ export default {
 }
 
 .qsub-menu-list {
-    background-color:@background-menu;
+    background-color: @background-menu;
     width: 150px;
     padding: 8px 6px;
     border-radius: 5px;
@@ -352,6 +353,7 @@ export default {
     //    height:500px;
     //}
 }
+
 .qsub-menu-item-f:hover {
     opacity: 0.8;
 }
