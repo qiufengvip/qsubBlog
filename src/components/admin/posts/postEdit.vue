@@ -216,8 +216,8 @@ export default {
             searchKeyInputValue: '', //
             model: 1,  //默认是一 加载缓存库中最新的数据
             tabsId:'f8a013b9ae1d4615b047fcf0550e8a71',//本页面的id
-            automaticallySaved:false,
             postEdit:true,
+            interval: undefined,
         };
     },
     mounted() {
@@ -237,7 +237,9 @@ export default {
     methods: {
         automatically(){
             console.log('编辑文章-> 关闭自动保存方法')
-            this.automaticallySaved=false;
+            if (this.interval){
+                clearInterval(this.interval);
+            }
         },
         readData(postId) {
             const loading = ElLoading.service({
@@ -265,6 +267,7 @@ export default {
                                     if (res.data.list){
                                         if (res.data.list.length > 0){
                                             let postData = JSON.parse(res.data.list[0].postJsonData);
+                                            console.log(postData)
                                             if (postData.labels){
                                                 this.labels = JSON.parse(postData.labels);
                                             }
@@ -275,9 +278,10 @@ export default {
                                             if (this.form.postsImg) {
                                                 document.getElementsByClassName("el-upload")[0].style.display = "none";
                                             }
-                                            this.automaticallySaved = true;
+                                            console.log(this.form)
+                                            this.tabsId = this.form.id
                                             //自动缓存
-                                            setInterval(function () {
+                                            this.interval = setInterval(function () {
                                                 _this.automaticStorage()
                                             }, 60000)
                                             loading.close();
@@ -425,9 +429,6 @@ export default {
         },
         //自动缓存
         automaticStorage(state) {
-            if (!this.automaticallySaved){
-                return;
-            }
             this.form.resourceId = this.resourceId[this.resourceId.length - 1]
             this.form.labels = JSON.stringify(this.labels);
             let data = JSON.parse(JSON.stringify(this.form));
@@ -443,7 +444,6 @@ export default {
                             message: '发布成功',
                             type: 'success',
                         })
-                        this.automaticallySaved = false;
                         this.$emit('removeTab',this.form.id);
                     }else{
                         ElNotification({

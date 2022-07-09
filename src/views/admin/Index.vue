@@ -197,7 +197,7 @@ export default {
             console.log("移除tab标签",targetName)
             // 文章编辑页面
             this.$refs.tabs.forEach(item=>{
-                if (item['automaticallySaved'] !== undefined){
+                if (item['tabsId'] === targetName){
                     item.automatically();
                 }
             })
