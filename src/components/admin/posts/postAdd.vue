@@ -251,10 +251,10 @@ export default {
                         })
                         this.subtotal = toTree(data, "0b23919cb72a40afb15d9f2d533ed48b", null, "children")
                         //加载帖子数据
-                        setInterval(function () {
+                        this.interval = setInterval(function () {
                             _this.automaticStorage()
-                        }, 60000)
-                        ElMessage.success(res.msg)
+                        }, 10000)
+                        // ElMessage.success(res.msg)
                     }
                 })
             }
@@ -398,6 +398,7 @@ export default {
             if (state) {
                 data.state = state;
             }
+            data.manual = user || false;
             post(API.postSetCache, data).then(res => {
                 if (res.code === 0) {
                     if (state === 2) {
@@ -414,18 +415,11 @@ export default {
                             type: 'success',
                         })
                     }
-                    this.form.id = res.data;
-                } else {
-                    if (state === 2) {
-                        ElMessage.error(res.msg);
-                    } else {
-                        ElNotification({
-                            title: '远程存储',
-                            message: res.msg,
-                            type: 'error',
-                        })
+                    if (res.data){
+                        this.form.id = res.data;
                     }
-
+                } else {
+                    ElMessage.error(res.msg);
                 }
             })
         },

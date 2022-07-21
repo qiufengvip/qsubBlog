@@ -241,6 +241,8 @@ export default {
                 clearInterval(this.interval);
             }
         },
+
+        // 初始调用方法
         readData(postId) {
             const loading = ElLoading.service({
                 lock: true,
@@ -283,7 +285,7 @@ export default {
                                             //自动缓存
                                             this.interval = setInterval(function () {
                                                 _this.automaticStorage()
-                                            }, 60000)
+                                            }, 10000)
                                             loading.close();
                                         }
                                     }
@@ -452,7 +454,9 @@ export default {
                             type: 'success',
                         })
                     }
-                    this.form.id = res.data;
+                    if (res.data){
+                        this.form.id = res.data;
+                    }
                 } else {
                     if (state===2){
                         ElMessage.error(res.msg);
