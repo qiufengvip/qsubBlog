@@ -35,7 +35,7 @@
     </el-container>
 </template>
 
-<script>
+<script >
 
 
 import Header from "@/components/blog/Header";

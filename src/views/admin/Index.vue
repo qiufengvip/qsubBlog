@@ -1,4 +1,4 @@
-<template>
+  <template>
     <el-container class="common-layout-main">
         <el-container>
             <el-aside class="aside">
